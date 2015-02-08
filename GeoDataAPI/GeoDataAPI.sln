@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.Domain", "GeoDataAPI\GeoDataAPI.Domain.csproj", "{E2306B8E-C400-4158-9419-6C88984D021A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.DALHelper", "GeoDataAPI.DALHelper\GeoDataAPI.DALHelper.csproj", "{29F6F101-451C-49D6-ACF9-75959E7F95A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.Service", "GeoDataAPI.Service\GeoDataAPI.Service.csproj", "{28717191-6DFB-4834-AF53-E36BF3C890C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.Service.Integrated.Tests", "GeoDataAPI.Service.Integrated.Tests\GeoDataAPI.Service.Integrated.Tests.csproj", "{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.SQLRepository", "GeoDataAPI.SQLRepository\GeoDataAPI.SQLRepository.csproj", "{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8883B1CC-9FDB-42F3-927D-011B3602498F}"
+	ProjectSection(SolutionItems) = preProject
+		..\DB Creation and Data Import.sql = ..\DB Creation and Data Import.sql
+		..\SPs.sql = ..\SPs.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
