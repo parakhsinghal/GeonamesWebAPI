@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8883B1CC-9FDB-42F3-927D-011B3602498F}"
+	ProjectSection(SolutionItems) = preProject
+		..\DB Creation and Data Import.sql = ..\DB Creation and Data Import.sql
+		..\SPs.sql = ..\SPs.sql
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.Domain", "GeoDataAPI\GeoDataAPI\GeoDataAPI.Domain.csproj", "{E2306B8E-C400-4158-9419-6C88984D021A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.DALHelper", "GeoDataAPI\GeoDataAPI.DALHelper\GeoDataAPI.DALHelper.csproj", "{29F6F101-451C-49D6-ACF9-75959E7F95A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.SQLRepository", "GeoDataAPI\GeoDataAPI.SQLRepository\GeoDataAPI.SQLRepository.csproj", "{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.Service", "GeoDataAPI\GeoDataAPI.Service\GeoDataAPI.Service.csproj", "{28717191-6DFB-4834-AF53-E36BF3C890C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoDataAPI.Service.Integrated.Tests", "GeoDataAPI\GeoDataAPI.Service.Integrated.Tests\GeoDataAPI.Service.Integrated.Tests.csproj", "{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs21
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = GeoDataAPI\\GeoDataAPI\\GeoDataAPI.Domain.csproj
+		SccProjectName1 = GeoDataAPI/GeoDataAPI
+		SccLocalPath1 = GeoDataAPI\\GeoDataAPI
+		SccProjectUniqueName2 = GeoDataAPI\\GeoDataAPI.DALHelper\\GeoDataAPI.DALHelper.csproj
+		SccProjectName2 = GeoDataAPI/GeoDataAPI.DALHelper
+		SccLocalPath2 = GeoDataAPI\\GeoDataAPI.DALHelper
+		SccProjectUniqueName3 = GeoDataAPI\\GeoDataAPI.SQLRepository\\GeoDataAPI.SQLRepository.csproj
+		SccProjectName3 = GeoDataAPI/GeoDataAPI.SQLRepository
+		SccLocalPath3 = GeoDataAPI\\GeoDataAPI.SQLRepository
+		SccProjectUniqueName4 = GeoDataAPI\\GeoDataAPI.Service\\GeoDataAPI.Service.csproj
+		SccProjectName4 = GeoDataAPI/GeoDataAPI.Service
+		SccLocalPath4 = GeoDataAPI\\GeoDataAPI.Service
+		SccProjectUniqueName5 = GeoDataAPI\\GeoDataAPI.Service.Integrated.Tests\\GeoDataAPI.Service.Integrated.Tests.csproj
+		SccProjectName5 = GeoDataAPI/GeoDataAPI.Service.Integrated.Tests
+		SccLocalPath5 = GeoDataAPI\\GeoDataAPI.Service.Integrated.Tests
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2306B8E-C400-4158-9419-6C88984D021A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F6F101-451C-49D6-ACF9-75959E7F95A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4312E840-BDB8-443A-BB8E-E9BE42CCBBE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28717191-6DFB-4834-AF53-E36BF3C890C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB0B7C13-F107-4E5B-A965-3BF5D2A17D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
