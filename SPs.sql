@@ -721,3 +721,62 @@ BEGIN
 		End
 END
 Go
+
+Create Procedure dbo.GetPostalCodeInfo
+
+	@ISOCountryCode char(2) = null
+	,@CountryName nvarchar(100) = null
+	,@PageSize int = null
+	,@PageNumber int = null
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    IF @PageSize is not null and @PageNumber is not null
+		Begin
+		  SELECT dbo.RawPostal.ISOCountryCode
+		  ,dbo.RawPostal.PostalCode
+		  ,dbo.RawPostal.PlaceName
+		  ,dbo.RawPostal.Admin1Name
+		  ,dbo.RawPostal.Admin1Code
+		  ,dbo.RawPostal.Admin2Name
+		  ,dbo.RawPostal.Admin2Code
+		  ,dbo.RawPostal.Admin3Name
+		  ,dbo.RawPostal.Admin3Code
+		  ,dbo.RawPostal.Latitude
+		  ,dbo.RawPostal.Longitude
+		  ,dbo.RawPostal.Accuracy
+		  ,dbo.RawPostal.RowId
+		  FROM dbo.RawPostal
+		  Inner Join dbo.Country on dbo.Country.ISOCountryCode = dbo.RawPostal.ISOCountryCode
+		  Where dbo.RawPostal.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.RawPostal.ISOCountryCode)
+		  and dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+		  Order by dbo.RawPostal.PostalCode
+		  Offset @PageSize*(@PageNumber-1) Rows Fetch Next @PageSize Rows Only;
+		End
+		Else
+		Begin
+			SELECT dbo.RawPostal.ISOCountryCode
+			  ,dbo.RawPostal.PostalCode
+			  ,dbo.RawPostal.PlaceName
+			  ,dbo.RawPostal.Admin1Name
+			  ,dbo.RawPostal.Admin1Code
+			  ,dbo.RawPostal.Admin2Name
+			  ,dbo.RawPostal.Admin2Code
+			  ,dbo.RawPostal.Admin3Name
+			  ,dbo.RawPostal.Admin3Code
+			  ,dbo.RawPostal.Latitude
+			  ,dbo.RawPostal.Longitude
+			  ,dbo.RawPostal.Accuracy
+			  ,dbo.RawPostal.RowId
+			  FROM dbo.RawPostal
+			  Inner Join dbo.Country on dbo.Country.ISOCountryCode = dbo.RawPostal.ISOCountryCode
+			  Where dbo.RawPostal.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.RawPostal.ISOCountryCode)
+			  and dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+			  Order by dbo.RawPostal.PostalCode;
+		End
+END
+Go
+
