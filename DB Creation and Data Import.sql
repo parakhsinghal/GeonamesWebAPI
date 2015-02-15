@@ -166,11 +166,11 @@ Go
 
 -- Insert data into the created tables
 
-BULK INSERT LanguageCode FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\iso-languagecodes.txt'
+BULK INSERT LanguageCode FROM 'Place where the LanguageCode file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT FeatureCode FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\featureCodes_en.txt'
+BULK INSERT FeatureCode FROM 'Place where the FeatureCode file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
@@ -186,19 +186,19 @@ VALUES  ('A', 'Country, State, Region, etc.'),
         ('V', 'Forest, Heath, etc.');
 Go
 
-BULK INSERT RawData FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\allCountries.txt'
+BULK INSERT RawData FROM 'Place where the RawData file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT Country FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\countryInfo.txt' 
+BULK INSERT Country FROM 'Place where the Country data file is' 
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT Admin1Code FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\admin1CodesASCII.txt'
+BULK INSERT Admin1Code FROM 'place where the Admin1Code is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT Admin2Code FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\admin2Codes.txt'
+BULK INSERT Admin2Code FROM 'Place where the Admin2Code file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
@@ -212,19 +212,19 @@ VALUES  ('AF', 6255146, 'Africa'),
         ('AN', 6255152, 'Antarctica');
 Go
 
-BULK INSERT AlternateName FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\alternateNames.txt'
+BULK INSERT AlternateName FROM 'Place where the AlterNames file is' 
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT Timezone FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\timeZones.txt'
+BULK INSERT Timezone FROM 'Palce where teh TimeZone file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT RawPostal FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\rawPostal.txt'
+BULK INSERT RawPostal FROM 'Place where the RawPostal file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
-BULK INSERT Hierarchy FROM 'C:\Users\Parakh\Downloads\GeoData\Dec 2, 2014\UTF 16\hierarchy.txt'
+BULK INSERT Hierarchy FROM 'Place where the Hierarchy file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 Go
 
