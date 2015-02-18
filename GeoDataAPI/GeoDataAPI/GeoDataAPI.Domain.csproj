@@ -59,6 +59,7 @@
     <Compile Include="Interfaces\IFeatureCategoryRepository.cs" />
     <Compile Include="Interfaces\IFeatureCode.cs" />
     <Compile Include="Interfaces\ILanguageCodeRepository.cs" />
+    <Compile Include="Interfaces\IRawPostalRepository.cs" />
     <Compile Include="Interfaces\ITimeZoneRepository.cs" />
     <Compile Include="Interfaces\IVersionable.cs" />
     <Compile Include="LanguageCode.cs" />

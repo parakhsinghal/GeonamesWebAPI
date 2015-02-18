@@ -722,10 +722,11 @@ BEGIN
 END
 Go
 
-Create Procedure dbo.GetPostalCodeInfo
+Create Procedure [dbo].[GetPostalCodeInfo]
 
 	@ISOCountryCode char(2) = null
 	,@CountryName nvarchar(100) = null
+	,@PostalCode nvarchar(20) = null
 	,@PageSize int = null
 	,@PageNumber int = null
 AS
@@ -753,6 +754,7 @@ BEGIN
 		  Inner Join dbo.Country on dbo.Country.ISOCountryCode = dbo.RawPostal.ISOCountryCode
 		  Where dbo.RawPostal.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.RawPostal.ISOCountryCode)
 		  and dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+		  and dbo.RawPostal.PostalCode = Coalesce(@PostalCode,dbo.RawPostal.PostalCode)
 		  Order by dbo.RawPostal.PostalCode
 		  Offset @PageSize*(@PageNumber-1) Rows Fetch Next @PageSize Rows Only;
 		End
@@ -775,6 +777,7 @@ BEGIN
 			  Inner Join dbo.Country on dbo.Country.ISOCountryCode = dbo.RawPostal.ISOCountryCode
 			  Where dbo.RawPostal.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.RawPostal.ISOCountryCode)
 			  and dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+			  and dbo.RawPostal.PostalCode = Coalesce(@PostalCode,dbo.RawPostal.PostalCode)
 			  Order by dbo.RawPostal.PostalCode;
 		End
 END

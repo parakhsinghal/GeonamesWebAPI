@@ -2,13 +2,11 @@
 using GeoDataAPI.Domain;
 using GeoDataAPI.Domain.Interfaces;
 using GeoDataAPI.SQLRepository.Helper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using GeoDataAPI.Domain.Interfaces;
-using System;
-using GeoDataAPI.SQLRepository.Helper;
 
 namespace GeoDataAPI.SQLRepository
 {
