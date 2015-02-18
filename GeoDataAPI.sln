@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8883B1CC-9FDB-42F3-927D-011B3602498F}"
 	ProjectSection(SolutionItems) = preProject
 		DB Creation and Data Import.sql = DB Creation and Data Import.sql
+		Fiddler Links.txt = Fiddler Links.txt
 		SPs.sql = SPs.sql
 	EndProjectSection
 EndProject
