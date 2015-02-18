@@ -22,6 +22,7 @@ namespace GeoDataAPI.Service
             container.RegisterType<IFeatureCategoryRepository, FeatureCategorySQLRepository>();
             container.RegisterType<IFeatureCode, FeatureCodeSQLRepository>();
             container.RegisterType<ICountryRepository,CountrySQLRepository>();
+            container.RegisterType<IRawPostalRepository, RawPostalSQLRepository>();
 
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }

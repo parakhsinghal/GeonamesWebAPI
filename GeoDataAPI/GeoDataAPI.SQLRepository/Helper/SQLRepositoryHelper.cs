@@ -54,5 +54,11 @@ namespace GeoDataAPI.SQLRepository.Helper
         public static readonly string GetLanguageInfo = ConfigurationManager.AppSettings["GetLanguageInfo"];
 
         #endregion
+
+        #region RawPostalRepository
+
+        public static readonly string GetPostalCodeInfo = ConfigurationManager.AppSettings["GetPostalCodeInfo"];
+
+        #endregion
     }
 }

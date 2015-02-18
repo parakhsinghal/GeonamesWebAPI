@@ -1,5 +1,4 @@
-﻿using GeoDataAPI.Domain;
-using GeoDataAPI.Domain.Interfaces;
+﻿using GeoDataAPI.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

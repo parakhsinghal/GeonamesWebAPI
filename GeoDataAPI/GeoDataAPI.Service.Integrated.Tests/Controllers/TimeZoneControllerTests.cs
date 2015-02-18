@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-
 namespace GeoDataAPI.Service.Integrated.Tests.Controllers
 {
     [TestClass]

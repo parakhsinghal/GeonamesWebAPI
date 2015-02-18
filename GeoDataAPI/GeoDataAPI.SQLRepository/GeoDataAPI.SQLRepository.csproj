@@ -51,6 +51,7 @@
     <Compile Include="Helper\SQLRepositoryHelper.cs" />
     <Compile Include="LanguageCodeSQLRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RawPostalSQLRepository.cs" />
     <Compile Include="TimeZoneSQLRepository.cs" />
   </ItemGroup>
   <ItemGroup>
