@@ -2,8 +2,8 @@
 
 Create Procedure dbo.GetDistinctTimeZones 
 	
- @PageNumber int = null
-,@PageSize int = null
+ @PageNumber	int		= NULL
+,@PageSize		int		= NULL
 
 As
 Begin
@@ -29,15 +29,15 @@ Go
 
 Create Procedure dbo.GetTimeZoneDetails 
 
- @TimeZoneId nvarchar(128) = null
-,@ISOCountryCode Char(10) = null
-,@ISO3Code char(3) = null
-,@ISONumeric int = null
-,@CountryName Nvarchar(200) = null
-,@Latitude float = null
-,@Longitude float = null
-,@PageNumber int = null
-,@PageSize int = null
+ @TimeZoneId		nvarchar(128)	= NULL
+,@ISOCountryCode	char(10)		= NULL
+,@ISO3Code			char(3)			= NULL
+,@ISONumeric		int				= NULL
+,@CountryName		nvarchar(200)	= NULL
+,@Latitude			float			= NULL
+,@Longitude			float			= NULL
+,@PageNumber		int				= NULL
+,@PageSize			int				= NULL
 
 As
 
@@ -113,7 +113,7 @@ Go
 
 Create Procedure  dbo.GetTimeZoneDetailsByPlaceName
 
-@PlaceName Nvarchar(200) = null
+@PlaceName nvarchar(200) = NULL
 
 As
 Begin
@@ -143,14 +143,14 @@ Begin
 End
 Go
 
--- Exec dbo.GetCountryInfo @ISOCountryCode = null, @CountryName  = null, @PageNumber = null, @PageSize = null
+-- Exec dbo.GetCountryInfo @ISOCountryCode = NULL, @CountryName  = NULL, @PageNumber = NULL, @PageSize = NULL
 
 Create Procedure dbo.GetCountryInfo  
 
- @ISOCountryCode char(2) = null
-,@CountryName nvarchar(200) = null
-,@PageNumber int = null
-,@PageSize int = null
+ @ISOCountryCode	char(2)			= NULL
+,@CountryName		nvarchar(200)	= NULL
+,@PageNumber		int				= NULL
+,@PageSize			int				= NULL
 
 As
 Begin
@@ -222,18 +222,18 @@ Begin
 End
 Go
 
--- Exec dbo.GetStateInfo  @CountryName = null,@ISOCountryCode = 'IN',@StateGeonameId = null,@StateName = null, @FeatureCategoryId = 'A' ,@FeatureCode = 'ADM1',@PageNumber = 2,@PageSize = 20
+-- Exec dbo.GetStateInfo  @CountryName = NULL,@ISOCountryCode = 'IN',@StateGeonameId = NULL,@StateName = NULL, @FeatureCategoryId = 'A' ,@FeatureCode = 'ADM1',@PageNumber = 2,@PageSize = 20
 
 Create Procedure dbo.GetStateInfo  
 
- @CountryName nvarchar(200) = null
-,@ISOCountryCode char(2) = null
-,@StateGeonameId bigint = null
-,@StateName nvarchar(200) = null
-,@FeatureCategoryId char(1) = 'A'
-,@FeatureCode nvarchar(10) = 'ADM1'
-,@PageNumber int = null
-,@PageSize int = null
+ @CountryName		nvarchar(200)	= NULL
+,@ISOCountryCode	char(2)			= NULL
+,@StateGeonameId	bigint			= NULL
+,@StateName			nvarchar(200)	= NULL
+,@FeatureCategoryId char(1)			= 'A'
+,@FeatureCode		nvarchar(10)	= 'ADM1'
+,@PageNumber		int				= NULL
+,@PageSize			int				= NULL
 
 As
 Begin
@@ -318,24 +318,24 @@ Go
 
 Create Procedure dbo.GetCitiesInAState	
 
-	@CountryName nvarchar(100) = null -- 'United States'
-	,@ISOCountryCode char(2) = null
-	,@StateName nvarchar(100) = null
-	,@StateGeonameId bigint = null
-	,@FeatureCategoryId char(1) = 'A' -- Country, State, Region, etc.
-	,@CityGeonameId bigint = null 
-	,@CityName nvarchar(100) = null
-	,@PageNumber int = null
-	,@PageSize int = null
+	@CountryName		nvarchar(100)	= NULL -- 'United States'
+	,@ISOCountryCode	char(2)			= NULL
+	,@StateName			nvarchar(100)	= NULL
+	,@StateGeonameId	bigint			= NULL
+	,@FeatureCategoryId char(1)			= 'A' -- Country, State, Region, etc.
+	,@CityGeonameId		bigint			= NULL 
+	,@CityName			nvarchar(100)	= NULL
+	,@PageNumber		int				= NULL
+	,@PageSize			int				= NULL
 AS
 BEGIN
 
-	If(@ISOCountryCode is null)
+	If(@ISOCountryCode is NULL)
     Begin
         Select @ISOCountryCode = dbo.Country.ISOCountryCode from dbo.Country Where dbo.Country.CountryName = @CountryName;
     End
 
-	If(@StateGeonameId is null)
+	If(@StateGeonameId is NULL)
 	Begin
 		Select @StateGeonameId = dbo.RawData.GeonameId from dbo.RawData
 		Where dbo.RawData.ASCIIName = @StateName
@@ -343,7 +343,7 @@ BEGIN
 		and dbo.RawData.FeatureCategoryId = @FeatureCategoryId;
 	End
 
-	If(@PageSize is not null and @PageNumber is not null)
+	If(@PageSize is not NULL and @PageNumber is not NULL)
     Begin
         SELECT
         dbo.RawData.GeonameId
@@ -412,13 +412,13 @@ BEGIN
 END
 Go
 
--- Exec dbo.GetContinentInfo @ContinentCodeId=null,@GeonameId=null,@Continent=null
+-- Exec dbo.GetContinentInfo @ContinentCodeId=NULL,@GeonameId=NULL,@Continent=NULL
 
 Create Procedure dbo.GetContinentInfo  
 
- @ContinentCodeId char(2) = null
-,@GeonameId bigint = null
-,@Continent nvarchar(32) = null
+ @ContinentCodeId	char(2)			= NULL
+,@GeonameId			bigint			= NULL
+,@Continent			nvarchar(32)	= NULL
 
 As
 Begin
@@ -447,14 +447,14 @@ Begin
 End
 Go
 
--- Exec dbo.GetLanguageInfo @ISO6393Code=null,@Language=null,@PageNumber=2,@PageSize=20
+-- Exec dbo.GetLanguageInfo @ISO6393Code=NULL,@Language=NULL,@PageNumber=2,@PageSize=20
 
 Create Procedure dbo.GetLanguageInfo  
 
- @ISO6393Code nvarchar(24) = null
-,@Language nvarchar(128) = null
-,@PageNumber int = null
-,@PageSize int = null
+ @ISO6393Code	nvarchar(24)	= NULL
+,@Language		nvarchar(128)	= NULL
+,@PageNumber	int				= NULL
+,@PageSize		int				= NULL
 
 As
 Begin
@@ -497,7 +497,7 @@ Go
 
 Create Procedure dbo.GetFeatureCategoryInfo  
 
-@FeatureCategoryId char(1) = null
+@FeatureCategoryId char(1) = NULL
 
 As
 Begin
@@ -514,13 +514,13 @@ Begin
 End
 Go
 
--- Exec dbo.GetFeatureCodeInfo  @FeatureCodeId = null,@PageNumber = 2,@PageSize = 20
+-- Exec dbo.GetFeatureCodeInfo  @FeatureCodeId = NULL,@PageNumber = 2,@PageSize = 20
 
 Create Procedure dbo.GetFeatureCodeInfo  
 
- @FeatureCodeId nvarchar(16) = null
-,@PageNumber int = null
-,@PageSize int = null
+ @FeatureCodeId		nvarchar(16)	= NULL
+,@PageNumber		int				= NULL
+,@PageSize			int				= NULL
 
 As
 Begin
@@ -556,11 +556,11 @@ Go
 
 Create Procedure dbo.GetCountriesInAContinent
 
- @ContinentName nvarchar(100) = null
-,@ContinentCodeId nvarchar(100) = null
-,@GeonameId bigint = null
-,@PageNumber int = null
-,@PageSize int = null
+ @ContinentName		nvarchar(100)	= NULL
+,@ContinentCodeId	nvarchar(100)	= NULL
+,@GeonameId			bigint			= NULL
+,@PageNumber		int				= NULL
+,@PageSize			int				= NULL
 
 As
 Begin
@@ -635,15 +635,15 @@ End
 Go
 
 Create Procedure dbo.GetCountryFeatureCategoryFeatureCode
-@ISOCountryCode char(2) = null
-,@CountryName nvarchar(200) = null
-,@FeatureCategoryId char(1) = null
-,@FeatureCode nvarchar(10) = null
-,@PageNumber int = null
-,@PageSize int = null
+@ISOCountryCode			char(2)			= NULL
+,@CountryName			nvarchar(200)	= NULL
+,@FeatureCategoryId		char(1)			= NULL
+,@FeatureCode			nvarchar(10)	= NULL
+,@PageNumber			int				= NULL
+,@PageSize				int				= NULL
 AS
 BEGIN
-	If @ISOCountryCode is null and @CountryName is not null
+	If @ISOCountryCode is NULL and @CountryName is not NULL
 		Begin
 
 			Select @ISOCountryCode = dbo.Country.ISOCountryCode from dbo.Country
@@ -724,18 +724,18 @@ Go
 
 Create Procedure [dbo].[GetPostalCodeInfo]
 
-	@ISOCountryCode char(2) = null
-	,@CountryName nvarchar(100) = null
-	,@PostalCode nvarchar(20) = null
-	,@PageSize int = null
-	,@PageNumber int = null
+	@ISOCountryCode		char(2)			= NULL
+	,@CountryName		nvarchar(100)	= NULL
+	,@PostalCode		nvarchar(20)	= NULL
+	,@PageSize			int				= NULL
+	,@PageNumber		int				= NULL
 AS
 BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-    IF @PageSize is not null and @PageNumber is not null
+    IF @PageSize is not NULL and @PageNumber is not NULL
 		Begin
 		  SELECT dbo.RawPostal.ISOCountryCode
 		  ,dbo.RawPostal.PostalCode
