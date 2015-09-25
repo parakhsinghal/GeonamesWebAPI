@@ -5,8 +5,34 @@ SET RECOVERY BULK_LOGGED;
 
 -- Insert data into the created tables
 
+SET IDENTITY_INSERT dbo.RawData OFF 
+GO
+
+BULK INSERT RawData FROM 'Place where the RawData file is'
+WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
+GO
+
+SET IDENTITY_INSERT dbo.RawData ON 
+GO
+
 BULK INSERT LanguageCode FROM 'Place where the LanguageCode file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
+GO
+
+UPDATE dbo.AlternateName
+SET dbo.AlternateName.ISO6393LanguageCode = dbo.LanguageCode.ISO6393
+FROM dbo.AlternateName
+INNER JOIN dbo.LanguageCode
+ON dbo.AlternateName.ISO6393LanguageCode = dbo.LanguageCode.ISO6392
+WHERE LEN(dbo.AlternateName.ISO6393LanguageCode) = 3
+GO
+
+UPDATE dbo.AlternateName
+SET dbo.AlternateName.ISO6393LanguageCode = dbo.LanguageCode.ISO6393
+FROM dbo.AlternateName
+INNER JOIN dbo.LanguageCode
+ON dbo.AlternateName.ISO6393LanguageCode = dbo.LanguageCode.ISO6391
+WHERE LEN(dbo.AlternateName.ISO6393LanguageCode) = 2
 GO
 
 BULK INSERT FeatureCode FROM 'Place where the FeatureCode file is'
@@ -25,16 +51,6 @@ VALUES  ('A', 'Country, State, Region, etc.'),
         ('V', 'Forest, Heath, etc.');
 GO
 
-SET IDENTITY_INSERT dbo.RawData OFF 
-GO
-
-BULK INSERT RawData FROM 'Place where the RawData file is'
-WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
-GO
-
-SET IDENTITY_INSERT dbo.RawData ON 
-GO
-
 -- Make sure that you delete the first line in the csv file, if it has coulmn names in it.
 
 BULK INSERT Country FROM 'Place where the Country data file is' 
@@ -49,14 +65,77 @@ BULK INSERT Admin2Code FROM 'Place where the Admin2Code file is'
 WITH (FIELDTERMINATOR = '\t', ROWTERMINATOR = '\n', TabLock, MaxErrors = 100);
 GO
 
-INSERT INTO  Continent (ContinentCodeId, GeonameId, Continent)
-VALUES  ('AF', 6255146, 'Africa'),
-        ('AS', 6255147, 'Asia'),
-        ('EU', 6255148, 'Europe'),
-        ('NA', 6255149, 'North America'),
-        ('OC', 6255151, 'Oceania'),
-        ('SA', 6255150, 'South America'),
-        ('AN', 6255152, 'Antarctica');
+INSERT INTO  Continent (ContinentCodeId, Continent)
+VALUES  ('AF', 'Africa'),
+        ('AS', 'Asia'),
+        ('EU', 'Europe'),
+        ('NA', 'North America'),
+        ('OC', 'Oceania'),
+        ('SA', 'South America'),
+        ('AN', 'Antarctica');
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'Africa'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'Africa'
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'Antarctica'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'Antarctica'
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'Asia'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'Asia'
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'Europe'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'Europe'
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'North America'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'North America'
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'Oceania'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'Oceania'
+GO
+
+UPDATE dbo.Continent
+Set dbo.Continent.GeonameId = 
+(SELECT dbo.RawData.GeonameId
+FROM dbo.RawData
+WHERE dbo.RawData.ASCIIName = 'South America'
+AND dbo.RawData.FeatureCode = 'CONT')
+WHERE dbo.Continent.Continent = 'South America'
 GO
 
 SET IDENTITY_INSERT dbo.AlternateName OFF

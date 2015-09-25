@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GeoDataAPI.Domain;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 
 namespace GeoDataAPI.Domain.Interfaces
 {
@@ -22,5 +24,9 @@ namespace GeoDataAPI.Domain.Interfaces
         RawData GetCityInState(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null, long? cityGeonameId = null, string cityName = null);
 
         IEnumerable<RawData> GetCitiesInState(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null, long? cityGeonameId = null, string cityName = null, int? pageSize = null, int? pageNumber = null);
+
+        IEnumerable<Country> UpdateCountries(IEnumerable<Upd_VM.Country> countries);
+
+        IEnumerable<Country> InsertCountries(IEnumerable<Ins_VM.Country> countries);
     }
 }

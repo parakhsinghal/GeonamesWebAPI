@@ -46,14 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin1Code.cs" />
-    <Compile Include="Admin2Code.cs" />
-    <Compile Include="AlternateName.cs" />
-    <Compile Include="Continent.cs" />
-    <Compile Include="Country.cs" />
-    <Compile Include="FeatureCategory.cs" />
-    <Compile Include="FeatureCode.cs" />
-    <Compile Include="Hierarchy.cs" />
+    <Compile Include="ErrorMessages\ErrorMessages_US-en.Designer.cs" />
     <Compile Include="Interfaces\IContinentRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
     <Compile Include="Interfaces\IFeatureCategoryRepository.cs" />
@@ -62,14 +55,49 @@
     <Compile Include="Interfaces\IRawPostalRepository.cs" />
     <Compile Include="Interfaces\ITimeZoneRepository.cs" />
     <Compile Include="Interfaces\IVersionable.cs" />
-    <Compile Include="LanguageCode.cs" />
+    <Compile Include="Model\Admin1Code.cs" />
+    <Compile Include="Model\Admin2Code.cs" />
+    <Compile Include="Model\AlternateName.cs" />
+    <Compile Include="Model\Continent.cs" />
+    <Compile Include="Model\Country.cs" />
+    <Compile Include="Model\FeatureCategory.cs" />
+    <Compile Include="Model\FeatureCode.cs" />
+    <Compile Include="Model\Hierarchy.cs" />
+    <Compile Include="Model\LanguageCode.cs" />
+    <Compile Include="Model\RawData.cs" />
+    <Compile Include="Model\RawPostal.cs" />
+    <Compile Include="Model\TimeZone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RawData.cs" />
-    <Compile Include="RawPostal.cs" />
-    <Compile Include="TimeZone.cs" />
+    <Compile Include="ViewModels\Insert\Admin1Code.cs" />
+    <Compile Include="ViewModels\Insert\Admin2Code.cs" />
+    <Compile Include="ViewModels\Insert\AlternateName.cs" />
+    <Compile Include="ViewModels\Insert\Continent.cs" />
+    <Compile Include="ViewModels\Insert\Country.cs" />
+    <Compile Include="ViewModels\Insert\FeatureCategory.cs" />
+    <Compile Include="ViewModels\Insert\FeatureCode.cs" />
+    <Compile Include="ViewModels\Insert\Hierarchy.cs" />
+    <Compile Include="ViewModels\Insert\LanguageCode.cs" />
+    <Compile Include="ViewModels\Insert\RawData.cs" />
+    <Compile Include="ViewModels\Insert\RawPostal.cs" />
+    <Compile Include="ViewModels\Insert\TimeZone.cs" />
+    <Compile Include="ViewModels\Update\Admin1Code.cs" />
+    <Compile Include="ViewModels\Update\Admin2Code.cs" />
+    <Compile Include="ViewModels\Update\AlternateName.cs" />
+    <Compile Include="ViewModels\Update\Continent.cs" />
+    <Compile Include="ViewModels\Update\Country.cs" />
+    <Compile Include="ViewModels\Update\FeatureCategory.cs" />
+    <Compile Include="ViewModels\Update\FeatureCode.cs" />
+    <Compile Include="ViewModels\Update\Hierarchy.cs" />
+    <Compile Include="ViewModels\Update\LanguageCode.cs" />
+    <Compile Include="ViewModels\Update\RawData.cs" />
+    <Compile Include="ViewModels\Update\RawPostal.cs" />
+    <Compile Include="ViewModels\Update\TimeZone.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ErrorMessages\ErrorMessages_US-en.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

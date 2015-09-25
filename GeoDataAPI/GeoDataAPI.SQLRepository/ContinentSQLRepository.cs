@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
+using System;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -107,5 +110,16 @@ int? pageNumber = null, int? pageSize = null)
 
             return result;
         }
+
+        public IEnumerable<Continent> UpdateContinents(IEnumerable<Upd_VM.Continent> continents)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Continent> InsertContinents(IEnumerable<Ins_VM.Continent> continents)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
