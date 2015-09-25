@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -350,6 +352,16 @@ namespace GeoDataAPI.SQLRepository
             }
 
             return result;
+        }
+
+        public IEnumerable<Country> UpdateCountries(IEnumerable<Upd_VM.Country> countries)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Country> InsertCountries(IEnumerable<Ins_VM.Country> countries)
+        {
+            throw new NotImplementedException();
         }
     }
 }

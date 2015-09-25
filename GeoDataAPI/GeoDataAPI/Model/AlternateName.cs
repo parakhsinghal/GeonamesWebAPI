@@ -7,6 +7,7 @@ namespace GeoDataAPI.Domain
     public class AlternateName : IVersionable
     {
         public int AlternateNameId { get; set; }
+        public int GeonameId { get; set; }
         public string ISO6393LanguageCode { get; set; }
         public string AlternateName1 { get; set; }
         public bool? IsPreferredName { get; set; }

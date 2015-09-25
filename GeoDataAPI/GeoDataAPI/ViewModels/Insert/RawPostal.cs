@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using GeoDataAPI.Domain.Interfaces;
+using System.ComponentModel.DataAnnotations;
 
-namespace GeoDataAPI.Domain
+namespace GeoDataAPI.Domain.ViewModels.Insert
 {
-    public partial class RawPostal : IVersionable
+    public partial class RawPostal
     {
         public string ISOCountryCode { get; set; }
         public string PostalCode { get; set; }
@@ -18,7 +19,5 @@ namespace GeoDataAPI.Domain
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
         public int? Accuracy { get; set; }
-        public byte[] RowId { get; set; }
-
     }
 }
