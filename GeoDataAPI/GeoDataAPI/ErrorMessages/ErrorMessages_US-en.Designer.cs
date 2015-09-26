@@ -72,9 +72,9 @@ namespace GeoDataAPI.ErrorMessages {
         /// <summary>
         ///   Looks up a localized string similar to {0} is a required field..
         /// </summary>
-        internal static string Requried_Error {
+        internal static string Required_Error {
             get {
-                return ResourceManager.GetString("Requried_Error", resourceCulture);
+                return ResourceManager.GetString("Required_Error", resourceCulture);
             }
         }
     }

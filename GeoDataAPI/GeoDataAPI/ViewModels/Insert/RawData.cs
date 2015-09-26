@@ -7,7 +7,7 @@ namespace GeoDataAPI.Domain.ViewModels.Insert
 {
     public class RawData
     {
-        [Required(ErrorMessageResourceName = "RawData_Name_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         [StringLength(200, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
@@ -21,11 +21,11 @@ namespace GeoDataAPI.Domain.ViewModels.Insert
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string AlternateNames { get; set; }
 
-        [Required(ErrorMessageResourceName = "RawData_Latitude_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public double Latitude { get; set; }
 
-        [Required(ErrorMessageResourceName = "RawData_Longitude_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public double Longitude { get; set; }
 
@@ -53,13 +53,13 @@ namespace GeoDataAPI.Domain.ViewModels.Insert
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string Admin4Code { get; set; }
 
-        [Required(ErrorMessageResourceName = "RawData_Population_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public long? Population { get; set; }
 
         public int? Elevation { get; set; }
 
-        [Required(ErrorMessageResourceName = "RawData_DEM_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public int? DEM { get; set; }
     }

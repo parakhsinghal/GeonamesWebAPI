@@ -84,9 +84,5 @@ namespace GeoDataAPI.Domain.ViewModels.Insert
          [StringLength(64, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string EquivalentFipsCode { get; set; }
-
-        [Required(ErrorMessageResourceName = "Country_RowId_Required",
-                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
-        public byte[] RowId { get; set; }
     }
 }

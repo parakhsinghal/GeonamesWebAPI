@@ -7,35 +7,35 @@ namespace GeoDataAPI.Domain.ViewModels.Update
 {
     public class Country : IVersionable
     {
-        [Required(ErrorMessageResourceName = "Country_ISOCountryCode_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         [StringLength(2, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string ISOCountryCode { get; set; }
 
-        [Required(ErrorMessageResourceName = "Country_ISO3Code_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         [StringLength(3, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string ISO3Code { get; set; }
 
-        [Required(ErrorMessageResourceName = "Country_ISONumeric_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public int? ISONumeric { get; set; }
 
-        [Required(ErrorMessageResourceName = "Country_CountryName_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         [StringLength(200, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string CountryName { get; set; }
 
-        [Required(ErrorMessageResourceName = "Country_ContinentCodeId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         [StringLength(2, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string ContinentCodeId { get; set; }
 
-        [Required(ErrorMessageResourceName = "Country_GeonameId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public long? GeonameId { get; set; }
 
@@ -85,7 +85,7 @@ namespace GeoDataAPI.Domain.ViewModels.Update
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string EquivalentFipsCode { get; set; }
 
-        [Required(ErrorMessageResourceName = "Country_RowId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public byte[] RowId { get; set; }
     }

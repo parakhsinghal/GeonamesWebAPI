@@ -7,15 +7,15 @@ namespace GeoDataAPI.Domain.ViewModels.Update
 {
     public class AlternateName : IVersionable
     {
-        [Required(ErrorMessageResourceName = "Requried_Error",
+        [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public int AlternateNameId { get; set; }
 
-         [Required(ErrorMessageResourceName = "Requried_Error",
+         [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public int GeonameId { get; set; }
 
-         [Required(ErrorMessageResourceName = "Requried_Error",
+         [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
          [StringLength(24, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
@@ -30,7 +30,7 @@ namespace GeoDataAPI.Domain.ViewModels.Update
         public bool? IsColloquial { get; set; }
         public bool? IsHistoric { get; set; }
 
-         [Required(ErrorMessageResourceName = "Requried_Error",
+         [Required(ErrorMessageResourceName = "Required_Error",
                  ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public byte[] RowId { get; set; }
     }

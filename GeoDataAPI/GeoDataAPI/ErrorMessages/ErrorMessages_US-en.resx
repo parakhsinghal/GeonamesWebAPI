@@ -120,7 +120,7 @@
   <data name="Length_Error" xml:space="preserve">
     <value>{0} field's length has to be between {2} and {1} characters.</value>
   </data>
-  <data name="Requried_Error" xml:space="preserve">
+  <data name="Required_Error" xml:space="preserve">
     <value>{0} is a required field.</value>
   </data>
 </root>
