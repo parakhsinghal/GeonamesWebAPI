@@ -7,11 +7,11 @@ namespace GeoDataAPI.Domain.ViewModels.Update
 {
     public class Hierarchy : IVersionable
     {
-        [Required(ErrorMessageResourceName = "Hierarchy_ParentId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public long ParentId { get; set; }
 
-        [Required(ErrorMessageResourceName = "Hierarchy_ChildId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public long ChildId { get; set; }
 
@@ -19,7 +19,7 @@ namespace GeoDataAPI.Domain.ViewModels.Update
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public string Type { get; set; }
 
-        [Required(ErrorMessageResourceName = "Hierarchy_RowId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public byte[] RowId { get; set; }
     }

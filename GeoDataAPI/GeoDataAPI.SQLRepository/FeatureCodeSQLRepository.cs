@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
+using System;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -43,6 +45,108 @@ namespace GeoDataAPI.SQLRepository
                                 RowId = dr.Field<byte[]>("RowId")
                             });
                         }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IEnumerable<FeatureCode> UpdateFeatureCodes(IEnumerable<Upd_VM.FeatureCode> featureCodes)
+        {
+            string sql = SQLRepositoryHelper.UpdateFeatureCodes;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable featureCodesInputTable = new DataTable("FeatureCode_TVP");
+            featureCodesInputTable.Columns.Add("FeatureCodeId");
+            featureCodesInputTable.Columns.Add("FeatureCodeName");
+            featureCodesInputTable.Columns.Add("Description");
+            featureCodesInputTable.Columns.Add("RowId");
+
+            foreach (Upd_VM.FeatureCode featureCode in featureCodes)
+            {
+                featureCodesInputTable.Rows.Add(new object[]
+                                { 
+                                    featureCode.FeatureCodeId,
+                                    featureCode.FeatureCodeName,
+                                    featureCode.Description,
+                                    featureCode.RowId
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("FeatureCode_TVP", featureCodesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<FeatureCode> result = new List<FeatureCode>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable featureCodesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (featureCodesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in featureCodesOutputTable.Rows)
+                        {
+                            result.Add(new FeatureCode()
+                            {
+                                FeatureCodeId = dr["FeatureCodeId"] != null ? dr.Field<string>("FeatureCodeId") : string.Empty,
+                                FeatureCodeName = dr["FeatureCodeId"] != null ? dr.Field<string>("FeatureCodeId") : string.Empty,
+                                Description = dr["Description"] != null ? dr.Field<string>("Description") : string.Empty,
+                                RowId = dr.Field<byte[]>("RowId")
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IEnumerable<FeatureCode> InsertFeatureCodes(IEnumerable<Ins_VM.FeatureCode> featureCodes)
+        {
+            string sql = SQLRepositoryHelper.InsertFeatureCodes;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable featureCodesInputTable = new DataTable("FeatureCode_TVP");
+            featureCodesInputTable.Columns.Add("FeatureCodeId");
+            featureCodesInputTable.Columns.Add("FeatureCodeName");
+            featureCodesInputTable.Columns.Add("Description");
+
+            foreach (Ins_VM.FeatureCode featureCode in featureCodes)
+            {
+                featureCodesInputTable.Rows.Add(new object[]
+                                { 
+                                    featureCode.FeatureCodeId,
+                                    featureCode.FeatureCodeName,
+                                    featureCode.Description
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("FeatureCode_TVP", featureCodesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<FeatureCode> result = new List<FeatureCode>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable featureCodesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (featureCodesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in featureCodesOutputTable.Rows)
+                        {
+                            result.Add(new FeatureCode()
+                            {
+                                FeatureCodeId = dr["FeatureCodeId"] != null ? dr.Field<string>("FeatureCodeId") : string.Empty,
+                                FeatureCodeName = dr["FeatureCodeId"] != null ? dr.Field<string>("FeatureCodeId") : string.Empty,
+                                Description = dr["Description"] != null ? dr.Field<string>("Description") : string.Empty,
+                                RowId = dr.Field<byte[]>("RowId")
+                            });
+                        }
+
                     }
                 }
             }

@@ -356,12 +356,200 @@ namespace GeoDataAPI.SQLRepository
 
         public IEnumerable<Country> UpdateCountries(IEnumerable<Upd_VM.Country> countries)
         {
-            throw new NotImplementedException();
+            string sql = SQLRepositoryHelper.UpdateCountries;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable countriesInputTable = new DataTable("Country_TVP");
+            countriesInputTable.Columns.Add("ISOCountryCode");
+            countriesInputTable.Columns.Add("ISO3Code");
+            countriesInputTable.Columns.Add("ISONumeric");
+            countriesInputTable.Columns.Add("FIPSCode");
+            countriesInputTable.Columns.Add("CountryName");
+            countriesInputTable.Columns.Add("Capital");
+            countriesInputTable.Columns.Add("SqKmArea");
+            countriesInputTable.Columns.Add("TotalPopulation");
+            countriesInputTable.Columns.Add("ContinentCodeId");
+            countriesInputTable.Columns.Add("TopLevelDomain");
+            countriesInputTable.Columns.Add("CurrencyCode");
+            countriesInputTable.Columns.Add("CurrencyName");
+            countriesInputTable.Columns.Add("Phone");
+            countriesInputTable.Columns.Add("PostalFormat");
+            countriesInputTable.Columns.Add("PostalRegex");
+            countriesInputTable.Columns.Add("Languages");
+            countriesInputTable.Columns.Add("GeonameId");
+            countriesInputTable.Columns.Add("Neighbors");
+            countriesInputTable.Columns.Add("EquivalentFipsCode");
+            countriesInputTable.Columns.Add("RowId");
+
+            foreach (Upd_VM.Country country in countries)
+            {
+                countriesInputTable.Rows.Add(new object[]
+                                { 
+                                    country.ISOCountryCode,                                    
+                                    country.ISONumeric,
+                                    country.ISO3Code,
+                                    country.FIPSCode,
+                                    country.CountryName,
+                                    country.Capital,
+                                    country.SqKmArea,
+                                    country.TotalPopulation,
+                                    country.ContinentCodeId,
+                                    country.TopLevelDomain,
+                                    country.CurrencyCode,
+                                    country.CurrencyName,
+                                    country.Phone,
+                                    country.PostalFormat,
+                                    country.PostalRegex,
+                                    country.Languages,
+                                    country.GeonameId,
+                                    country.Neighbors,
+                                    country.EquivalentFipsCode,
+                                    country.RowId
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("Country_TVP", countriesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<Country> result = new List<Country>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable countriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (countriesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in countriesOutputTable.Rows)
+                        {
+                            result.Add(new Country()
+                            {
+                                ISOCountryCode = dr["ISOCountryCode"] == DBNull.Value ? string.Empty : dr.Field<string>("ISOCountryCode"),
+                                ISO3Code = dr["ISO3Code"] == DBNull.Value ? string.Empty : dr.Field<string>("ISO3Code"),
+                                ISONumeric = dr["ISONumeric"] == DBNull.Value ? null : dr.Field<int?>("ISONumeric"),
+                                FIPSCode = dr["FIPSCode"] == DBNull.Value ? string.Empty : dr.Field<string>("FIPSCode"),
+                                CountryName = dr["CountryName"] == DBNull.Value ? string.Empty : dr.Field<string>("CountryName"),
+                                Capital = dr["Capital"] == DBNull.Value ? string.Empty : dr.Field<string>("Capital"),
+                                SqKmArea = dr["SqKmArea"] == DBNull.Value ? null : dr.Field<double?>("SqKmArea"),
+                                TotalPopulation = dr["TotalPopulation"] == DBNull.Value ? null : dr.Field<long?>("TotalPopulation"),
+                                ContinentCodeId = dr["ContinentCodeId"] == DBNull.Value ? string.Empty : dr.Field<string>("ContinentCodeId"),
+                                TopLevelDomain = dr["TopLevelDomain"] == DBNull.Value ? string.Empty : dr.Field<string>("TopLevelDomain"),
+                                CurrencyCode = dr["CurrencyCode"] == DBNull.Value ? string.Empty : dr.Field<string>("CurrencyCode"),
+                                CurrencyName = dr["CurrencyName"] == DBNull.Value ? string.Empty : dr.Field<string>("CurrencyName"),
+                                Phone = dr["Phone"] == DBNull.Value ? string.Empty : dr.Field<string>("Phone"),
+                                PostalFormat = dr["PostalFormat"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalFormat"),
+                                PostalRegex = dr["PostalRegex"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalRegex"),
+                                Languages = dr["Languages"] == DBNull.Value ? string.Empty : dr.Field<string>("Languages"),
+                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<long?>("GeonameId"),
+                                Neighbors = dr["Neighbors"] == DBNull.Value ? string.Empty : dr.Field<string>("Neighbors"),
+                                EquivalentFipsCode = dr["EquivalentFipsCode"] == DBNull.Value ? string.Empty : dr.Field<string>("EquivalentFipsCode"),
+                                RowId = dr.Field<byte[]>("RowId"),
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            return result;
         }
 
         public IEnumerable<Country> InsertCountries(IEnumerable<Ins_VM.Country> countries)
         {
-            throw new NotImplementedException();
+            string sql = SQLRepositoryHelper.InsertCountries;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable countriesInputTable = new DataTable("Country_TVP");
+            countriesInputTable.Columns.Add("ISOCountryCode");
+            countriesInputTable.Columns.Add("ISO3Code");
+            countriesInputTable.Columns.Add("ISONumeric");
+            countriesInputTable.Columns.Add("FIPSCode");
+            countriesInputTable.Columns.Add("CountryName");
+            countriesInputTable.Columns.Add("Capital");
+            countriesInputTable.Columns.Add("SqKmArea");
+            countriesInputTable.Columns.Add("TotalPopulation");
+            countriesInputTable.Columns.Add("ContinentCodeId");
+            countriesInputTable.Columns.Add("TopLevelDomain");
+            countriesInputTable.Columns.Add("CurrencyCode");
+            countriesInputTable.Columns.Add("CurrencyName");
+            countriesInputTable.Columns.Add("Phone");
+            countriesInputTable.Columns.Add("PostalFormat");
+            countriesInputTable.Columns.Add("PostalRegex");
+            countriesInputTable.Columns.Add("Languages");
+            countriesInputTable.Columns.Add("GeonameId");
+            countriesInputTable.Columns.Add("Neighbors");
+            countriesInputTable.Columns.Add("EquivalentFipsCode");
+
+            foreach (Ins_VM.Country country in countries)
+            {
+                countriesInputTable.Rows.Add(new object[]
+                                { 
+                                    country.ISOCountryCode,                                    
+                                    country.ISONumeric,
+                                    country.ISO3Code,
+                                    country.FIPSCode,
+                                    country.CountryName,
+                                    country.Capital,
+                                    country.SqKmArea,
+                                    country.TotalPopulation,
+                                    country.ContinentCodeId,
+                                    country.TopLevelDomain,
+                                    country.CurrencyCode,
+                                    country.CurrencyName,
+                                    country.Phone,
+                                    country.PostalFormat,
+                                    country.PostalRegex,
+                                    country.Languages,
+                                    country.GeonameId,
+                                    country.Neighbors,
+                                    country.EquivalentFipsCode
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("Country_TVP", countriesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<Country> result = new List<Country>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable countriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (countriesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in countriesOutputTable.Rows)
+                        {
+                            result.Add(new Country()
+                            {
+                                ISOCountryCode = dr["ISOCountryCode"] == DBNull.Value ? string.Empty : dr.Field<string>("ISOCountryCode"),
+                                ISO3Code = dr["ISO3Code"] == DBNull.Value ? string.Empty : dr.Field<string>("ISO3Code"),
+                                ISONumeric = dr["ISONumeric"] == DBNull.Value ? null : dr.Field<int?>("ISONumeric"),
+                                FIPSCode = dr["FIPSCode"] == DBNull.Value ? string.Empty : dr.Field<string>("FIPSCode"),
+                                CountryName = dr["CountryName"] == DBNull.Value ? string.Empty : dr.Field<string>("CountryName"),
+                                Capital = dr["Capital"] == DBNull.Value ? string.Empty : dr.Field<string>("Capital"),
+                                SqKmArea = dr["SqKmArea"] == DBNull.Value ? null : dr.Field<double?>("SqKmArea"),
+                                TotalPopulation = dr["TotalPopulation"] == DBNull.Value ? null : dr.Field<long?>("TotalPopulation"),
+                                ContinentCodeId = dr["ContinentCodeId"] == DBNull.Value ? string.Empty : dr.Field<string>("ContinentCodeId"),
+                                TopLevelDomain = dr["TopLevelDomain"] == DBNull.Value ? string.Empty : dr.Field<string>("TopLevelDomain"),
+                                CurrencyCode = dr["CurrencyCode"] == DBNull.Value ? string.Empty : dr.Field<string>("CurrencyCode"),
+                                CurrencyName = dr["CurrencyName"] == DBNull.Value ? string.Empty : dr.Field<string>("CurrencyName"),
+                                Phone = dr["Phone"] == DBNull.Value ? string.Empty : dr.Field<string>("Phone"),
+                                PostalFormat = dr["PostalFormat"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalFormat"),
+                                PostalRegex = dr["PostalRegex"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalRegex"),
+                                Languages = dr["Languages"] == DBNull.Value ? string.Empty : dr.Field<string>("Languages"),
+                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<long?>("GeonameId"),
+                                Neighbors = dr["Neighbors"] == DBNull.Value ? string.Empty : dr.Field<string>("Neighbors"),
+                                EquivalentFipsCode = dr["EquivalentFipsCode"] == DBNull.Value ? string.Empty : dr.Field<string>("EquivalentFipsCode"),
+                                RowId = dr.Field<byte[]>("RowId"),
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

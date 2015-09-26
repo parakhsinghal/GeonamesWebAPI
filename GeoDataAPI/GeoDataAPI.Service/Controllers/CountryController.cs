@@ -18,6 +18,7 @@ namespace GeoDataAPI.Service.Controllers
             this.repository = _repository;
         }
 
+        [HttpGet]
         [Route("")]
         [ResponseType(typeof(List<Country>))]
         public IHttpActionResult GetCountries(int? pageSize = null, int? pageNumber = null)
@@ -49,6 +50,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("{isoCountryCode:length(2):alpha}")]
         [Route("{countryName:minlength(3)}")]
         [ResponseType(typeof(Country))]
@@ -81,6 +83,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("{isoCountryCode:length(2):alpha}/{featureCategoryId:length(1):alpha}/{featureCode?}")]
         [Route("{countryName:minlength(3)}/{featureCategoryId:length(1):alpha}/{featureCode?}")]
         [ResponseType(typeof(List<RawData>))]
@@ -129,6 +132,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("{countryName:minlength(3)}/states")]
         [Route("{isoCountryCode:alpha:length(2)}/states")]
         [ResponseType(typeof(List<RawData>))]
@@ -169,6 +173,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("{countryName:minlength(3)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
         [Route("{countryName:minlength(3)}/states/{stateGeonameId:long}")]
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
@@ -203,6 +208,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("{countryName:minlength(3)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}/cities")]
         [Route("{countryName:minlength(3)}/states/{stateGeonameId:long}/cities")]
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}/cities")]
@@ -263,6 +269,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("{countryName:minlength(3)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}/cities/{cityName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
         [Route("{countryName:minlength(3)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}/cities/{cityGeonameId:long}")]
         [Route("{countryName:minlength(3)}/states/{stateGeonameId:long}/cities/{cityName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]

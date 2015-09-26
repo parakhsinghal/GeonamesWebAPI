@@ -7,11 +7,11 @@ namespace GeoDataAPI.Domain.ViewModels.Insert
 {
     public class AlternateName 
     {
-        [Required(ErrorMessageResourceName = "Requried_Error",
+        [Required(ErrorMessageResourceName = "Required_Error",
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public int GeonameId { get; set; }
 
-        [Required(ErrorMessageResourceName = "Requried_Error",
+        [Required(ErrorMessageResourceName = "Required_Error",
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         [StringLength(24, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]

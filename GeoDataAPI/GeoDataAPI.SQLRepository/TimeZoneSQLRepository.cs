@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -132,6 +134,120 @@ namespace GeoDataAPI.SQLRepository
             {
                 throw;
             }
+        }
+
+        public IEnumerable<GeoDataAPI.Domain.TimeZone> UpdateTimeZones(IEnumerable<Upd_VM.TimeZone> timeZones)
+        {
+            string sql = SQLRepositoryHelper.UpdateTimeZones;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable timeZonesInputTable = new DataTable("TimeZone_TVP");
+            timeZonesInputTable.Columns.Add("ISOCountryCode");
+            timeZonesInputTable.Columns.Add("TimeZoneId");
+            timeZonesInputTable.Columns.Add("GMT");
+            timeZonesInputTable.Columns.Add("DST");
+            timeZonesInputTable.Columns.Add("RawOffset");
+            timeZonesInputTable.Columns.Add("RowId");
+
+            foreach (Upd_VM.TimeZone timeZone in timeZones)
+            {
+                timeZonesInputTable.Rows.Add(new object[]
+                                { 
+                                   timeZone.ISOCountryCode,
+                                   timeZone.TimeZoneId,
+                                   timeZone.GMT,
+                                   timeZone.DST,
+                                   timeZone.RawOffset,
+                                   timeZone.RowId
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("TimeZone_TVP", timeZonesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<Domain.TimeZone> result = new List<Domain.TimeZone>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable timeZonesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (timeZonesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in timeZonesOutputTable.Rows)
+                        {
+                            result.Add(new Domain.TimeZone()
+                            {
+                                TimeZoneId = dr["TimeZoneId"] == DBNull.Value ? string.Empty : dr.Field<string>("TimeZoneId"),
+                                ISOCountryCode = dr["ISOCountryCode"] == DBNull.Value ? string.Empty : dr.Field<string>("ISOCountryCode"),
+                                GMT = dr["GMT"] == DBNull.Value ? null : dr.Field<decimal?>("GMT"),
+                                DST = dr["DST"] == DBNull.Value ? null : dr.Field<decimal?>("DST"),
+                                RawOffset = dr["RawOffset"] == DBNull.Value ? null : dr.Field<decimal?>("RawOffset"),
+                                RowId = dr.Field<byte[]>("RowId")
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IEnumerable<GeoDataAPI.Domain.TimeZone> InsertTimeZones(IEnumerable<Ins_VM.TimeZone> timeZones)
+        {
+            string sql = SQLRepositoryHelper.InsertTimeZones;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable timeZonesInputTable = new DataTable("TimeZone_TVP");
+            timeZonesInputTable.Columns.Add("ISOCountryCode");
+            timeZonesInputTable.Columns.Add("TimeZoneId");
+            timeZonesInputTable.Columns.Add("GMT");
+            timeZonesInputTable.Columns.Add("DST");
+            timeZonesInputTable.Columns.Add("RawOffset");
+
+            foreach (Ins_VM.TimeZone timeZone in timeZones)
+            {
+                timeZonesInputTable.Rows.Add(new object[]
+                                { 
+                                   timeZone.ISOCountryCode,
+                                   timeZone.TimeZoneId,
+                                   timeZone.GMT,
+                                   timeZone.DST,
+                                   timeZone.RawOffset
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("TimeZone_TVP", timeZonesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<Domain.TimeZone> result = new List<Domain.TimeZone>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable timeZonesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (timeZonesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in timeZonesOutputTable.Rows)
+                        {
+                            result.Add(new Domain.TimeZone()
+                            {
+                                TimeZoneId = dr["TimeZoneId"] == DBNull.Value ? string.Empty : dr.Field<string>("TimeZoneId"),
+                                ISOCountryCode = dr["ISOCountryCode"] == DBNull.Value ? string.Empty : dr.Field<string>("ISOCountryCode"),
+                                GMT = dr["GMT"] == DBNull.Value ? null : dr.Field<decimal?>("GMT"),
+                                DST = dr["DST"] == DBNull.Value ? null : dr.Field<decimal?>("DST"),
+                                RawOffset = dr["RawOffset"] == DBNull.Value ? null : dr.Field<decimal?>("RawOffset"),
+                                RowId = dr.Field<byte[]>("RowId")
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

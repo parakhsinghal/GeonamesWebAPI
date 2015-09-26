@@ -7,11 +7,11 @@ namespace GeoDataAPI.Domain.ViewModels.Insert
 {
     public class Hierarchy 
     {
-        [Required(ErrorMessageResourceName = "Hierarchy_ParentId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public long ParentId { get; set; }
 
-        [Required(ErrorMessageResourceName = "Hierarchy_ChildId_Required",
+        [Required(ErrorMessageResourceName = "Required_Error",
                   ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
         public long ChildId { get; set; }
 

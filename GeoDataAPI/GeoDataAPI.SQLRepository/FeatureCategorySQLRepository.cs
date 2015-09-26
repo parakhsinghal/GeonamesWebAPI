@@ -2,10 +2,13 @@
 using GeoDataAPI.Domain;
 using GeoDataAPI.Domain.Interfaces;
 using GeoDataAPI.SQLRepository.Helper;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -39,6 +42,102 @@ namespace GeoDataAPI.SQLRepository
                                 RowId = dr.Field<byte[]>("RowId")
                             });
                         }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IEnumerable<FeatureCategory> UpdateFeatureCategories(IEnumerable<Upd_VM.FeatureCategory> featureCategories)
+        {
+            string sql = SQLRepositoryHelper.UpdateFeatureCategories;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable featureCategoriesInputTable = new DataTable("FeatureCategory_TVP");
+            featureCategoriesInputTable.Columns.Add("FeatureCategoryId");
+            featureCategoriesInputTable.Columns.Add("FeatureCategoryName");
+            featureCategoriesInputTable.Columns.Add("RowId");
+
+            foreach (Upd_VM.FeatureCategory featureCategory in featureCategories)
+            {
+                featureCategoriesInputTable.Rows.Add(new object[]
+                                { 
+                                    featureCategory.FeatureCategoryId,                                    
+                                    featureCategory.FeatureCategoryName,
+                                    featureCategory.RowId
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("FeatureCategory_TVP", featureCategoriesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<FeatureCategory> result = new List<FeatureCategory>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable featureCategoriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (featureCategoriesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in featureCategoriesOutputTable.Rows)
+                        {
+                            result.Add(new FeatureCategory()
+                            {
+                                FeatureCategoryId = dr["FeatureCategoryId"] != null ? dr.Field<string>("Featurecategoryid") : string.Empty,
+                                FeatureCategoryName = dr["FeatureCategoryName"] != null ? dr.Field<string>("FeatureCategoryName") : string.Empty,
+                                RowId = dr.Field<byte[]>("RowId")
+                            });
+                        }
+
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IEnumerable<FeatureCategory> InsertFeatureCategories(IEnumerable<Ins_VM.FeatureCategory> featureCategories)
+        {
+            string sql = SQLRepositoryHelper.InsertFeatureCategories;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+
+            DataTable featureCategoriesInputTable = new DataTable("FeatureCategory_TVP");
+            featureCategoriesInputTable.Columns.Add("FeatureCategoryId");
+            featureCategoriesInputTable.Columns.Add("FeatureCategoryName");
+
+            foreach (Ins_VM.FeatureCategory featureCategory in featureCategories)
+            {
+                featureCategoriesInputTable.Rows.Add(new object[]
+                                { 
+                                    featureCategory.FeatureCategoryId,                                    
+                                    featureCategory.FeatureCategoryName
+                                });
+            }
+
+            SqlParameter inputData = new SqlParameter("FeatureCategory_TVP", featureCategoriesInputTable);
+            inputData.SqlDbType = SqlDbType.Structured;
+            parameterCollection.Add(inputData);
+
+            List<FeatureCategory> result = new List<FeatureCategory>();
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                using (DataTable featureCategoriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                {
+                    if (featureCategoriesOutputTable.Rows.Count > 0)
+                    {
+                        foreach (DataRow dr in featureCategoriesOutputTable.Rows)
+                        {
+                            result.Add(new FeatureCategory()
+                            {
+                                FeatureCategoryId = dr["FeatureCategoryId"] != null ? dr.Field<string>("Featurecategoryid") : string.Empty,
+                                FeatureCategoryName = dr["FeatureCategoryName"] != null ? dr.Field<string>("FeatureCategoryName") : string.Empty,
+                                RowId = dr.Field<byte[]>("RowId")
+                            });
+                        }
+
                     }
                 }
             }
