@@ -147,7 +147,7 @@ namespace GeoDataAPI.SQLRepository
             timeZonesInputTable.Columns.Add("GMT");
             timeZonesInputTable.Columns.Add("DST");
             timeZonesInputTable.Columns.Add("RawOffset");
-            timeZonesInputTable.Columns.Add("RowId");
+            timeZonesInputTable.Columns.Add("RowId", typeof(byte[]));
 
             foreach (Upd_VM.TimeZone timeZone in timeZones)
             {

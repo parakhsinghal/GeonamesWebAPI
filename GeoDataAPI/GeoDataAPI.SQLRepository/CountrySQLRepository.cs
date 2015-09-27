@@ -379,7 +379,7 @@ namespace GeoDataAPI.SQLRepository
             countriesInputTable.Columns.Add("GeonameId");
             countriesInputTable.Columns.Add("Neighbors");
             countriesInputTable.Columns.Add("EquivalentFipsCode");
-            countriesInputTable.Columns.Add("RowId");
+            countriesInputTable.Columns.Add("RowId", typeof(byte[]));
 
             foreach (Upd_VM.Country country in countries)
             {

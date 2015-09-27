@@ -61,7 +61,7 @@ namespace GeoDataAPI.SQLRepository
             featureCodesInputTable.Columns.Add("FeatureCodeId");
             featureCodesInputTable.Columns.Add("FeatureCodeName");
             featureCodesInputTable.Columns.Add("Description");
-            featureCodesInputTable.Columns.Add("RowId");
+            featureCodesInputTable.Columns.Add("RowId", typeof(byte[]));
 
             foreach (Upd_VM.FeatureCode featureCode in featureCodes)
             {

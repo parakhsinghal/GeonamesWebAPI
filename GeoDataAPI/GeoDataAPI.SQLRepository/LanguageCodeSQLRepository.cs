@@ -63,7 +63,7 @@ namespace GeoDataAPI.SQLRepository
             languageCodesInputTable.Columns.Add("ISO6392");
             languageCodesInputTable.Columns.Add("ISO6391");
             languageCodesInputTable.Columns.Add("Language");
-            languageCodesInputTable.Columns.Add("RowId");
+            languageCodesInputTable.Columns.Add("RowId",typeof(byte[]));
 
             foreach (Upd_VM.LanguageCode languageCode in languageCodes)
             {
