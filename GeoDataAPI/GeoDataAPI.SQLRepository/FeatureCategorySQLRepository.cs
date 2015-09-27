@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
 using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
+using System.Text;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -51,13 +52,15 @@ namespace GeoDataAPI.SQLRepository
 
         public IEnumerable<FeatureCategory> UpdateFeatureCategories(IEnumerable<Upd_VM.FeatureCategory> featureCategories)
         {
-            string sql = SQLRepositoryHelper.UpdateFeatureCategories;
+            try
+            {
+                 string sql = SQLRepositoryHelper.UpdateFeatureCategories;
             List<SqlParameter> parameterCollection = new List<SqlParameter>();
 
             DataTable featureCategoriesInputTable = new DataTable("FeatureCategory_TVP");
             featureCategoriesInputTable.Columns.Add("FeatureCategoryId");
             featureCategoriesInputTable.Columns.Add("FeatureCategoryName");
-            featureCategoriesInputTable.Columns.Add("RowId");
+            featureCategoriesInputTable.Columns.Add("RowId", typeof(byte[]));
 
             foreach (Upd_VM.FeatureCategory featureCategory in featureCategories)
             {
@@ -69,14 +72,14 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("FeatureCategory_TVP", featureCategoriesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", featureCategoriesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 
             List<FeatureCategory> result = new List<FeatureCategory>();
 
             using (DBDataHelper helper = new DBDataHelper())
-            {
+             {
                 using (DataTable featureCategoriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
                 {
                     if (featureCategoriesOutputTable.Rows.Count > 0)
@@ -96,6 +99,13 @@ namespace GeoDataAPI.SQLRepository
             }
 
             return result;
+            }
+            catch (Exception ex) 
+            {
+                
+                throw;
+            }
+           
         }
 
         public IEnumerable<FeatureCategory> InsertFeatureCategories(IEnumerable<Ins_VM.FeatureCategory> featureCategories)
