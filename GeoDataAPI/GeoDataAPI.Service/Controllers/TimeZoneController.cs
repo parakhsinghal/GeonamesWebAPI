@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
+using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
+
 
 namespace GeoDataAPI.Service.Controllers
 {
@@ -17,6 +21,7 @@ namespace GeoDataAPI.Service.Controllers
             this.repository = _repository;
         }
 
+        [HttpGet]
         [Route("")]
         [ResponseType(typeof(List<string>))]
         public IHttpActionResult GetDistinctTimeZones()
@@ -33,7 +38,8 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
-        //[Route("{timeZoneId:regex(.*\\/.*)}")]
+        [HttpGet]
+        [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
         [Route("{isoCountryCode:alpha:length(2)}")]
         [Route("{iso3Code:alpha:length(3)}")]
         [Route("{isoNumeric:int}")]
@@ -41,12 +47,23 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{countryName:alpha:length(4,50)}")]
         [Route("details")]
         [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
-        public IHttpActionResult GetTimeZoneDetails(string timeZoneId = null, string isoCountryCode = null, string iso3Code = null, int? isoNumeric = null, string countryName = null, double? latitude = null, double? longitude = null, int? pageNumber = null, int? pageSize = null)
+        public IHttpActionResult GetTimeZoneDetails(string continent = null, string country = null, string state = null, string isoCountryCode = null, string iso3Code = null, int? isoNumeric = null, string countryName = null, double? latitude = null, double? longitude = null, int? pageNumber = null, int? pageSize = null)
         {
             if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
             {
                 try
                 {
+                    string timeZoneId = null;
+
+                    if ((!string.IsNullOrEmpty(continent)&& !string.IsNullOrWhiteSpace(continent))&&
+                        (!string.IsNullOrEmpty(country) && !string.IsNullOrWhiteSpace(country)))
+                    {
+                        timeZoneId = continent + "/" + country;
+                        if (!string.IsNullOrEmpty(state)&& !string.IsNullOrWhiteSpace(state))
+                        {
+                            timeZoneId += "/" + state;
+                        }
+                    }
                     IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.GetTimeZoneDetails(timeZoneId, isoCountryCode, iso3Code, isoNumeric, countryName, latitude, longitude, pageNumber, pageSize);
                     if (result != null && result.Count() > 0)
                     {
@@ -70,6 +87,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpGet]
         [Route("place/{placeName:regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
         [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
         public IHttpActionResult GetTimeZoneDetailsByPlaceName(string placeName)
@@ -98,6 +116,20 @@ namespace GeoDataAPI.Service.Controllers
             {
                 return BadRequest("Please provide a valid value for name of the place of which the time zone is required.");
             }
+        }
+
+        [HttpPut]
+        [Route("")]
+        public IHttpActionResult UpdateTimeZones(IEnumerable<Upd_VM.TimeZone> timeZones)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut]
+        [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
+        public IHttpActionResult UpdateTimeZone(Upd_VM.TimeZone timeZone)
+        {
+            throw new NotImplementedException();
         }
     }
 }
