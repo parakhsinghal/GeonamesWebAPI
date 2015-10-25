@@ -1,1 +1,0 @@
-DBCC SHRINKFILE ('Geonames',200)
