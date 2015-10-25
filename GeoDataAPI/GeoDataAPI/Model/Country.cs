@@ -22,7 +22,7 @@ namespace GeoDataAPI.Domain
         public string PostalFormat { get; set; }
         public string PostalRegex { get; set; }
         public string Languages { get; set; }
-        public long? GeonameId { get; set; }
+        public int? GeonameId { get; set; }
         public string Neighbors { get; set; }
         public string EquivalentFipsCode { get; set; }
         public byte[] RowId { get; set; }

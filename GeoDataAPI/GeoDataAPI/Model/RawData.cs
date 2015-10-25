@@ -6,13 +6,13 @@ namespace GeoDataAPI.Domain
 {
     public class RawData : IVersionable
     {
-        public long? GeonameId { get; set; }
+        public int? GeonameId { get; set; }
         public string Name { get; set; }
         public string ASCIIName { get; set; }
         public string AlternateNames { get; set; }
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }
-        public string FeatureCode { get; set; }
+        public string FeatureCodeId { get; set; }
         public string CC2 { get; set; }
         public string Admin1Code { get; set; }
         public string Admin2Code { get; set; }

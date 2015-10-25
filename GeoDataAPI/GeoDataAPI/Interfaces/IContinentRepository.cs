@@ -8,9 +8,9 @@ namespace GeoDataAPI.Domain.Interfaces
 {
     public interface IContinentRepository
     {
-        IEnumerable<Continent> GetContinentInfo(string continentCodeId = null, long? geonameId = null, string continentName = null);
+        IEnumerable<Continent> GetContinentInfo(string continentCodeId = null, int? geonameId = null, string continentName = null);
 
-        IEnumerable<Country> GetCountriesInAContinent(string continentName = null, string continentCodeId = null, long? geonameId = null, int? pageNumber = null, int? pageSize = null);
+        IEnumerable<Country> GetCountriesInAContinent(string continentName = null, string continentCodeId = null, int? geonameId = null, int? pageNumber = null, int? pageSize = null);
 
         IEnumerable<Continent> UpdateContinents(IEnumerable<Upd_VM.Continent> continents);
 
