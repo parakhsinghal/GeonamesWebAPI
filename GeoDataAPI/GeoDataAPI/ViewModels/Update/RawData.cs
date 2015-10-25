@@ -35,7 +35,7 @@ namespace GeoDataAPI.Domain.ViewModels.Update
 
          [StringLength(10, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
-        public string FeatureCode { get; set; }
+        public string FeatureCodeId { get; set; }
 
          [StringLength(60, MinimumLength = 1, ErrorMessageResourceName = "Length_Error",
                 ErrorMessageResourceType = typeof(GeoDataAPI.ErrorMessages.ErrorMessages_US_en))]
