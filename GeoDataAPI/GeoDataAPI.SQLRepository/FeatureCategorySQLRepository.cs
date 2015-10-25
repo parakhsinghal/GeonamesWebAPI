@@ -54,58 +54,58 @@ namespace GeoDataAPI.SQLRepository
         {
             try
             {
-                 string sql = SQLRepositoryHelper.UpdateFeatureCategories;
-            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+                string sql = SQLRepositoryHelper.UpdateFeatureCategories;
+                List<SqlParameter> parameterCollection = new List<SqlParameter>();
 
-            DataTable featureCategoriesInputTable = new DataTable("FeatureCategory_TVP");
-            featureCategoriesInputTable.Columns.Add("FeatureCategoryId");
-            featureCategoriesInputTable.Columns.Add("FeatureCategoryName");
-            featureCategoriesInputTable.Columns.Add("RowId", typeof(byte[]));
+                DataTable featureCategoriesInputTable = new DataTable("FeatureCategory_TVP");
+                featureCategoriesInputTable.Columns.Add("FeatureCategoryId");
+                featureCategoriesInputTable.Columns.Add("FeatureCategoryName");
+                featureCategoriesInputTable.Columns.Add("RowId", typeof(byte[]));
 
-            foreach (Upd_VM.FeatureCategory featureCategory in featureCategories)
-            {
-                featureCategoriesInputTable.Rows.Add(new object[]
+                foreach (Upd_VM.FeatureCategory featureCategory in featureCategories)
+                {
+                    featureCategoriesInputTable.Rows.Add(new object[]
                                 { 
                                     featureCategory.FeatureCategoryId,                                    
                                     featureCategory.FeatureCategoryName,
                                     featureCategory.RowId
                                 });
-            }
+                }
 
-            SqlParameter inputData = new SqlParameter("Input", featureCategoriesInputTable);
-            inputData.SqlDbType = SqlDbType.Structured;
-            parameterCollection.Add(inputData);
+                SqlParameter inputData = new SqlParameter("Input", featureCategoriesInputTable);
+                inputData.SqlDbType = SqlDbType.Structured;
+                parameterCollection.Add(inputData);
 
-            List<FeatureCategory> result = new List<FeatureCategory>();
+                List<FeatureCategory> result = new List<FeatureCategory>();
 
-            using (DBDataHelper helper = new DBDataHelper())
-             {
-                using (DataTable featureCategoriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
+                using (DBDataHelper helper = new DBDataHelper())
                 {
-                    if (featureCategoriesOutputTable.Rows.Count > 0)
+                    using (DataTable featureCategoriesOutputTable = helper.GetDataTable(sql, SQLTextType.Stored_Proc, parameterCollection))
                     {
-                        foreach (DataRow dr in featureCategoriesOutputTable.Rows)
+                        if (featureCategoriesOutputTable.Rows.Count > 0)
                         {
-                            result.Add(new FeatureCategory()
+                            foreach (DataRow dr in featureCategoriesOutputTable.Rows)
                             {
-                                FeatureCategoryId = dr["FeatureCategoryId"] != null ? dr.Field<string>("Featurecategoryid") : string.Empty,
-                                FeatureCategoryName = dr["FeatureCategoryName"] != null ? dr.Field<string>("FeatureCategoryName") : string.Empty,
-                                RowId = dr.Field<byte[]>("RowId")
-                            });
-                        }
+                                result.Add(new FeatureCategory()
+                                {
+                                    FeatureCategoryId = dr["FeatureCategoryId"] != null ? dr.Field<string>("Featurecategoryid") : string.Empty,
+                                    FeatureCategoryName = dr["FeatureCategoryName"] != null ? dr.Field<string>("FeatureCategoryName") : string.Empty,
+                                    RowId = dr.Field<byte[]>("RowId")
+                                });
+                            }
 
+                        }
                     }
                 }
-            }
 
-            return result;
+                return result;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                
+
                 throw;
             }
-           
+
         }
 
         public IEnumerable<FeatureCategory> InsertFeatureCategories(IEnumerable<Ins_VM.FeatureCategory> featureCategories)

@@ -54,7 +54,7 @@ namespace GeoDataAPI.SQLRepository
                                     PostalFormat = dr["PostalFormat"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalFormat"),
                                     PostalRegex = dr["PostalRegex"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalRegex"),
                                     Languages = dr["Languages"] == DBNull.Value ? string.Empty : dr.Field<string>("Languages"),
-                                    GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<long?>("GeonameId"),
+                                    GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<int?>("GeonameId"),
                                     Neighbors = dr["Neighbors"] == DBNull.Value ? string.Empty : dr.Field<string>("Neighbors"),
                                     EquivalentFipsCode = dr["EquivalentFipsCode"] == DBNull.Value ? string.Empty : dr.Field<string>("EquivalentFipsCode"),
                                     RowId = dr.Field<byte[]>("RowId"),
@@ -102,7 +102,7 @@ namespace GeoDataAPI.SQLRepository
                                 PostalFormat = dr["PostalFormat"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalFormat"),
                                 PostalRegex = dr["PostalRegex"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalRegex"),
                                 Languages = dr["Languages"] == DBNull.Value ? string.Empty : dr.Field<string>("Languages"),
-                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<long?>("GeonameId"),
+                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<int?>("GeonameId"),
                                 Neighbors = dr["Neighbors"] == DBNull.Value ? string.Empty : dr.Field<string>("Neighbors"),
                                 EquivalentFipsCode = dr["EquivalentFipsCode"] == DBNull.Value ? string.Empty : dr.Field<string>("EquivalentFipsCode"),
                                 RowId = dr.Field<byte[]>("RowId"),
@@ -115,14 +115,14 @@ namespace GeoDataAPI.SQLRepository
             return result;
         }
 
-        public IEnumerable<RawData> GetCountryFeatureCategoryFeatureCode(string featureCategoryId, string isoCountryCode = null, string countryName = null, string featureCode = null, int? pageSize = null, int? pageNumber = null)
+        public IEnumerable<RawData> GetCountryFeatureCategoryFeatureCode(string featureCategoryId, string isoCountryCode = null, string countryName = null, string featureCodeId = null, int? pageSize = null, int? pageNumber = null)
         {
             string sql = SQLRepositoryHelper.GetCountryFeatureCategoryFeatureCode;
             List<SqlParameter> parameterCollection = new List<SqlParameter>();
             parameterCollection.Add(new SqlParameter("ISOCountryCode", isoCountryCode));
             parameterCollection.Add(new SqlParameter("CountryName", countryName));
             parameterCollection.Add(new SqlParameter("FeatureCategoryId", featureCategoryId));
-            parameterCollection.Add(new SqlParameter("FeatureCode", featureCode));
+            parameterCollection.Add(new SqlParameter("FeatureCodeId", featureCodeId));
             parameterCollection.Add(new SqlParameter("PageSize", pageSize));
             parameterCollection.Add(new SqlParameter("PageNumber", pageNumber));
 
@@ -137,13 +137,13 @@ namespace GeoDataAPI.SQLRepository
                         {
                             result.Add(new RawData()
                             {
-                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<long?>("GeonameId") : null,
+                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<int?>("GeonameId") : null,
                                 Name = dr["Name"] != DBNull.Value ? dr.Field<string>("Name") : string.Empty,
                                 ASCIIName = dr["ASCIIName"] != DBNull.Value ? dr.Field<string>("ASCIIName") : string.Empty,
                                 AlternateNames = dr["AlternateNames"] != DBNull.Value ? dr.Field<string>("AlternateNames") : string.Empty,
                                 Latitude = dr["Latitude"] != DBNull.Value ? dr.Field<double?>("Latitude") : null,
                                 Longitude = dr["Longitude"] != DBNull.Value ? dr.Field<double?>("Longitude") : null,
-                                FeatureCode = dr["FeatureCode"] != DBNull.Value ? dr.Field<string>("FeatureCode") : string.Empty,
+                                FeatureCodeId = dr["FeatureCodeId"] != DBNull.Value ? dr.Field<string>("FeatureCodeId") : string.Empty,
                                 CC2 = dr["CC2"] != DBNull.Value ? dr.Field<string>("CC2") : string.Empty,
                                 Admin1Code = dr["Admin1Code"] != DBNull.Value ? dr.Field<string>("Admin1Code") : string.Empty,
                                 Admin2Code = dr["Admin2Code"] != DBNull.Value ? dr.Field<string>("Admin2Code") : string.Empty,
@@ -184,13 +184,13 @@ namespace GeoDataAPI.SQLRepository
                         {
                             result.Add(new RawData()
                             {
-                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<long?>("GeonameId") : null,
+                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<int?>("GeonameId") : null,
                                 Name = dr["Name"] != DBNull.Value ? dr.Field<string>("Name") : string.Empty,
                                 ASCIIName = dr["ASCIIName"] != DBNull.Value ? dr.Field<string>("ASCIIName") : string.Empty,
                                 AlternateNames = dr["AlternateNames"] != DBNull.Value ? dr.Field<string>("AlternateNames") : string.Empty,
                                 Latitude = dr["Latitude"] != DBNull.Value ? dr.Field<double?>("Latitude") : null,
                                 Longitude = dr["Longitude"] != DBNull.Value ? dr.Field<double?>("Longitude") : null,
-                                FeatureCode = dr["FeatureCode"] != DBNull.Value ? dr.Field<string>("FeatureCode") : string.Empty,
+                                FeatureCodeId = dr["FeatureCodeId"] != DBNull.Value ? dr.Field<string>("FeatureCodeId") : string.Empty,
                                 CC2 = dr["CC2"] != DBNull.Value ? dr.Field<string>("CC2") : string.Empty,
                                 Admin1Code = dr["Admin1Code"] != DBNull.Value ? dr.Field<string>("Admin1Code") : string.Empty,
                                 Admin2Code = dr["Admin2Code"] != DBNull.Value ? dr.Field<string>("Admin2Code") : string.Empty,
@@ -210,7 +210,7 @@ namespace GeoDataAPI.SQLRepository
             return result;
         }
 
-        public RawData GetStateInfo(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null)
+        public RawData GetStateInfo(string countryName = null, string isoCountryCode = null, string stateName = null, int? stateGeonameId = null)
         {
             string sql = SQLRepositoryHelper.GetStateInfo;
             List<SqlParameter> parameterCollection = new List<SqlParameter>();
@@ -231,13 +231,13 @@ namespace GeoDataAPI.SQLRepository
                         {
                             result = new RawData()
                             {
-                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<long?>("GeonameId") : null,
+                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<int?>("GeonameId") : null,
                                 Name = dr["Name"] != DBNull.Value ? dr.Field<string>("Name") : string.Empty,
                                 ASCIIName = dr["ASCIIName"] != DBNull.Value ? dr.Field<string>("ASCIIName") : string.Empty,
                                 AlternateNames = dr["AlternateNames"] != DBNull.Value ? dr.Field<string>("AlternateNames") : string.Empty,
                                 Latitude = dr["Latitude"] != DBNull.Value ? dr.Field<double?>("Latitude") : null,
                                 Longitude = dr["Longitude"] != DBNull.Value ? dr.Field<double?>("Longitude") : null,
-                                FeatureCode = dr["FeatureCode"] != DBNull.Value ? dr.Field<string>("FeatureCode") : string.Empty,
+                                FeatureCodeId = dr["FeatureCodeId"] != DBNull.Value ? dr.Field<string>("FeatureCodeId") : string.Empty,
                                 CC2 = dr["CC2"] != DBNull.Value ? dr.Field<string>("CC2") : string.Empty,
                                 Admin1Code = dr["Admin1Code"] != DBNull.Value ? dr.Field<string>("Admin1Code") : string.Empty,
                                 Admin2Code = dr["Admin2Code"] != DBNull.Value ? dr.Field<string>("Admin2Code") : string.Empty,
@@ -257,7 +257,7 @@ namespace GeoDataAPI.SQLRepository
             return result;
         }
 
-        public IEnumerable<RawData> GetCitiesInState(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null, long? cityGeonameId = null, string cityName = null, int? pageSize = null, int? pageNumber = null)
+        public IEnumerable<RawData> GetCitiesInState(string countryName = null, string isoCountryCode = null, string stateName = null, int? stateGeonameId = null, int? cityGeonameId = null, string cityName = null, int? pageSize = null, int? pageNumber = null)
         {
             string sql = SQLRepositoryHelper.GetCitiesInAState;
             List<SqlParameter> parameterCollection = new List<SqlParameter>();
@@ -282,13 +282,13 @@ namespace GeoDataAPI.SQLRepository
                         {
                             result.Add(new RawData()
                             {
-                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<long?>("GeonameId") : null,
+                                GeonameId = dr["GeonameId"] != DBNull.Value ? dr.Field<int?>("GeonameId") : null,
                                 Name = dr["Name"] != DBNull.Value ? dr.Field<string>("Name") : string.Empty,
                                 ASCIIName = dr["ASCIIName"] != DBNull.Value ? dr.Field<string>("ASCIIName") : string.Empty,
                                 AlternateNames = dr["AlternateNames"] != DBNull.Value ? dr.Field<string>("AlternateNames") : string.Empty,
                                 Latitude = dr["Latitude"] != DBNull.Value ? dr.Field<double?>("Latitude") : null,
                                 Longitude = dr["Longitude"] != DBNull.Value ? dr.Field<double?>("Longitude") : null,
-                                FeatureCode = dr["FeatureCode"] != DBNull.Value ? dr.Field<string>("FeatureCode") : string.Empty,
+                                FeatureCodeId = dr["FeatureCodeId"] != DBNull.Value ? dr.Field<string>("FeatureCodeId") : string.Empty,
                                 CC2 = dr["CC2"] != DBNull.Value ? dr.Field<string>("CC2") : string.Empty,
                                 Admin1Code = dr["Admin1Code"] != DBNull.Value ? dr.Field<string>("Admin1Code") : string.Empty,
                                 Admin2Code = dr["Admin2Code"] != DBNull.Value ? dr.Field<string>("Admin2Code") : string.Empty,
@@ -308,7 +308,7 @@ namespace GeoDataAPI.SQLRepository
             return result;
         }
 
-        public RawData GetCityInState(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null, long? cityGeonameId = null, string cityName = null)
+        public RawData GetCityInState(string countryName = null, string isoCountryCode = null, string stateName = null, int? stateGeonameId = null, int? cityGeonameId = null, string cityName = null)
         {
             string sql = SQLRepositoryHelper.GetCitiesInAState;
             List<SqlParameter> parameterCollection = new List<SqlParameter>();
@@ -329,13 +329,13 @@ namespace GeoDataAPI.SQLRepository
                     {
                         result = new RawData()
                         {
-                            GeonameId = dt.Rows[0]["GeonameId"] != DBNull.Value ? dt.Rows[0].Field<long?>("GeonameId") : null,
+                            GeonameId = dt.Rows[0]["GeonameId"] != DBNull.Value ? dt.Rows[0].Field<int?>("GeonameId") : null,
                             Name = dt.Rows[0]["Name"] != DBNull.Value ? dt.Rows[0].Field<string>("Name") : string.Empty,
                             ASCIIName = dt.Rows[0]["ASCIIName"] != DBNull.Value ? dt.Rows[0].Field<string>("ASCIIName") : string.Empty,
                             AlternateNames = dt.Rows[0]["AlternateNames"] != DBNull.Value ? dt.Rows[0].Field<string>("AlternateNames") : string.Empty,
                             Latitude = dt.Rows[0]["Latitude"] != DBNull.Value ? dt.Rows[0].Field<double?>("Latitude") : null,
                             Longitude = dt.Rows[0]["Longitude"] != DBNull.Value ? dt.Rows[0].Field<double?>("Longitude") : null,
-                            FeatureCode = dt.Rows[0]["FeatureCode"] != DBNull.Value ? dt.Rows[0].Field<string>("FeatureCode") : string.Empty,
+                            FeatureCodeId = dt.Rows[0]["FeatureCodeId"] != DBNull.Value ? dt.Rows[0].Field<string>("FeatureCodeId") : string.Empty,
                             CC2 = dt.Rows[0]["CC2"] != DBNull.Value ? dt.Rows[0].Field<string>("CC2") : string.Empty,
                             Admin1Code = dt.Rows[0]["Admin1Code"] != DBNull.Value ? dt.Rows[0].Field<string>("Admin1Code") : string.Empty,
                             Admin2Code = dt.Rows[0]["Admin2Code"] != DBNull.Value ? dt.Rows[0].Field<string>("Admin2Code") : string.Empty,
@@ -440,7 +440,7 @@ namespace GeoDataAPI.SQLRepository
                                 PostalFormat = dr["PostalFormat"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalFormat"),
                                 PostalRegex = dr["PostalRegex"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalRegex"),
                                 Languages = dr["Languages"] == DBNull.Value ? string.Empty : dr.Field<string>("Languages"),
-                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<long?>("GeonameId"),
+                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<int?>("GeonameId"),
                                 Neighbors = dr["Neighbors"] == DBNull.Value ? string.Empty : dr.Field<string>("Neighbors"),
                                 EquivalentFipsCode = dr["EquivalentFipsCode"] == DBNull.Value ? string.Empty : dr.Field<string>("EquivalentFipsCode"),
                                 RowId = dr.Field<byte[]>("RowId"),
@@ -538,7 +538,7 @@ namespace GeoDataAPI.SQLRepository
                                 PostalFormat = dr["PostalFormat"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalFormat"),
                                 PostalRegex = dr["PostalRegex"] == DBNull.Value ? string.Empty : dr.Field<string>("PostalRegex"),
                                 Languages = dr["Languages"] == DBNull.Value ? string.Empty : dr.Field<string>("Languages"),
-                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<long?>("GeonameId"),
+                                GeonameId = dr["GeonameId"] == DBNull.Value ? null : dr.Field<int?>("GeonameId"),
                                 Neighbors = dr["Neighbors"] == DBNull.Value ? string.Empty : dr.Field<string>("Neighbors"),
                                 EquivalentFipsCode = dr["EquivalentFipsCode"] == DBNull.Value ? string.Empty : dr.Field<string>("EquivalentFipsCode"),
                                 RowId = dr.Field<byte[]>("RowId"),

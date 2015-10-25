@@ -19,7 +19,7 @@ namespace GeoDataAPI.SQLRepository
             DBDataHelper.ConnectionString = ConfigurationManager.ConnectionStrings["Geonames"].ConnectionString;
         }
 
-        public IEnumerable<Continent> GetContinentInfo(string continentCodeId = null, long? geonameId = null, string continentName = null)
+        public IEnumerable<Continent> GetContinentInfo(string continentCodeId = null, int? geonameId = null, string continentName = null)
         {
             string sql = SQLRepositoryHelper.GetContinentInfo;
             List<SqlParameter> parameterCollection = new List<SqlParameter>();
@@ -41,13 +41,13 @@ namespace GeoDataAPI.SQLRepository
                             {
                                 ContinentCodeId = dr.Field<string>("ContinentCodeId"),
                                 ContinentName = dr.Field<string>("Continent"),
-                                GeonameId = dr.Field<long>("GeonameId"),
+                                GeonameId = dr.Field<int>("GeonameId"),
                                 ASCIIName = dr.Field<string>("ASCIIName"),
                                 AlternateNames = dr.Field<string>("AlternateNames"),
                                 Latitude = dr.Field<double?>("Latitude"),
                                 Longitude = dr.Field<double?>("Longitude"),
                                 FeatureCategoryId = dr.Field<string>("FeatureCategoryId"),
-                                FeatureCode = dr.Field<string>("FeatureCode"),
+                                FeatureCodeId = dr.Field<string>("FeatureCodeId"),
                                 TimeZoneId = dr.Field<string>("TimeZoneId"),
                                 RowId = dr.Field<byte[]>("RowId")
                             });
@@ -59,7 +59,7 @@ namespace GeoDataAPI.SQLRepository
             return result;
         }
 
-        public IEnumerable<Country> GetCountriesInAContinent(string continentName = null, string continentCodeId = null, long? geonameId = null,
+        public IEnumerable<Country> GetCountriesInAContinent(string continentName = null, string continentCodeId = null, int? geonameId = null,
 int? pageNumber = null, int? pageSize = null)
         {
             string sql = SQLRepositoryHelper.GetCountriesInAContinent;
@@ -98,7 +98,7 @@ int? pageNumber = null, int? pageSize = null)
                                 PostalFormat = dr.Field<string>("PostalFormat"),
                                 PostalRegex = dr.Field<string>("PostalRegex"),
                                 Languages = dr.Field<string>("Languages"),
-                                GeonameId = dr.Field<long?>("GeonameId"),
+                                GeonameId = dr.Field<int?>("GeonameId"),
                                 Neighbors = dr.Field<string>("Neighbors"),
                                 EquivalentFipsCode = dr.Field<string>("EquivalentFipsCode"),
                                 RowId = dr.Field<byte[]>("RowId"),
