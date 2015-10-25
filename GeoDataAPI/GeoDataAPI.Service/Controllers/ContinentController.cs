@@ -57,7 +57,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{geonameId:long}")]
         [Route("{continentName:minlength(4):alpha}")]
         [ResponseType(typeof(Continent))]
-        public IHttpActionResult GetContinentInfo(string continentCodeId = null, long? geonameId = null, string continentName = null)
+        public IHttpActionResult GetContinentInfo(string continentCodeId = null, int? geonameId = null, string continentName = null)
         {
             if ((!string.IsNullOrWhiteSpace(continentCodeId)&&!string.IsNullOrEmpty(continentCodeId)) || 
                 (!string.IsNullOrWhiteSpace(continentName)&&!string.IsNullOrEmpty(continentName)) || 
@@ -92,7 +92,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{geonameId:long}/countries")]
         [Route("{continentName:minlength(4):alpha}/countries")]
         [ResponseType(typeof(List<Country>))]
-        public IHttpActionResult GetCountriesInAContinent(string continentName = null, string continentCodeId = null, long? geonameId = null,
+        public IHttpActionResult GetCountriesInAContinent(string continentName = null, string continentCodeId = null, int? geonameId = null,
 int? pageNumber = null, int? pageSize = null)
         {
             if (!string.IsNullOrWhiteSpace(continentName) || !string.IsNullOrWhiteSpace(continentCodeId) || geonameId > 0)
@@ -134,7 +134,7 @@ int? pageNumber = null, int? pageSize = null)
         [Route("{geonameId:long}/countries/keyvalue")]
         [Route("{continentName:minlength(4):alpha}/countries/keyvalue")]
         [ResponseType(typeof(KeyValuePair<long?, string>))]
-        public IHttpActionResult GetCountriesInAContinentAsDictionary(string continentName = null, string continentCodeId = null, long? geonameId = null)
+        public IHttpActionResult GetCountriesInAContinentAsDictionary(string continentName = null, string continentCodeId = null, int? geonameId = null)
         {
             if (!string.IsNullOrWhiteSpace(continentName) || !string.IsNullOrWhiteSpace(continentCodeId) || geonameId > 0)
             {

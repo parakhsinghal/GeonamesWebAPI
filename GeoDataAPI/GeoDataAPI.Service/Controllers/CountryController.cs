@@ -84,23 +84,23 @@ namespace GeoDataAPI.Service.Controllers
         }
 
         [HttpGet]
-        [Route("{isoCountryCode:length(2):alpha}/{featureCategoryId:length(1):alpha}/{featureCode?}")]
-        [Route("{countryName:minlength(3)}/{featureCategoryId:length(1):alpha}/{featureCode?}")]
+        [Route("{isoCountryCode:length(2):alpha}/{featureCategoryId:length(1):alpha}/{featureCodeId?}")]
+        [Route("{countryName:minlength(3)}/{featureCategoryId:length(1):alpha}/{featureCodeId?}")]
         [ResponseType(typeof(List<RawData>))]
-        public IHttpActionResult GetCountryFeatureCategoryFeatureCode(string featureCategoryId, string isoCountryCode = null, string countryName = null, string featureCode = null, int? pageSize = null, int? pageNumber = null)
+        public IHttpActionResult GetCountryFeatureCategoryFeatureCode(string featureCategoryId, string isoCountryCode = null, string countryName = null, string featureCodeId = null, int? pageSize = null, int? pageNumber = null)
         {
             if ((!string.IsNullOrEmpty(isoCountryCode) && !string.IsNullOrWhiteSpace(isoCountryCode)) ||
                 (!string.IsNullOrEmpty(countryName) && !string.IsNullOrWhiteSpace(countryName)))
             {
                 if ((!string.IsNullOrEmpty(featureCategoryId) && !string.IsNullOrWhiteSpace(featureCategoryId)) ||
-                    ((!string.IsNullOrEmpty(featureCode) && !string.IsNullOrWhiteSpace(featureCode))))
+                    ((!string.IsNullOrEmpty(featureCodeId) && !string.IsNullOrWhiteSpace(featureCodeId))))
                 {
                     if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) ||
                     (pageSize == null && pageNumber == null))
                     {
                         try
                         {
-                            var result = repository.GetCountryFeatureCategoryFeatureCode(featureCategoryId, isoCountryCode, countryName, featureCode, pageSize, pageNumber);
+                            var result = repository.GetCountryFeatureCategoryFeatureCode(featureCategoryId, isoCountryCode, countryName, featureCodeId, pageSize, pageNumber);
                             if (result != null)
                             {
                                 return Ok(result);
@@ -179,7 +179,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateGeonameId:long}")]
         [ResponseType(typeof(RawData))]
-        public IHttpActionResult GetStateInfo(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null)
+        public IHttpActionResult GetStateInfo(string countryName = null, string isoCountryCode = null, string stateName = null, int? stateGeonameId = null)
         {
             if ((!string.IsNullOrEmpty(countryName) && !string.IsNullOrWhiteSpace(countryName)) ||
                 (!string.IsNullOrEmpty(isoCountryCode) && !string.IsNullOrWhiteSpace(isoCountryCode)))
@@ -214,7 +214,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}/cities")]
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateGeonameId:long}/cities")]
         [ResponseType(typeof(List<RawData>))]
-        public IHttpActionResult GetCitiesInState(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null, long? cityGeonameId = null, string cityName = null, int? pageSize = null, int? pageNumber = null)
+        public IHttpActionResult GetCitiesInState(string countryName = null, string isoCountryCode = null, string stateName = null, int? stateGeonameId = null, int? cityGeonameId = null, string cityName = null, int? pageSize = null, int? pageNumber = null)
         {
             if ((!string.IsNullOrEmpty(countryName) && !string.IsNullOrWhiteSpace(countryName)) ||
                 !string.IsNullOrEmpty(isoCountryCode) && !string.IsNullOrWhiteSpace(isoCountryCode))
@@ -279,7 +279,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateGeonameId:long}/cities/{cityName:minlength(3):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
         [Route("{isoCountryCode:alpha:length(2)}/states/{stateGeonameId:long}/cities/{cityGeonameId:long}")]
         [ResponseType(typeof(RawData))]
-        public IHttpActionResult GetCityInState(string countryName = null, string isoCountryCode = null, string stateName = null, long? stateGeonameId = null, long? cityGeonameId = null, string cityName = null)
+        public IHttpActionResult GetCityInState(string countryName = null, string isoCountryCode = null, string stateName = null, int? stateGeonameId = null, int? cityGeonameId = null, string cityName = null)
         {
             if ((!string.IsNullOrEmpty(countryName) && !string.IsNullOrWhiteSpace(countryName)) ||
                 !string.IsNullOrEmpty(isoCountryCode) && !string.IsNullOrWhiteSpace(isoCountryCode))

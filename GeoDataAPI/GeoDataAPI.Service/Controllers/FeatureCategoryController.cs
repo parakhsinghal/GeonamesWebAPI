@@ -7,6 +7,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
 using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
+using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
 
 namespace GeoDataAPI.Service.Controllers
 {
@@ -54,23 +55,22 @@ namespace GeoDataAPI.Service.Controllers
 
         [HttpPut]
         [Route("")]
-        //[Route("{featureCategoryId:alpha:length(1)}")]
         [ResponseType(typeof(List<FeatureCategory>))]
-        public IHttpActionResult UpdateFeatureCategories(IEnumerable<Upd_VM.FeatureCategory> featurecategories)
+        public IHttpActionResult UpdateFeatureCategories(IEnumerable<Upd_VM.FeatureCategory> featureCategories)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    IEnumerable<FeatureCategory> result = repository.UpdateFeatureCategories(featurecategories);
+                    IEnumerable<FeatureCategory> result = repository.UpdateFeatureCategories(featureCategories);
 
                     if (result != null && result.Count() > 0)
                     {
-                        var primaryKey = featurecategories
+                        var primaryKey = featureCategories
                                         .Select(inputFeatureCategory => inputFeatureCategory.FeatureCategoryId)
                                         .FirstOrDefault();
 
-                        byte[] inputRowId = featurecategories
+                        byte[] inputRowId = featureCategories
                                         .Where(inputFeatureCategory => inputFeatureCategory.FeatureCategoryId == primaryKey)
                                         .Select(inputFeatureCategory => inputFeatureCategory.RowId)
                                         .FirstOrDefault();
@@ -84,12 +84,70 @@ namespace GeoDataAPI.Service.Controllers
 
                         if (rowIdsAreEqual)
                         {
-                            return BadRequest(GeoDataAPI.Service.ErrorMessagaes.ErrorMessages_US_en.NotUpdated);
+                            return BadRequest(Err_Msgs.ErrorMessages_US_en.NotUpdated_MultipleEntries);
 
                         }
                         else
                         {
                             return Ok<IEnumerable<FeatureCategory>>(result);
+                        }
+
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
+
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError();
+                throw;
+            }
+        }
+
+        [HttpPut]
+        [Route("{featureCategoryId:alpha:length(1)}")]
+        [ResponseType(typeof(FeatureCategory))]
+        public IHttpActionResult UpdateFeatureCategory(Upd_VM.FeatureCategory featureCategory)
+        {
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<Upd_VM.FeatureCategory> inputFeatureCategories = new List<Upd_VM.FeatureCategory>();
+                    inputFeatureCategories.Add(featureCategory);
+                    IEnumerable<FeatureCategory> result = repository.UpdateFeatureCategories(inputFeatureCategories);
+
+                    if (result != null && result.Count() > 0)
+                    {
+                        var primaryKey = featureCategory.FeatureCategoryId;
+
+                        byte[] inputRowId = featureCategory.RowId;
+
+                        byte[] outputRowId = result
+                                        .Where(outputFeatureCategory => outputFeatureCategory.FeatureCategoryId == primaryKey)
+                                        .Select(outputFeatureCategory => outputFeatureCategory.RowId)
+                                        .FirstOrDefault();
+
+                        bool rowIdsAreEqual = inputRowId.SequenceEqual(outputRowId);
+
+                        if (rowIdsAreEqual)
+                        {
+                            return BadRequest(Err_Msgs.ErrorMessages_US_en.NotUpdated_SingleEntry);
+
+                        }
+                        else
+                        {
+                            FeatureCategory outputFeatureCategory = new FeatureCategory();
+                            outputFeatureCategory = result.FirstOrDefault();
+                            return Ok<FeatureCategory>(outputFeatureCategory);
                         }
 
                     }
