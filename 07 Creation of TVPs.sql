@@ -1,25 +1,8 @@
--- Drop the old database if exists and create a new one
-
-USE master;
+Use Geonames
 Go
 
-IF DB_ID('Geonames') IS NOT NULL
-DROP DATABASE Geonames;
-Go
-
-CREATE DATABASE Geonames;
-Go
-
-USE Geonames;
-Go
-
-Alter Database Geonames
-Set Recovery Bulk_Logged;
-
--- Create Tables
-
-CREATE TABLE dbo.Country
-(	
+CREATE TYPE dbo.Country_TVP AS TABLE
+(
     ISOCountryCode		char(2)			NOT NULL,
     ISO3Code			char(3)			NULL,
     ISONumeric			int				NULL,
@@ -38,83 +21,92 @@ CREATE TABLE dbo.Country
     Languages			nvarchar(256)	NULL,
     GeonameId			int				NULL,
     Neighbors			nvarchar(256)	NULL,
-    EquivalentFipsCode	nvarchar(64)	NULL
+    EquivalentFipsCode	nvarchar(64)	NULL,
+	RowId				varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.Admin1Code
+
+CREATE TYPE dbo.Admin1Code_TVP AS TABLE
 (
     Admin1CodeId	nvarchar(32)	NOT NULL,
     Admin1CodeName	nvarchar(128)	NULL,
     ASCIIName		nvarchar(128)	NULL,
-    GeonameId		int				NULL
+    GeonameId		int				NULL,
+	RowId			varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.Admin2Code
+CREATE TYPE dbo.Admin2Code_TVP AS TABLE
 (
     Admin2CodeId	nvarchar(32)	NOT NULL,
     Admin2CodeName	nvarchar(128)	NULL,
     ASCIIName		nvarchar(128)	NULL,
-    GeonameId		int				NULL
+    GeonameId		int				NULL,
+	RowId			varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.AlternateName
+CREATE TYPE dbo.AlternateName_TVP AS TABLE
 (
-    AlternateNameId			int				NOT NULL	IDENTITY(1,1),
+    AlternateNameId			int				NULL,
     GeonameId				int				NULL,
     ISO6393LanguageCode		nvarchar(24)	NULL,
     AlternateName			nvarchar(512)	NULL,
     IsPreferredName			bit				NULL,
     IsShortName				bit				NULL,
     IsColloquial			bit				NULL,
-    IsHistoric				bit				NULL
+    IsHistoric				bit				NULL,
+	RowId					varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.Continent
+CREATE TYPE dbo.Continent_TVP AS TABLE
 (
     ContinentCodeId		char(2)			NOT NULL,
     GeonameId			int				NULL,
-    Continent			nvarchar(32)	NULL
+    Continent			nvarchar(32)	NULL,
+	RowId				varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.FeatureCategory
+CREATE TYPE dbo.FeatureCategory_TVP AS TABLE
 (
     FeatureCategoryId		char(1)			NOT NULL,
-    FeatureCategoryName		nvarchar(128)	NULL
+    FeatureCategoryName		nvarchar(128)	NULL,
+	RowId					varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.FeatureCode
+CREATE TYPE dbo.FeatureCode_TVP AS TABLE
 (
     FeatureCodeId		nvarchar(16)	NOT NULL,
     FeatureCodeName		nvarchar(128)	NULL,
-    Description			nvarchar(512)	NULL
+    Description			nvarchar(512)	NULL,
+	RowId				varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.LanguageCode
+CREATE TYPE dbo.LanguageCode_TVP AS TABLE
 (
     ISO6393		nvarchar(24)	NOT NULL,
     ISO6392		nvarchar(24)	NULL,
     ISO6391		nvarchar(24)	NULL,
-    Language	nvarchar(128)	NULL
+    Language	nvarchar(128)	NULL,
+	RowId		varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.RawData
+CREATE TYPE dbo.RawData_TVP AS TABLE
 (
-    GeonameId			int				NOT NULL	IDENTITY(1,1),
+    GeonameId			int				NULL,
     Name				nvarchar(200)	NULL,
     ASCIIName			nvarchar(200)	NULL,
     AlternateNames		text			NULL,
     Latitude			float			NULL,
     Longitude			float			NULL,
     FeatureCategoryId	char(1)			NULL,
-    FeatureCode			nvarchar(10)	NULL,
+    FeatureCodeId		nvarchar(16)	NULL,
     ISOCountryCode		char(2)			NULL,
     CC2					nvarchar(60)	NULL,
     Admin1Code			nvarchar(20)	NULL,
@@ -125,11 +117,12 @@ CREATE TABLE dbo.RawData
     Elevation			int				NULL,
     DEM					int				NULL,
     TimeZoneId			nvarchar(128)	NULL,
-    ModificationDate	datetime		NULL
+    ModificationDate	datetime		NULL,
+	RowId				varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.RawPostal
+CREATE TYPE dbo.RawPostal_TVP AS TABLE
 (
     ISOCountryCode	char(2)			NOT NULL,
     PostalCode		nvarchar(20)	NOT NULL,
@@ -142,24 +135,27 @@ CREATE TABLE dbo.RawPostal
     Admin3Code		nvarchar(20)	NULL,
     Latitude		float			NULL,
     Longitude		float			NULL,
-    Accuracy		int				NULL
+    Accuracy		int				NULL,
+	RowId			varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.TimeZone
+CREATE TYPE dbo.TimeZone_TVP AS TABLE
 (
     ISOCountryCode	char(2)			NULL,
     TimeZoneId		nvarchar(128)	NOT NULL,
     GMT				decimal(18, 3)	NULL,
     DST				decimal(18, 3)	NULL,
-    RawOffset		decimal(18, 3)	NULL
+    RawOffset		decimal(18, 3)	NULL,
+	RowId			varbinary(8)	NULL
 );
 Go
 
-CREATE TABLE dbo.Hierarchy
+CREATE TYPE dbo.Hierarchy_TVP as TABLE
 (
 	ParentId	bigint			NOT NULL,
 	ChildId		bigint			NOT NULL,
-	Type		nvarchar(50)	NULL
+	Type		nvarchar(50)	NULL,
+	RowId		varbinary(8)	NULL
 )
-Go
+GO
