@@ -8,9 +8,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		01 Database and Table Creation.sql = 01 Database and Table Creation.sql
 		02 Data Import.sql = 02 Data Import.sql
 		03 Post Data Import Processing of Tables.sql = 03 Post Data Import Processing of Tables.sql
-		04 Creation of TVPs.sql = 04 Creation of TVPs.sql
-		05 Creation of SPs.sql = 05 Creation of SPs.sql
-		06 Clean Up.sql = 06 Clean Up.sql
+		04 Creation of RowVersion in Tables.sql = 04 Creation of RowVersion in Tables.sql
+		05 Creation of Constraints.sql = 05 Creation of Constraints.sql
+		06 Creation of Indexes.sql = 06 Creation of Indexes.sql
+		07 Creation of TVPs.sql = 07 Creation of TVPs.sql
+		08 Creation of SPs.sql = 08 Creation of SPs.sql
+		09 Clean Up.sql = 09 Clean Up.sql
 		Fiddler Links.txt = Fiddler Links.txt
 	EndProjectSection
 EndProject
