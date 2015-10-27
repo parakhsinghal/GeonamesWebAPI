@@ -34,5 +34,5 @@ Create NonClustered Index NCI_RawData_ISOCountryCode on RawData (ISOCountryCode)
 Go
 
 Create NonClustered Index NCI_RawData_FeatureCategoryId_FeatureCode
-on RawData (FeatureCategoryId, FeatureCode)
+on RawData (FeatureCategoryId, FeatureCodeId)
 Go
