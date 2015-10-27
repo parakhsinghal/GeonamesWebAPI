@@ -107,7 +107,7 @@ Go
 
 CREATE TABLE dbo.RawData
 (
-    GeonameId			int				NOT NULL,
+    GeonameId			int				NOT NULL IDENTITY(1,1),
     Name				nvarchar(200)	NULL,
     ASCIIName			nvarchar(200)	NULL,
     AlternateNames		text			NULL,

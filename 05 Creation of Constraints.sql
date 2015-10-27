@@ -104,7 +104,5 @@ On Update Cascade;
 Go
 
 Alter Table dbo.TimeZone
-Add Constraint FK_TimeZone_Country Foreign Key (ISOCountryCode) References dbo.Country(ISOCountryCode)
-On Delete Cascade
-On Update Cascade;
+Add Constraint FK_TimeZone_Country Foreign Key (ISOCountryCode) References dbo.Country(ISOCountryCode);
 Go
