@@ -34,7 +34,15 @@ namespace GeoDataAPI.Service.Controllers
                     IEnumerable<FeatureCategory> result = repository.GetFeatureCategories(featureCategoryId);
                     if (result != null && result.Count() > 0)
                     {
-                        return Ok(result);
+                        if (!string.IsNullOrEmpty(featureCategoryId))
+                        {
+                            return Ok<FeatureCategory>(result.FirstOrDefault<FeatureCategory>());
+                        }
+                        else
+                        {
+                            return Ok<IEnumerable<FeatureCategory>>(result);
+                        }
+                        
                     }
                     else
                     {

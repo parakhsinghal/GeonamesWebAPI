@@ -61,7 +61,7 @@ namespace GeoDataAPI.Service.ErrorMessagaes {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The data was not updated as one or more entries in the input data were stale. Please refresh your input data by calling the appropriate link..
+        ///   Looks up a localized string similar to The data was not updated as one or more entries in the input data were stale or corrupt. Please refresh your input data by calling the appropriate link..
         /// </summary>
         internal static string NotUpdated_MultipleEntries {
             get {
