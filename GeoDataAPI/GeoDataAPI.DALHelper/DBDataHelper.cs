@@ -285,10 +285,17 @@ namespace GeoDataAPI.DALHelper
                 if (disposing)
                 {
                     //Dispose the connection to the database.
-                    Connection.Dispose();
+                    if (Connection != null)
+                    {
+                        Connection.Dispose();
+                    }
+
 
                     //Dispose the command used internally by the public methods.
-                    Command.Dispose();
+                    if (Command != null)
+                    {
+                        Command.Dispose();
+                    }
                 }
 
                 //Clean up any unmanaged resources here, if any.
