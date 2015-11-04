@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErrorMessages\ErrorMessages_US-en.Designer.cs" />
+    <Compile Include="ErrorMessages\ErrorMessages_US_en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages_US_en.resx</DependentUpon>
+    </Compile>
     <Compile Include="Interfaces\IContinentRepository.cs" />
     <Compile Include="Interfaces\ICountryRepository.cs" />
     <Compile Include="Interfaces\IFeatureCategoryRepository.cs" />
@@ -97,7 +101,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ErrorMessages\ErrorMessages_US-en.resx" />
+    <EmbeddedResource Include="ErrorMessages\ErrorMessages_US_en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorMessages_US_en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
