@@ -126,7 +126,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("FeatureCategory_TVP", featureCategoriesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", featureCategoriesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 

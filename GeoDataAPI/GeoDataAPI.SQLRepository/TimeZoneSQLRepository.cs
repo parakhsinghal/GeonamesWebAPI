@@ -162,7 +162,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("TimeZone_TVP", timeZonesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", timeZonesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 
@@ -218,7 +218,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("TimeZone_TVP", timeZonesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", timeZonesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 
