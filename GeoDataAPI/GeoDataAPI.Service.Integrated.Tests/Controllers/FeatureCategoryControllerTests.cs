@@ -217,8 +217,8 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
 
             //Act
             string response = client.GetAsync(requestURL).Result.Content.ReadAsStringAsync().Result;
-            List<FeatureCategory> result = JsonConvert.DeserializeObject<List<FeatureCategory>>(response);
-            string actualFeatureCategoryId = result.Find(featureCategory => featureCategory.FeatureCategoryId == expectedFeatureCategoryId).FeatureCategoryId;
+            FeatureCategory result = JsonConvert.DeserializeObject<FeatureCategory>(response);
+            string actualFeatureCategoryId = result.FeatureCategoryId;
 
             //Assert
             Assert.AreEqual<string>(expectedFeatureCategoryId, actualFeatureCategoryId);
