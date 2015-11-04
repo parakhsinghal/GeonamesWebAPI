@@ -1,4 +1,5 @@
 ﻿using GeoDataAPI.Domain.Interfaces;
+using GeoDataAPI.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,16 +121,117 @@ namespace GeoDataAPI.Service.Controllers
 
         [HttpPut]
         [Route("")]
+        [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
         public IHttpActionResult UpdateTimeZones(IEnumerable<Upd_VM.TimeZone> timeZones)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.UpdateTimeZones(timeZones);
+
+                    if (result != null && result.Count() > 0)
+                    {
+                        var primaryKey = timeZones
+                                        .Select(inputTimeZone => inputTimeZone.TimeZoneId)
+                                        .FirstOrDefault();
+
+                        byte[] inputRowId = timeZones
+                                        .Where(inputTimeZone => inputTimeZone.TimeZoneId == primaryKey)
+                                        .Select(inputTimeZone => inputTimeZone.RowId)
+                                        .FirstOrDefault();
+
+                        byte[] outputRowId = result
+                                        .Where(outputTimeZone => outputTimeZone.TimeZoneId == primaryKey)
+                                        .Select(outputTimeZone => outputTimeZone.RowId)
+                                        .FirstOrDefault();
+
+                        bool rowIdsAreEqual = inputRowId.SequenceEqual(outputRowId);
+
+                        if (rowIdsAreEqual)
+                        {
+                            return BadRequest(Err_Msgs.ErrorMessages_US_en.NotUpdated_MultipleEntries);
+
+                        }
+                        else
+                        {
+                            return Ok<IEnumerable<GeoDataAPI.Domain.TimeZone>>(result);
+                        }
+
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
+
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
+            }
         }
 
         [HttpPut]
         [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
+        [ResponseType(typeof(GeoDataAPI.Domain.TimeZone))]
         public IHttpActionResult UpdateTimeZone(Upd_VM.TimeZone timeZone)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<Upd_VM.TimeZone> inputTimeZones = new List<Upd_VM.TimeZone>();
+                    inputTimeZones.Add(timeZone);
+                    IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.UpdateTimeZones(inputTimeZones);
+
+                    if (result != null && result.Count() > 0)
+                    {
+                        var primaryKey = timeZone.TimeZoneId;
+
+                        byte[] inputRowId = timeZone.RowId;
+
+                        byte[] outputRowId = result
+                                        .Where(outputTimeZone => outputTimeZone.TimeZoneId == primaryKey)
+                                        .Select(outputTimeZone => outputTimeZone.RowId)
+                                        .FirstOrDefault();
+
+                        bool rowIdsAreEqual = inputRowId.SequenceEqual(outputRowId);
+
+                        if (rowIdsAreEqual)
+                        {
+                            return BadRequest(Err_Msgs.ErrorMessages_US_en.NotUpdated_SingleEntry);
+
+                        }
+                        else
+                        {
+                            GeoDataAPI.Domain.TimeZone outputTimeZone = new GeoDataAPI.Domain.TimeZone();
+                            outputTimeZone = result.FirstOrDefault();
+                            return Ok<GeoDataAPI.Domain.TimeZone>(outputTimeZone);
+                        }
+
+                    }
+                    else
+                    {
+                        return InternalServerError();
+                    }
+
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
+            }
         }
     }
 }

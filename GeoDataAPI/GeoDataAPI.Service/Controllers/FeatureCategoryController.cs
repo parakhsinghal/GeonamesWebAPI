@@ -27,37 +27,45 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(List<FeatureCategory>))]
         public IHttpActionResult GetFeatureCategories(string featureCategoryId = null)
         {
-            if ((!string.IsNullOrEmpty(featureCategoryId) && featureCategoryId.Length == 1) || string.IsNullOrEmpty(featureCategoryId))
+            try
             {
-                try
+                if ((!string.IsNullOrEmpty(featureCategoryId) && featureCategoryId.Length == 1) || string.IsNullOrEmpty(featureCategoryId))
                 {
-                    IEnumerable<FeatureCategory> result = repository.GetFeatureCategories(featureCategoryId);
-                    if (result != null && result.Count() > 0)
+                    try
                     {
-                        if (!string.IsNullOrEmpty(featureCategoryId))
+                        IEnumerable<FeatureCategory> result = repository.GetFeatureCategories(featureCategoryId);
+                        if (result != null && result.Count() > 0)
                         {
-                            return Ok<FeatureCategory>(result.FirstOrDefault<FeatureCategory>());
+                            if (!string.IsNullOrEmpty(featureCategoryId))
+                            {
+                                return Ok<FeatureCategory>(result.FirstOrDefault<FeatureCategory>());
+                            }
+                            else
+                            {
+                                return Ok<IEnumerable<FeatureCategory>>(result);
+                            }
+
                         }
                         else
                         {
-                            return Ok<IEnumerable<FeatureCategory>>(result);
+                            return NotFound();
                         }
-                        
                     }
-                    else
+                    catch (Exception)
                     {
-                        return NotFound();
+                        return InternalServerError();
+                        throw;
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return InternalServerError();
-                    throw;
+                    return BadRequest("If you are passing a featureCategoryId the ensure that the length of the string parameter featureCategoryId does not exceed one english alphabet");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("If you are passing a featureCategoryId the ensure that the length of the string parameter featureCategoryId does not exceed one english alphabet");
+                return InternalServerError(ex);
+                throw;
             }
         }
 
@@ -114,7 +122,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
         }
@@ -172,7 +180,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
 
