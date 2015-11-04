@@ -26,9 +26,9 @@ namespace GeoDataAPI.Service.Controllers
             {
                 return Ok(repository.GetContinentInfo(continentCodeId: null, geonameId: null, continentName: null));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
 
@@ -45,9 +45,9 @@ namespace GeoDataAPI.Service.Controllers
                                             .ToDictionary(item => item.GeonameId, item => item.ContinentName)
                                             .OrderBy(item => item.Value));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
 
@@ -59,50 +59,16 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(Continent))]
         public IHttpActionResult GetContinentInfo(string continentCodeId = null, int? geonameId = null, string continentName = null)
         {
-            if ((!string.IsNullOrWhiteSpace(continentCodeId)&&!string.IsNullOrEmpty(continentCodeId)) || 
-                (!string.IsNullOrWhiteSpace(continentName)&&!string.IsNullOrEmpty(continentName)) || 
+            try
+            {
+                if ((!string.IsNullOrWhiteSpace(continentCodeId) && !string.IsNullOrEmpty(continentCodeId)) ||
+                (!string.IsNullOrWhiteSpace(continentName) && !string.IsNullOrEmpty(continentName)) ||
                 (geonameId.HasValue == true && geonameId.Value > 0))
-            {
-                try
-                {
-                    Continent result = repository.GetContinentInfo(continentCodeId, geonameId, continentName).FirstOrDefault<Continent>();
-                    if (result.RowId != null)
-                    {
-                        return Ok(result);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-                }
-                catch (Exception)
-                {
-                    return InternalServerError();
-                    throw;
-                }
-            }
-            else
-            {
-                return BadRequest("Please provide valid value of a continent code or continent name or geoname id.");
-            }
-
-        }
-
-        [Route("{continentCodeId:length(2):alpha}/countries")]
-        [Route("{geonameId:long}/countries")]
-        [Route("{continentName:minlength(4):alpha}/countries")]
-        [ResponseType(typeof(List<Country>))]
-        public IHttpActionResult GetCountriesInAContinent(string continentName = null, string continentCodeId = null, int? geonameId = null,
-int? pageNumber = null, int? pageSize = null)
-        {
-            if (!string.IsNullOrWhiteSpace(continentName) || !string.IsNullOrWhiteSpace(continentCodeId) || geonameId > 0)
-            {
-                if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
                 {
                     try
                     {
-                        IEnumerable<Country> result = repository.GetCountriesInAContinent(continentName, continentCodeId, geonameId, pageNumber, pageSize);
-                        if (result != null && result.Count() > 0)
+                        Continent result = repository.GetContinentInfo(continentCodeId, geonameId, continentName).FirstOrDefault<Continent>();
+                        if (result.RowId != null)
                         {
                             return Ok(result);
                         }
@@ -110,7 +76,6 @@ int? pageNumber = null, int? pageSize = null)
                         {
                             return NotFound();
                         }
-
                     }
                     catch (Exception)
                     {
@@ -120,14 +85,63 @@ int? pageNumber = null, int? pageSize = null)
                 }
                 else
                 {
-                    return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                    return BadRequest("Please provide valid value of a continent code or continent name or geoname id.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Please provide valid value of a continent code or continent name or geoname id.");
+                return InternalServerError(ex);
+                throw;
             }
+        }
 
+        [Route("{continentCodeId:length(2):alpha}/countries")]
+        [Route("{geonameId:long}/countries")]
+        [Route("{continentName:minlength(4):alpha}/countries")]
+        [ResponseType(typeof(List<Country>))]
+        public IHttpActionResult GetCountriesInAContinent(string continentName = null, string continentCodeId = null, int? geonameId = null,
+int? pageNumber = null, int? pageSize = null)
+        {
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(continentName) || !string.IsNullOrWhiteSpace(continentCodeId) || geonameId > 0)
+                {
+                    if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
+                    {
+                        try
+                        {
+                            IEnumerable<Country> result = repository.GetCountriesInAContinent(continentName, continentCodeId, geonameId, pageNumber, pageSize);
+                            if (result != null && result.Count() > 0)
+                            {
+                                return Ok(result);
+                            }
+                            else
+                            {
+                                return NotFound();
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+                            return InternalServerError();
+                            throw;
+                        }
+                    }
+                    else
+                    {
+                        return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                    }
+                }
+                else
+                {
+                    return BadRequest("Please provide valid value of a continent code or continent name or geoname id.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
+            }
         }
 
         [Route("{continentCodeId:length(2):alpha}/countries/keyvalue")]
@@ -136,30 +150,38 @@ int? pageNumber = null, int? pageSize = null)
         [ResponseType(typeof(KeyValuePair<long?, string>))]
         public IHttpActionResult GetCountriesInAContinentAsDictionary(string continentName = null, string continentCodeId = null, int? geonameId = null)
         {
-            if (!string.IsNullOrWhiteSpace(continentName) || !string.IsNullOrWhiteSpace(continentCodeId) || geonameId > 0)
+            try
             {
-                try
+                if (!string.IsNullOrWhiteSpace(continentName) || !string.IsNullOrWhiteSpace(continentCodeId) || geonameId > 0)
                 {
-                    var result = repository.GetCountriesInAContinent(continentName, continentCodeId, geonameId, pageNumber: null, pageSize: null).ToDictionary(item => item.GeonameId, item => item.CountryName).OrderBy(item => item.Value);
+                    try
+                    {
+                        var result = repository.GetCountriesInAContinent(continentName, continentCodeId, geonameId, pageNumber: null, pageSize: null).ToDictionary(item => item.GeonameId, item => item.CountryName).OrderBy(item => item.Value);
 
-                    if (result != null && result.Count() > 0)
-                    {
-                        return Ok(result);
+                        if (result != null && result.Count() > 0)
+                        {
+                            return Ok(result);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return NotFound();
+                        return InternalServerError();
+                        throw;
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return InternalServerError();
-                    throw;
+                    return BadRequest("Please provide valid value of a continent code or continent name or geoname id.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Please provide valid value of a continent code or continent name or geoname id.");
+                return InternalServerError(ex);
+                throw;
             }
         }
     }

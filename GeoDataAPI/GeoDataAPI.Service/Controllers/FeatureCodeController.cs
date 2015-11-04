@@ -25,33 +25,41 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(List<FeatureCode>))]
         public IHttpActionResult GetFeatureCodes(int? pageNumber = null, int? pageSize = null)
         {
-
-            if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) ||
-                (pageSize == null && pageNumber == null))
+            try
             {
-                try
+                if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) ||
+                                (pageSize == null && pageNumber == null))
                 {
-                    IEnumerable<FeatureCode> result = repository.GetFeatureCodes(featureCodeId: null, pageNumber: pageNumber, pageSize: pageSize);
-                    if (result != null && result.Count() > 0)
+                    try
                     {
-                        return Ok(result);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                        IEnumerable<FeatureCode> result = repository.GetFeatureCodes(featureCodeId: null, pageNumber: pageNumber, pageSize: pageSize);
+                        if (result != null && result.Count() > 0)
+                        {
+                            return Ok(result);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
 
+                    }
+                    catch (Exception)
+                    {
+                        return InternalServerError();
+                        throw;
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    return InternalServerError();
-                    throw;
+                    return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                return InternalServerError(ex);
+                throw;
             }
+
         }
 
         [HttpPut]
@@ -107,7 +115,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
         }
@@ -164,7 +172,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
         }

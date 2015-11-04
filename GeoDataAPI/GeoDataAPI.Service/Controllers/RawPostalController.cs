@@ -23,40 +23,49 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(List<RawPostal>))]
         public IHttpActionResult GetPostalCodesInfo(string isoCountryCode = null, string countryName = null, string postalCode = null, int? pageNumber = null, int? pageSize = null)
         {
-            if ((!string.IsNullOrEmpty(isoCountryCode) && !string.IsNullOrWhiteSpace(isoCountryCode)) ||
-                (!string.IsNullOrEmpty(countryName) && (!string.IsNullOrWhiteSpace(countryName))))
+            try
             {
-                if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) ||
-                    (pageSize == null && pageNumber == null))
+                if ((!string.IsNullOrEmpty(isoCountryCode) && !string.IsNullOrWhiteSpace(isoCountryCode)) ||
+                               (!string.IsNullOrEmpty(countryName) && (!string.IsNullOrWhiteSpace(countryName))))
                 {
-                    try
+                    if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) ||
+                        (pageSize == null && pageNumber == null))
                     {
-                        var result = repository.GetPostalInfo(isoCountryCode, countryName, postalCode, pageNumber, pageSize);
+                        try
+                        {
+                            var result = repository.GetPostalInfo(isoCountryCode, countryName, postalCode, pageNumber, pageSize);
 
-                        if (result != null && result.Count() > 0)
-                        {
-                            return Ok(result);
+                            if (result != null && result.Count() > 0)
+                            {
+                                return Ok(result);
+                            }
+                            else
+                            {
+                                return NotFound();
+                            }
                         }
-                        else
+                        catch (Exception)
                         {
-                            return NotFound();
+                            return InternalServerError();
+                            throw;
                         }
                     }
-                    catch (Exception)
+                    else
                     {
-                        return InternalServerError();
-                        throw;
+                        return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
                     }
                 }
                 else
                 {
-                    return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                    return BadRequest("Please provide a valid value of ISO country code or country name.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Please provide a valid value of ISO country code or country name.");
+                return InternalServerError(ex);
+                throw;
             }
+
         }
     }
 }

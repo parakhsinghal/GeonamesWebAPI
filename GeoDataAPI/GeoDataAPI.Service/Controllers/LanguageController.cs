@@ -27,34 +27,40 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(IEnumerable<LanguageCode>))]
         public IHttpActionResult GetAllLanguageCodes(int? pageNumber = null, int? pageSize = null)
         {
-            if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
+            try
             {
-                try
+                if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
                 {
-                    var result = repository.GetLanguageInfo(iso6393Code: null, language: null, pageNumber: pageNumber, pageSize: pageSize);
-
-                    if (result != null && result.Count() > 0)
+                    try
                     {
-                        return Ok(result);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                        var result = repository.GetLanguageInfo(iso6393Code: null, language: null, pageNumber: pageNumber, pageSize: pageSize);
 
+                        if (result != null && result.Count() > 0)
+                        {
+                            return Ok(result);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        return InternalServerError();
+                        throw;
+                    }
                 }
-                catch (Exception)
+                else
                 {
-                    return InternalServerError();
-                    throw;
+                    return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                return InternalServerError(ex);
+                throw;
             }
-
-
         }
 
         [HttpGet]
@@ -63,31 +69,40 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(LanguageCode))]
         public IHttpActionResult GetLanguageCode(string iso6393Code = null, string language = null)
         {
-            if (!string.IsNullOrWhiteSpace(iso6393Code) || !string.IsNullOrWhiteSpace(language))
+            try
             {
-                try
+                if (!string.IsNullOrWhiteSpace(iso6393Code) || !string.IsNullOrWhiteSpace(language))
                 {
-                    LanguageCode result = repository.GetLanguageInfo(iso6393Code: iso6393Code, language: language, pageNumber: null, pageSize: null)
-                                                 .FirstOrDefault<LanguageCode>();
-                    if (result.RowId != null)
+                    try
                     {
-                        return Ok(result);
+                        LanguageCode result = repository.GetLanguageInfo(iso6393Code: iso6393Code, language: language, pageNumber: null, pageSize: null)
+                                                     .FirstOrDefault<LanguageCode>();
+                        if (result.RowId != null)
+                        {
+                            return Ok(result);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
                     }
-                    else
+                    catch (Exception)
                     {
-                        return NotFound();
+                        return InternalServerError();
+                        throw;
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return InternalServerError();
-                    throw;
+                    return BadRequest("Please provide a valid value of ISO6393 code or language name.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Please provide a valid value of ISO6393 code or language name.");
+                return InternalServerError(ex);
+                throw;
             }
+
         }
 
         [HttpGet]
@@ -109,9 +124,9 @@ namespace GeoDataAPI.Service.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
         }
@@ -169,7 +184,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
         }
@@ -225,7 +240,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
                 throw;
             }
         }
