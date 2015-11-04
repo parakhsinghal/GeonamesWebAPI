@@ -74,7 +74,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("FeatureCode_TVP", featureCodesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", featureCodesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 
@@ -124,7 +124,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("FeatureCode_TVP", featureCodesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", featureCodesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 

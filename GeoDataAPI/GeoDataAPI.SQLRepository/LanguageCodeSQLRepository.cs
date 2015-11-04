@@ -77,7 +77,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("LanguageCode_TVP", languageCodesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", languageCodesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 
@@ -130,7 +130,7 @@ namespace GeoDataAPI.SQLRepository
                                 });
             }
 
-            SqlParameter inputData = new SqlParameter("LanguageCode_TVP", languageCodesInputTable);
+            SqlParameter inputData = new SqlParameter("Input", languageCodesInputTable);
             inputData.SqlDbType = SqlDbType.Structured;
             parameterCollection.Add(inputData);
 
