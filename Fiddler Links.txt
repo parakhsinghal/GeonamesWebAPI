@@ -1,5 +1,6 @@
 ------------------------------Language---------------------------------------------------
 
+http://localhost:56364/api/languages
 http://localhost:56364/api/languages?pageNumber=2&pageSize=20
 http://localhost:56364/api/languages/keyvalue
 http://localhost:56364/api/languages/hin
@@ -67,20 +68,22 @@ http://localhost:56364/api/featurecodes?pageNumber=2&pageSize=10
 http://localhost:56364/api/featurecodes/A.ADM1
 
 ------------------------------TimeZone---------------------------------------------------
+
+http://localhost:56364/api/timezones/list
 http://localhost:56364/api/timezones
 http://localhost:56364/api/timezones/IN
 http://localhost:56364/api/timezones/INDIA
 http://localhost:56364/api/timezones/356
 http://localhost:56364/api/timezones/IND
 http://localhost:56364/api/timezones/22/79
-http://localhost:56364/api/timezones/details
-http://localhost:56364/api/timezones/IN?pageNumber=2&pageSize=10
-http://localhost:56364/api/timezones/INDIA?pageNumber=2&pageSize=10
-http://localhost:56364/api/timezones/356?pageNumber=2&pageSize=10
-http://localhost:56364/api/timezones/IND?pageNumber=2&pageSize=10
-http://localhost:56364/api/timezones/22/79?pageNumber=2&pageSize=10
-http://localhost:56364/api/timezones/details?pageNumber=2&pageSize=10
+http://localhost:56364/api/timezones/IN?pageNumber=1&pageSize=10
+http://localhost:56364/api/timezones/INDIA?pageNumber=1&pageSize=10
+http://localhost:56364/api/timezones/356?pageNumber=1&pageSize=10
+http://localhost:56364/api/timezones/IND?pageNumber=1&pageSize=10
+http://localhost:56364/api/timezones/22/79?pageNumber=1&pageSize=10
 http://localhost:56364/api/timezones/place/Ajmer
+http://localhost:56364/api/timezones/timezone/Asia/Kolkata
+http://localhost:56364/api/timezones/timezone/America/North_Dakota/Beulah
 
 ------------------------------PostalCode---------------------------------------------------
 
