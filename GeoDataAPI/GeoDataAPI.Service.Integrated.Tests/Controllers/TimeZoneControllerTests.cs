@@ -39,7 +39,7 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         private string expectedCityName = string.Empty;
         private string timeZoneControllerSegment = string.Empty;
         private string timeZonePlaceSegment = string.Empty;
-        private string timeZoneDetailsSegment = string.Empty;
+        private string timeZoneListSegment = string.Empty;
 
         [TestInitialize]
         public void InitializelocalFields()
@@ -68,7 +68,7 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
 
             timeZoneControllerSegment = ConfigurationManager.AppSettings["TimeZoneControllerSegment"].ToString();
             timeZonePlaceSegment = ConfigurationManager.AppSettings["TimeZonePlaceSegment"].ToString();
-            timeZoneDetailsSegment = ConfigurationManager.AppSettings["TimeZoneDetailsSegment"].ToString();
+            timeZoneListSegment = ConfigurationManager.AppSettings["TimeZoneListSegment"].ToString();
         }
 
         [TestCleanup]
@@ -98,7 +98,7 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
 
             timeZoneControllerSegment = string.Empty;
             timeZonePlaceSegment = string.Empty;
-            timeZoneDetailsSegment = string.Empty;
+            timeZoneListSegment = string.Empty;
         }
 
         #endregion
@@ -119,10 +119,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_Executed_ReturnsAValidListOfTimeZones()
+        public void GetListOfTimeZones_Executed_ReturnsAValidListOfTimeZones()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment;
 
             //Act
             string response = client.GetAsync(requestURL).Result.Content.ReadAsStringAsync().Result;
@@ -135,10 +135,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_Executed_ReturnsAValidHttpStatus()
+        public void GetListOfTimeZones_Executed_ReturnsAValidHttpStatus()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment;
 
             //Act
             HttpStatusCode actual = client.GetAsync(requestURL).Result.StatusCode;
@@ -149,10 +149,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_Executed_ReturnsValidJSONResponseObjectByDefault()
+        public void GetListOfTimeZones_Executed_ReturnsValidJSONResponseObjectByDefault()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment;
 
             //Act
             string actual = client.GetAsync(requestURL).Result.Content.Headers.ContentType.MediaType;
@@ -163,10 +163,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_ChangedAcceptHeader_ReturnsValidXMLResponse()
+        public void GetListOfTimeZones_ChangedAcceptHeader_ReturnsValidXMLResponse()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment;
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(xmlMediaType));
 
             //Act
@@ -178,10 +178,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_ChangedAcceptHeader_ReturnsValidJSONResponse()
+        public void GetListOfTimeZones_ChangedAcceptHeader_ReturnsValidJSONResponse()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment;
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(jsonMediaType));
 
             //Act
@@ -193,10 +193,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_PassedQueryStringParameter_ReturnsValidJSONResponse()
+        public void GetListOfTimeZones_PassedQueryStringParameter_ReturnsValidJSONResponse()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment + jsonFormatParameter;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment + jsonFormatParameter;
 
             //Act
             string actual = client.GetAsync(requestURL).Result.Content.Headers.ContentType.MediaType;
@@ -207,10 +207,10 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         }
 
         [TestMethod]
-        public void GetDistinctTimeZones_PassedQueryStringParameter_ReturnsValidXMLResponse()
+        public void GetListOfTimeZones_PassedQueryStringParameter_ReturnsValidXMLResponse()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment + xmlFormatParameter;
+            requestURL = serverURL + timeZoneControllerSegment + timeZoneListSegment + xmlFormatParameter;
 
             //Act
             string actual = client.GetAsync(requestURL).Result.Content.Headers.ContentType.MediaType;
@@ -392,7 +392,7 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         public void GetTimeZoneDetails_Executed_ReturnsAValidListOfTimeZones()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment + timeZoneDetailsSegment;
+            requestURL = serverURL + timeZoneControllerSegment;
 
             //Act
             string response = client.GetAsync(requestURL).Result.Content.ReadAsStringAsync().Result;
@@ -574,7 +574,7 @@ namespace GeoDataAPI.Service.Integrated.Tests.Controllers
         public void GetTimeZoneDetails_PassedAPageNumberAndPageSize_ReturnsValidPaginatedResponse()
         {
             //Arrange
-            requestURL = serverURL + timeZoneControllerSegment + timeZoneDetailsSegment + @"?" + pageNumberSegment + @"&" + pageSizeSegment;
+            requestURL = serverURL + timeZoneControllerSegment + @"?" + pageNumberSegment + @"&" + pageSizeSegment;
 
             //Act
             string response = client.GetAsync(requestURL).Result.Content.ReadAsStringAsync().Result;
