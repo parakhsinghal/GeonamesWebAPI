@@ -123,7 +123,7 @@ namespace GeoDataAPI.Service.Controllers
         [HttpPut]
         [Route("{featureCode:minlength(4)}")]
         [ResponseType(typeof(FeatureCode))]
-        public IHttpActionResult UpdateFeatureCode(Upd_VM.FeatureCode featureCode)
+        public IHttpActionResult UpdateSingleFeatureCode(Upd_VM.FeatureCode featureCode)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace GeoDataAPI.Service.Controllers
 
         [HttpDelete]
         [Route("{featureCode:minlength(4)}")]
-        public IHttpActionResult DeleteeatureCode(string featureCodeId)
+        public IHttpActionResult DeleteFeatureCode(string featureCodeId)
         {
             // refer to http://www.restapitutorial.com/lessons/httpmethods.html
             // for http status codes that need to be used.
