@@ -130,7 +130,7 @@ namespace GeoDataAPI.Service.Controllers
         [HttpPut]
         [Route("{featureCategoryId:alpha:length(1)}")]
         [ResponseType(typeof(FeatureCategory))]
-        public IHttpActionResult UpdateFeatureCategory(Upd_VM.FeatureCategory featureCategory)
+        public IHttpActionResult UpdateSingleFeatureCategory(Upd_VM.FeatureCategory featureCategory)
         {
 
             try

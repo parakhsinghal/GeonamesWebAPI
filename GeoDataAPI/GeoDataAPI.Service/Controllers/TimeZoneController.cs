@@ -215,7 +215,7 @@ namespace GeoDataAPI.Service.Controllers
         [HttpPut]
         [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
         [ResponseType(typeof(GeoDataAPI.Domain.TimeZone))]
-        public IHttpActionResult UpdateTimeZone(Upd_VM.TimeZone timeZone)
+        public IHttpActionResult UpdateSingleTimeZone(Upd_VM.TimeZone timeZone)
         {
             try
             {

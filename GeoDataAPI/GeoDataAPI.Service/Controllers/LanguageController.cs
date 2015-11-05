@@ -193,7 +193,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{iso6393Code:length(3):alpha}")]
         [Route("{language:minlength(4):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
         [ResponseType(typeof(Upd_VM.LanguageCode))]
-        public IHttpActionResult UpdateLanguageCode(Upd_VM.LanguageCode languageCode)
+        public IHttpActionResult UpdateSingleLanguageCode(Upd_VM.LanguageCode languageCode)
         {
             try
             {
