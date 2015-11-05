@@ -11,7 +11,7 @@ using System.Web.Http.Description;
 
 namespace GeoDataAPI.Service.Controllers
 {
-    [RoutePrefix("api/featurecodes")]
+    [RoutePrefix("api/v2/featurecodes")]
     public class FeatureCodeController : ApiController
     {
         private IFeatureCode repository;
@@ -175,6 +175,25 @@ namespace GeoDataAPI.Service.Controllers
                 return InternalServerError(ex);
                 throw;
             }
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ResponseType(typeof(FeatureCode))]
+        public IHttpActionResult InsertFeatureCode(Ins_VM.FeatureCode featureCode)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete]
+        [Route("{featureCode:minlength(4)}")]
+        public IHttpActionResult DeleteeatureCode(string featureCodeId)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
         }
     }
 }
