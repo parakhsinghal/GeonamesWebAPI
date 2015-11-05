@@ -23,7 +23,7 @@ namespace GeoDataAPI.Service.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [Route("list")]
         [ResponseType(typeof(List<string>))]
         public IHttpActionResult GetDistinctTimeZones()
         {
@@ -46,7 +46,7 @@ namespace GeoDataAPI.Service.Controllers
         [Route("{isoNumeric:int}")]
         [Route("{latitude:double}/{longitude:double}")]
         [Route("{countryName:alpha:length(4,50)}")]
-        [Route("details")]
+        [Route("")]
         [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
         public IHttpActionResult GetTimeZoneDetails(string continent = null, string country = null, string state = null, string isoCountryCode = null, string iso3Code = null, int? isoNumeric = null, string countryName = null, double? latitude = null, double? longitude = null, int? pageNumber = null, int? pageSize = null)
         {
