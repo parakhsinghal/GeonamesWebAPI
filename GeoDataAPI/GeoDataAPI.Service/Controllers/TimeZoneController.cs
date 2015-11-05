@@ -271,8 +271,18 @@ namespace GeoDataAPI.Service.Controllers
 
         [HttpPost]
         [Route("")]
+        [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
+        public IHttpActionResult InsertTimeZones(List<Ins_VM.TimeZone> timeZones)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        [Route("timeZone")]
         [ResponseType(typeof(GeoDataAPI.Domain.TimeZone))]
-        public IHttpActionResult InsertTimeZone(Ins_VM.TimeZone timeZone)
+        public IHttpActionResult InsertSingleTimeZone(Ins_VM.TimeZone timeZone)
         {
             // refer to http://www.restapitutorial.com/lessons/httpmethods.html
             // for http status codes that need to be used.

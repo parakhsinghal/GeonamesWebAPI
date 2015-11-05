@@ -247,8 +247,18 @@ namespace GeoDataAPI.Service.Controllers
 
         [HttpPost]
         [Route("")]
+        [ResponseType(typeof(List<LanguageCode>))]
+        public IHttpActionResult InsertLanguageCodes(List<Ins_VM.LanguageCode> languageCodes)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        [Route("languageCode")]
         [ResponseType(typeof(LanguageCode))]
-        public IHttpActionResult InsertLanguageCode(Ins_VM.LanguageCode languageCode)
+        public IHttpActionResult InsertSingleLanguageCode(Ins_VM.LanguageCode languageCode)
         {
             // refer to http://www.restapitutorial.com/lessons/httpmethods.html
             // for http status codes that need to be used.

@@ -179,8 +179,18 @@ namespace GeoDataAPI.Service.Controllers
 
         [HttpPost]
         [Route("")]
+        [ResponseType(typeof(List<FeatureCode>))]
+        public IHttpActionResult InsertFeatureCodes(List<Ins_VM.FeatureCode >featureCodes)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
+
+        [HttpPost]
+        [Route("featureCode")]
         [ResponseType(typeof(FeatureCode))]
-        public IHttpActionResult InsertFeatureCode(Ins_VM.FeatureCode featureCode)
+        public IHttpActionResult InsertSingleFeatureCode(Ins_VM.FeatureCode featureCode)
         {
             // refer to http://www.restapitutorial.com/lessons/httpmethods.html
             // for http status codes that need to be used.
