@@ -8,7 +8,7 @@ using System.Web.Http.Description;
 
 namespace GeoDataAPI.Service.Controllers
 {
-    [RoutePrefix("api/postalcodes")]
+    [RoutePrefix("api/v2/postalcodes")]
     public class RawPostalController : ApiController
     {
         private IRawPostalRepository repository;

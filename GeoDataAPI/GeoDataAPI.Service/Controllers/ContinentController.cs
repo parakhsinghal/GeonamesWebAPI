@@ -8,7 +8,7 @@ using System.Web.Http.Description;
 
 namespace GeoDataAPI.Service.Controllers
 {
-    [RoutePrefix("api/continents")]
+    [RoutePrefix("api/v2/continents")]
     public class ContinentController : ApiController
     {
         private IContinentRepository repository;

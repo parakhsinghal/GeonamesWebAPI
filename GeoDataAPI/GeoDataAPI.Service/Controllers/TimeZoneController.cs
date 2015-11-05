@@ -12,7 +12,7 @@ using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
 
 namespace GeoDataAPI.Service.Controllers
 {
-    [RoutePrefix("api/timezones")]
+    [RoutePrefix("api/v2/timezones")]
     public class TimeZoneController : ApiController
     {
         private ITimeZoneRepository repository;
@@ -40,7 +40,6 @@ namespace GeoDataAPI.Service.Controllers
         }
 
         [HttpGet]
-        [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
         [Route("{isoCountryCode:alpha:length(2)}")]
         [Route("{iso3Code:alpha:length(3)}")]
         [Route("{isoNumeric:int}")]
@@ -56,11 +55,11 @@ namespace GeoDataAPI.Service.Controllers
                 {
                     string timeZoneId = null;
 
-                    if ((!string.IsNullOrEmpty(continent)&& !string.IsNullOrWhiteSpace(continent))&&
+                    if ((!string.IsNullOrEmpty(continent) && !string.IsNullOrWhiteSpace(continent)) &&
                         (!string.IsNullOrEmpty(country) && !string.IsNullOrWhiteSpace(country)))
                     {
                         timeZoneId = continent + "/" + country;
-                        if (!string.IsNullOrEmpty(state)&& !string.IsNullOrWhiteSpace(state))
+                        if (!string.IsNullOrEmpty(state) && !string.IsNullOrWhiteSpace(state))
                         {
                             timeZoneId += "/" + state;
                         }
@@ -75,9 +74,9 @@ namespace GeoDataAPI.Service.Controllers
                         return NotFound();
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    return InternalServerError();
+                    return InternalServerError(ex);
                     throw;
                 }
 
@@ -85,6 +84,42 @@ namespace GeoDataAPI.Service.Controllers
             else
             {
                 return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+            }
+        }
+
+
+        [HttpGet]
+        [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
+        [ResponseType(typeof(GeoDataAPI.Domain.TimeZone))]
+        public IHttpActionResult GetSingleTimeZoneDetails(string continent = null, string country = null, string state = null)
+        {
+            try
+            {
+                string timeZoneId = null;
+
+                if ((!string.IsNullOrEmpty(continent) && !string.IsNullOrWhiteSpace(continent)) &&
+                    (!string.IsNullOrEmpty(country) && !string.IsNullOrWhiteSpace(country)))
+                {
+                    timeZoneId = continent + "/" + country;
+                    if (!string.IsNullOrEmpty(state) && !string.IsNullOrWhiteSpace(state))
+                    {
+                        timeZoneId += "/" + state;
+                    }
+                }
+                IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.GetTimeZoneDetails(timeZoneId, null, null, null, null, null, null, null, null);
+                if (result != null && result.Count() > 0)
+                {
+                    return Ok(result.FirstOrDefault<GeoDataAPI.Domain.TimeZone>());
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
             }
         }
 
@@ -232,6 +267,25 @@ namespace GeoDataAPI.Service.Controllers
                 return InternalServerError(ex);
                 throw;
             }
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ResponseType(typeof(GeoDataAPI.Domain.TimeZone))]
+        public IHttpActionResult InsertTimeZone(Ins_VM.TimeZone timeZone)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete]
+        [Route("timezone/{continent:regex([a-z][a-z0-9_])}/{country:regex([a-z][a-z0-9_])}/{state:regex([a-z][a-z0-9_])?}")]
+        public IHttpActionResult DeleteTimeZone(string timeZoneId)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
         }
     }
 }

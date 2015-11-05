@@ -12,7 +12,7 @@ using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
 
 namespace GeoDataAPI.Service.Controllers
 {
-    [RoutePrefix("api/languages")]
+    [RoutePrefix("api/v2/languages")]
     public class LanguageController : ApiController
     {
         private ILanguageCodeRepository repository;
@@ -245,6 +245,23 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("")]
+        [ResponseType(typeof(LanguageCode))]
+        public IHttpActionResult InsertLanguageCode(Ins_VM.LanguageCode languageCode)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
 
+        [HttpDelete]
+        [Route("{iso6393Code:length(3):alpha}")]
+        public IHttpActionResult DeleteLanguageCode(string iso6393Code)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
     }
 }

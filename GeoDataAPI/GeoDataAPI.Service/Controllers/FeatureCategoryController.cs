@@ -11,7 +11,7 @@ using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
 
 namespace GeoDataAPI.Service.Controllers
 {
-    [RoutePrefix("api/featurecategories")]
+    [RoutePrefix("api/v2/featurecategories")]
     public class FeatureCategoryController : ApiController
     {
         private IFeatureCategoryRepository repository;
@@ -184,6 +184,25 @@ namespace GeoDataAPI.Service.Controllers
                 throw;
             }
 
+        }
+
+        [HttpPost]
+        [Route("")]
+        [ResponseType(typeof(FeatureCategory))]
+        public IHttpActionResult InsertFeatureCategory(Ins_VM.FeatureCategory featureCategory)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete]
+        [Route("")]
+        public IHttpActionResult DeleteFeatureCategory(string featureCategoryId)
+        {
+            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
+            // for http status codes that need to be used.
+            throw new NotImplementedException();
         }
     }
 }
