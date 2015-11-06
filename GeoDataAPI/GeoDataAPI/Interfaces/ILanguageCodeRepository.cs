@@ -13,5 +13,7 @@ namespace GeoDataAPI.Domain.Interfaces
         IEnumerable<LanguageCode> UpdateLanguages(IEnumerable<Upd_VM.LanguageCode> languageCodes);
 
         IEnumerable<LanguageCode> InsertLanguages (IEnumerable<Ins_VM.LanguageCode> languageCodes);
+
+        int DeleteLanguageCode(string iso6393Code);
     }
 }
