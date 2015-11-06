@@ -63,7 +63,7 @@ namespace GeoDataAPI.SQLRepository
             languageCodesInputTable.Columns.Add("ISO6392");
             languageCodesInputTable.Columns.Add("ISO6391");
             languageCodesInputTable.Columns.Add("Language");
-            languageCodesInputTable.Columns.Add("RowId",typeof(byte[]));
+            languageCodesInputTable.Columns.Add("RowId", typeof(byte[]));
 
             foreach (Upd_VM.LanguageCode languageCode in languageCodes)
             {
@@ -118,6 +118,7 @@ namespace GeoDataAPI.SQLRepository
             languageCodesInputTable.Columns.Add("ISO6392");
             languageCodesInputTable.Columns.Add("ISO6391");
             languageCodesInputTable.Columns.Add("Language");
+            languageCodesInputTable.Columns.Add("RowId", typeof(byte[]));
 
             foreach (Ins_VM.LanguageCode languageCode in languageCodes)
             {
@@ -126,7 +127,8 @@ namespace GeoDataAPI.SQLRepository
                                    languageCode.ISO6393,
                                    languageCode.ISO6392,
                                    languageCode.ISO6391,
-                                   languageCode.Language
+                                   languageCode.Language,
+                                   DBNull.Value
                                 });
             }
 
@@ -156,6 +158,22 @@ namespace GeoDataAPI.SQLRepository
 
                     }
                 }
+            }
+
+            return result;
+        }
+
+        public int DeleteLanguageCode(string iso6393Code)
+        {
+            string sql = SQLRepositoryHelper.DeleteLanuage;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+            parameterCollection.Add(new SqlParameter("Input", iso6393Code));
+
+            int result = 0;
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                result = helper.GetRowsAffected(sql, SQLTextType.Stored_Proc, parameterCollection);
             }
 
             return result;
