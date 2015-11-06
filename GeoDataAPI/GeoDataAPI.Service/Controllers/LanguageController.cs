@@ -131,6 +131,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        //[Authorize]
         [HttpPut]
         [Route("")]
         [ResponseType(typeof(List<Upd_VM.LanguageCode>))]
@@ -163,13 +164,11 @@ namespace GeoDataAPI.Service.Controllers
                         if (rowIdsAreEqual)
                         {
                             return BadRequest(Err_Msgs.ErrorMessages_US_en.NotUpdated_MultipleEntries);
-
                         }
                         else
                         {
                             return Ok<IEnumerable<LanguageCode>>(result);
                         }
-
                     }
                     else
                     {
@@ -189,6 +188,7 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        //[Authorize]
         [HttpPut]
         [Route("{iso6393Code:length(3):alpha}")]
         [Route("{language:minlength(4):regex([a-zA-Z]+[ a-zA-Z-_]*)}")]
@@ -219,7 +219,6 @@ namespace GeoDataAPI.Service.Controllers
                         if (rowIdsAreEqual)
                         {
                             return BadRequest(Err_Msgs.ErrorMessages_US_en.NotUpdated_SingleEntry);
-
                         }
                         else
                         {
@@ -245,33 +244,104 @@ namespace GeoDataAPI.Service.Controllers
             }
         }
 
+        //[Authorize]
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(List<LanguageCode>))]
-        public IHttpActionResult InsertLanguageCodes(List<Ins_VM.LanguageCode> languageCodes)
+        public IHttpActionResult InsertLanguageCodes(IEnumerable<Ins_VM.LanguageCode> languageCodes)
         {
-            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
-            // for http status codes that need to be used.
-            throw new NotImplementedException();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    IEnumerable<LanguageCode> result = new List<LanguageCode>();
+                    result = repository.InsertLanguages(languageCodes);
+
+                    if (result != null && result.Count() > 0)
+                    {
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        return BadRequest(ErrorMessagaes.ErrorMessages_US_en.NotCreated_MultipleEntries);
+                    }
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
+            }
         }
 
+        //[Authorize]
         [HttpPost]
-        [Route("languageCode")]
+        [Route("language")]
         [ResponseType(typeof(LanguageCode))]
         public IHttpActionResult InsertSingleLanguageCode(Ins_VM.LanguageCode languageCode)
         {
-            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
-            // for http status codes that need to be used.
-            throw new NotImplementedException();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    List<Ins_VM.LanguageCode> languageCodes = new List<Ins_VM.LanguageCode>();
+                    languageCodes.Add(languageCode);
+                    IEnumerable<LanguageCode> result = repository.InsertLanguages(languageCodes);
+
+                    if (result != null && result.Count() > 0)
+                    {
+                        return Ok<LanguageCode>(result.FirstOrDefault<LanguageCode>());
+                    }
+                    else
+                    {
+                        return BadRequest(ErrorMessagaes.ErrorMessages_US_en.NotCreated_MultipleEntries);
+                    }
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
+            }
         }
 
+        //[Authorize]
         [HttpDelete]
         [Route("{iso6393Code:length(3):alpha}")]
         public IHttpActionResult DeleteLanguageCode(string iso6393Code)
         {
-            // refer to http://www.restapitutorial.com/lessons/httpmethods.html
-            // for http status codes that need to be used.
-            throw new NotImplementedException();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    int result = repository.DeleteLanguageCode(iso6393Code);
+                    if (result > 0)
+                    {
+                        return Ok("The resource has been deleted.");
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                throw;
+            }
         }
     }
 }

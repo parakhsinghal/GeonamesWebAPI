@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="NotCreated_MultipleEntries" xml:space="preserve">
+    <value>The data was not inserted. Please make sure that the data is free of any corruption.</value>
+  </data>
+  <data name="NotCreated_SingleEntry" xml:space="preserve">
+    <value>The data was not inserted. Please make sure that the data is free of any corruption.</value>
+  </data>
+  <data name="NotDeleted_SingleEntry" xml:space="preserve">
+    <value>The resource was not deleted. Please make sure that the resource exists before trying to delete it.</value>
+  </data>
   <data name="NotUpdated_MultipleEntries" xml:space="preserve">
     <value>The data was not updated as one or more entries in the input data were stale or corrupt. Please refresh your input data by calling the appropriate link.</value>
   </data>
