@@ -1315,8 +1315,14 @@ BEGIN
 			  ,ISO6392
 			  ,ISO6391
 			  ,Language
-			  ,RowId
 			FROM @Input
+		)
+		AND NOT EXISTS
+		(
+			SELECT
+				ISO6393
+			FROM dbo.LanguageCode
+			WHERE ISO6393 IN (SELECT ISO6393 FROM @Input)
 		)
 		BEGIN TRANSACTION
 			
@@ -1326,7 +1332,6 @@ BEGIN
 			  ,ISO6392
 			  ,ISO6391
 			  ,Language
-			  ,RowId
 			)
 			OUTPUT INSERTED.*
 			SELECT 
@@ -1334,7 +1339,6 @@ BEGIN
 			  ,ISO6392
 			  ,ISO6391
 			  ,Language
-			  ,NULL
 			FROM @Input;
 		COMMIT;
 
@@ -1343,7 +1347,6 @@ BEGIN
 	BEGIN CATCH
 
 		ROLLBACK TRANSACTION;
-		THROW;
 
 	END CATCH
 END
@@ -2578,8 +2581,6 @@ CREATE PROCEDURE [dbo].[Admin1Code_Delete]
 AS
 BEGIN
 
-	SET NOCOUNT ON;
-
 	BEGIN TRY
 		
 		IF EXISTS ( SELECT					
@@ -2617,9 +2618,7 @@ CREATE PROCEDURE [dbo].[Admin2Code_Delete]
 	@Input nvarchar(32)
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2658,9 +2657,7 @@ CREATE PROCEDURE [dbo].[AlternateName_Delete]
 	@Input int
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2699,9 +2696,7 @@ CREATE PROCEDURE [dbo].[Continent_Delete]
 	@Input int
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2740,9 +2735,7 @@ CREATE PROCEDURE [dbo].[Country_Delete]
 	@Input char(2)
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2781,9 +2774,7 @@ CREATE PROCEDURE [dbo].[FeatureCategory_Delete]
 	@Input char(1)
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2822,9 +2813,7 @@ CREATE PROCEDURE [dbo].[FeatureCode_Delete]
 	@Input nvarchar(16)
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2864,9 +2853,7 @@ CREATE PROCEDURE [dbo].[Hierarchy_Delete]
 	@Input_ChildId int
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2897,7 +2884,6 @@ BEGIN
 END
 GO
 
-
 /* 
 =============================================
 Author:	Parakh Singhal
@@ -2911,8 +2897,6 @@ CREATE PROCEDURE [dbo].[LanguageCode_Delete]
 
 AS
 BEGIN
-
-	SET NOCOUNT ON;
 
 	BEGIN TRY
 		
@@ -2953,9 +2937,7 @@ CREATE PROCEDURE [dbo].[RawData_Delete]
 	@Input int
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
@@ -2996,9 +2978,7 @@ CREATE PROCEDURE [dbo].[TimeZone_Delete]
 	@Input nvarchar(128)
 
 AS
-BEGIN
-
-	SET NOCOUNT ON;
+BEGIN	
 
 	BEGIN TRY
 		
