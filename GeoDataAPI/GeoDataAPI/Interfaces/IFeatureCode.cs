@@ -13,5 +13,7 @@ namespace GeoDataAPI.Domain.Interfaces
         IEnumerable<FeatureCode> UpdateFeatureCodes(IEnumerable<Upd_VM.FeatureCode> featureCodes);
 
         IEnumerable<FeatureCode> InsertFeatureCodes(IEnumerable<Ins_VM.FeatureCode> featureCodes);
+
+        int DeleteFeatureCode(string featureCodeId);
     }
 }

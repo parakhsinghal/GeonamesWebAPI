@@ -16,5 +16,7 @@ namespace GeoDataAPI.Domain.Interfaces
         IEnumerable<GeoDataAPI.Domain.TimeZone> UpdateTimeZones (IEnumerable<Upd_VM.TimeZone> timeZones);
 
         IEnumerable<GeoDataAPI.Domain.TimeZone> InsertTimeZones (IEnumerable<Ins_VM.TimeZone> timeZones);
+
+        int DeleteTimeZone(string timeZoneId);
     }
 }
