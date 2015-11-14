@@ -49,60 +49,56 @@ Go
 
 Alter Table dbo.Rawdata
 Add Constraint FK_Rawdata_TimeZoneId Foreign Key (TimeZoneId) References dbo.TimeZone(TimeZoneId)
-On Delete Cascade
-On Update Cascade;
 Go
 
 Alter Table dbo.Rawdata
 Add Constraint FK_Rawdata_FeatureCategory Foreign Key (FeatureCategoryId) 
-References dbo.FeatureCategory(FeatureCategoryId);
+References dbo.FeatureCategory(FeatureCategoryId)
+On Update Cascade;
 Go
 
 Alter Table dbo.Rawdata
 Add Constraint FK_Rawdata_Country Foreign Key (ISOCountryCode)
 References dbo.Country(ISOCountryCode)
-On Delete Cascade
 On Update Cascade;
 Go
 
 Alter Table dbo.Continent
 Add Constraint FK_Continent_Rawdata Foreign Key (GeonameId) References dbo.Rawdata(GeonameId)
-On Delete Cascade
 On Update Cascade;
 Go
 
 Alter Table dbo.Hierarchy
-Add Constraint FK_Hierarchy_RawData_ParentId Foreign Key (ParentId) References dbo.RawData (GeonameId);
+Add Constraint FK_Hierarchy_RawData_ParentId Foreign Key (ParentId) References dbo.RawData (GeonameId)
+On Update Cascade;
 Go
 
 Alter Table dbo.Hierarchy
-Add Constraint FK_Hierarchy_RawData_ChildId Foreign Key (ChildId) References dbo.RawData (GeonameId);
+Add Constraint FK_Hierarchy_RawData_ChildId Foreign Key (ChildId) References dbo.RawData (GeonameId)
+On Update Cascade;
 Go
 
 Alter Table dbo.Admin1Code
 Add Constraint FK_Admin1Code_Rawdata Foreign Key (GeonameId) References dbo.Rawdata(GeonameId)
-On Delete Cascade
 On Update Cascade;
 Go
 
 Alter Table dbo.Admin2Code
 Add Constraint FK_Admin2Code_Rawdata Foreign Key (GeonameId) References dbo.Rawdata(GeonameId)
-On Delete Cascade
 On Update Cascade;
 Go
 
 Alter Table dbo.AlternateName
 Add Constraint FK_AlternateName_Rawdata Foreign Key (GeonameId) References dbo.Rawdata(GeonameId)
-On Delete Cascade
 On Update Cascade;
 Go
 
 Alter Table dbo.RawPostal
 Add Constraint FK_RawPostal_Country Foreign Key (ISOCountryCode) References dbo.Country(ISOCountryCode)
-On Delete Cascade
 On Update Cascade;
 Go
 
 Alter Table dbo.TimeZone
-Add Constraint FK_TimeZone_Country Foreign Key (ISOCountryCode) References dbo.Country(ISOCountryCode);
+Add Constraint FK_TimeZone_Country Foreign Key (ISOCountryCode) References dbo.Country(ISOCountryCode)
+On Update Cascade;
 Go
