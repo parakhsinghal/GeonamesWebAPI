@@ -67,7 +67,7 @@ namespace GeoDataAPI.SQLRepository
 
         public IEnumerable<RawPostal> UpdatePostalInfo(IEnumerable<Upd_VM.RawPostal> postalInfo)
         {
-            string sql = 
+            //string sql = 
             throw new NotImplementedException();
         }
 
