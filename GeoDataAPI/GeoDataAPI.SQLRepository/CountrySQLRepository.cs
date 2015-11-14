@@ -551,5 +551,10 @@ namespace GeoDataAPI.SQLRepository
 
             return result;
         }
+
+        public int DeleteCountry(string isoCountryCode)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

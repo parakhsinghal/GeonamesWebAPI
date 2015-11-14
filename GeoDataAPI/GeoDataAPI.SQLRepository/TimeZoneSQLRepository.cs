@@ -249,5 +249,21 @@ namespace GeoDataAPI.SQLRepository
 
             return result;
         }
+
+        public int DeleteTimeZone(string timeZoneId)
+        {
+            string sql = SQLRepositoryHelper.DeleteTimeZone;
+            List<SqlParameter> parameterCollection = new List<SqlParameter>();
+            parameterCollection.Add(new SqlParameter("Input", timeZoneId));
+
+            int result = 0;
+
+            using (DBDataHelper helper = new DBDataHelper())
+            {
+                result = helper.GetRowsAffected(sql, SQLTextType.Stored_Proc, parameterCollection);
+            }
+
+            return result;
+        }
     }
 }
