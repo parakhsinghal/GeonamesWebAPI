@@ -1,9 +1,9 @@
 Use Geonames
 Go
 
--- Exec dbo.GetDistinctTimeZones
+-- Exec dbo.TimeZone_GetDistinctTimeZones
 
-Create Procedure dbo.GetDistinctTimeZones 
+Create Procedure dbo.TimeZone_GetDistinctTimeZones 
 	
  @PageNumber	int		= NULL
 ,@PageSize		int		= NULL
@@ -16,6 +16,7 @@ Begin
 	IF @PageNumber IS NOT NULL AND @PageSize IS NOT NULL
 	Begin
 		Select Distinct dbo.TimeZone.TimeZoneId, dbo.TimeZone.RowId From dbo.TimeZone
+		Where dbo.TimeZone.IsActive = 1
 		Order By dbo.TimeZone.TimeZoneId
 		Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 	End
@@ -23,14 +24,15 @@ Begin
 	Else
 	Begin
 		Select Distinct dbo.TimeZone.TimeZoneId, dbo.TimeZone.RowId From dbo.TimeZone
+		Where dbo.TimeZone.IsActive = 1
 		Order By dbo.TimeZone.TimeZoneId;
 	End
 End
 Go
 
--- Exec dbo.GetTimeZoneDetails 
+-- Exec dbo.TimeZone_GetTimeZoneDetails
 
-Create Procedure dbo.GetTimeZoneDetails 
+Create Procedure dbo.TimeZone_GetTimeZoneDetails 
 
  @TimeZoneId		nvarchar(128)	= NULL
 ,@ISOCountryCode	char(10)		= NULL
@@ -68,6 +70,9 @@ Begin
 		And dbo.Country.ISONumeric = Coalesce(LTrim(RTrim(@ISONumeric)),dbo.Country.ISONumeric)
 		And dbo.RawData.Latitude = Coalesce(@Latitude,dbo.Rawdata.Latitude)
 		And dbo.RawData.Longitude = Coalesce(@Longitude,dbo.Rawdata.Longitude)
+		And dbo.TimeZone.IsActive = 1
+		And dbo.Country.IsActive = 1
+		And dbo.RawData.IsActive = 1
 		Group By
 		dbo.TimeZone.ISOCountryCode
 		,dbo.TimeZone.TimeZoneId
@@ -99,6 +104,9 @@ Begin
 		And dbo.Country.ISONumeric = Coalesce(LTrim(RTrim(@ISONumeric)),dbo.Country.ISONumeric)
 		And dbo.RawData.Latitude = Coalesce(@Latitude,dbo.Rawdata.Latitude)
 		And dbo.RawData.Longitude = Coalesce(@Longitude,dbo.Rawdata.Longitude)
+		And dbo.TimeZone.IsActive = 1
+		And dbo.Country.IsActive = 1
+		And dbo.RawData.IsActive = 1
 		Group By
 		dbo.TimeZone.ISOCountryCode
 		,dbo.TimeZone.TimeZoneId
@@ -112,9 +120,9 @@ Begin
 End
 Go
 
--- Exec dbo.GetTimeZoneDetails_ByPlaceName @PlaceName = 'Ajmer'
+-- Exec dbo.TimeZone_GetTimeZoneDetailsByPlaceName @PlaceName = 'Ajmer'
 
-Create Procedure  dbo.GetTimeZoneDetailsByPlaceName
+Create Procedure  dbo.TimeZone_GetTimeZoneDetailsByPlaceName
 
 @PlaceName nvarchar(200) = NULL
 
@@ -134,6 +142,9 @@ Begin
 	inner join dbo.Country on dbo.Country.ISOCountryCode = dbo.RawData.ISOCountryCode
 	inner join dbo.TimeZone on dbo.Country.ISOCountryCode = dbo.TimeZone.ISOCountryCode
 	Where dbo.RawData.ASCIIName = LTrim(RTrim(@PlaceName))
+	And dbo.TimeZone.IsActive = 1
+	And dbo.Country.IsActive = 1
+	And dbo.RawData.IsActive = 1
 	Group By
 	dbo.TimeZone.ISOCountryCode
 	,dbo.TimeZone.TimeZoneId
@@ -146,9 +157,9 @@ Begin
 End
 Go
 
--- Exec dbo.GetCountryInfo @ISOCountryCode = NULL, @CountryName  = NULL, @PageNumber = NULL, @PageSize = NULL
+-- Exec dbo.Country_GetCountryInfo @ISOCountryCode = NULL, @CountryName  = NULL, @PageNumber = NULL, @PageSize = NULL
 
-Create Procedure dbo.GetCountryInfo  
+Create Procedure dbo.Country_GetCountryInfo  
 
  @ISOCountryCode	char(2)			= NULL
 ,@CountryName		nvarchar(200)	= NULL
@@ -186,8 +197,8 @@ Begin
 		From dbo.Country
 		Where
 		dbo.Country.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.Country.ISOCountryCode)
-		and
-		dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+		And dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+		And dbo.Country.IsActive = 1
 		Order by dbo.Country.CountryName
 		Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 	End
@@ -218,16 +229,16 @@ Begin
 		From dbo.Country
 		Where
 		dbo.Country.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.Country.ISOCountryCode)
-		and
-		dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+		And dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
+		And dbo.Country.IsActive = 1
 		Order by dbo.Country.CountryName;
 	End
 End
 Go
 
--- Exec dbo.GetStateInfo  @CountryName = NULL,@ISOCountryCode = 'IN',@StateGeonameId = NULL,@StateName = NULL, @FeatureCategoryId = 'A' ,@FeatureCode = 'ADM1',@PageNumber = 2,@PageSize = 20
+-- Exec dbo.RawData_GetStateInfo  @CountryName = NULL,@ISOCountryCode = 'IN',@StateGeonameId = NULL,@StateName = NULL, @FeatureCategoryId = 'A' ,@FeatureCode = 'ADM1',@PageNumber = 2,@PageSize = 20
 
-Create Procedure dbo.GetStateInfo  
+Create Procedure dbo.RawData_GetStateInfo  
 
  @CountryName		nvarchar(200)	= NULL
 ,@ISOCountryCode	char(2)			= NULL
@@ -276,6 +287,9 @@ Begin
 		and dbo.RawData.ASCIIName = Coalesce(@StateName,dbo.RawData.ASCIIName)
 		and dbo.RawData.FeatureCategoryId = @FeatureCategoryId
 		and dbo.RawData.FeatureCodeId = @FeatureCodeId
+		and dbo.RawData.IsActive = 1
+		and dbo.Hierarchy.IsActive = 1
+		and dbo.Country.IsActive = 1
 		Order by dbo.RawData.ASCIIName
 		Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 	End
@@ -313,13 +327,16 @@ Begin
 		and dbo.RawData.ASCIIName = Coalesce(@StateName,dbo.RawData.ASCIIName)
 		and dbo.RawData.FeatureCategoryId = @FeatureCategoryId
 		and dbo.RawData.FeatureCodeId = @FeatureCodeId
+		and dbo.RawData.IsActive = 1
+		and dbo.Hierarchy.IsActive = 1
+		and dbo.Country.IsActive = 1
 		Order by dbo.RawData.ASCIIName;
 	End
 End
 Go
 
 
-Create Procedure dbo.GetCitiesInAState	
+Create Procedure dbo.RawData_GetCitiesInAState	
 
 	@CountryName		nvarchar(100)	= NULL -- 'United States'
 	,@ISOCountryCode	char(2)			= NULL
@@ -375,6 +392,8 @@ BEGIN
         dbo.Hierarchy.ParentId = @StateGeonameId
         and dbo.RawData.GeonameId = Coalesce(@CityGeonameId, dbo.RawData.GeonameId)
         and dbo.RawData.ASCIIName = Coalesce(@CityName, dbo.RawData.ASCIIName)
+		and dbo.RawData.IsActive = 1
+		and dbo.Hierarchy.IsActive = 1
         Order by dbo.RawData.ASCIIName Asc
         Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
     End
@@ -410,14 +429,16 @@ BEGIN
         --and dbo.RawData.FeatureCode = Coalesce(dbo.RawData.FeatureCode,@FeatureCode)
         and dbo.RawData.GeonameId = Coalesce(@CityGeonameId, dbo.RawData.GeonameId)
         and dbo.RawData.ASCIIName = Coalesce(@CityName, dbo.RawData.ASCIIName)
+		and dbo.RawData.IsActive = 1
+		and dbo.Hierarchy.IsActive = 1
         Order by dbo.RawData.ASCIIName Asc;
     End
 END
 Go
 
--- Exec dbo.GetContinentInfo @ContinentCodeId=NULL,@GeonameId=NULL,@Continent=NULL
+-- Exec dbo.Continent_GetContinentInfo @ContinentCodeId=NULL,@GeonameId=NULL,@Continent=NULL
 
-Create Procedure dbo.GetContinentInfo  
+Create Procedure dbo.Continent_GetContinentInfo  
 
  @ContinentCodeId	char(2)			= NULL
 ,@GeonameId			bigint			= NULL
@@ -447,12 +468,14 @@ Begin
 	dbo.Continent.ContinentCodeId = Coalesce(@ContinentCodeId,dbo.Continent.ContinentCodeId)
 	and dbo.Continent.GeonameId = Coalesce(@GeonameId,dbo.Continent.GeonameId)
 	and dbo.Continent.Continent = Coalesce(@Continent,dbo.Continent.Continent)
+	and dbo.Continent.IsActive = 1
+	and dbo.RawData.IsActive = 1
 End
 Go
 
--- Exec dbo.GetLanguageInfo @ISO6393Code=NULL,@Language=NULL,@PageNumber=2,@PageSize=20
+-- Exec dbo.LanguageCode_GetLanguageInfo @ISO6393Code=NULL,@Language=NULL,@PageNumber=2,@PageSize=20
 
-Create Procedure dbo.GetLanguageInfo  
+Create Procedure dbo.LanguageCode_GetLanguageInfo  
 
  @ISO6393Code	nvarchar(24)	= NULL
 ,@Language		nvarchar(128)	= NULL
@@ -476,6 +499,7 @@ Begin
 		Where 
 		dbo.LanguageCode.ISO6393 = Coalesce(@ISO6393Code,dbo.LanguageCode.ISO6393)
 		and dbo.LanguageCode.Language = Coalesce(@Language,dbo.LanguageCode.Language)
+		and dbo.LanguageCode.IsActive = 1
 		Order by dbo.LanguageCode.Language
 		Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 	End
@@ -492,13 +516,14 @@ Begin
 		Where 
 		dbo.LanguageCode.ISO6393 = Coalesce(@ISO6393Code,dbo.LanguageCode.ISO6393)
 		and dbo.LanguageCode.Language = Coalesce(@Language,dbo.LanguageCode.Language)
+		and dbo.LanguageCode.IsActive = 1
 		Order by dbo.LanguageCode.Language
 	End
 End
 Go
 
 
-Create Procedure dbo.GetFeatureCategoryInfo  
+Create Procedure dbo.FeatureCategory_GetFeatureCategoryInfo  
 
 @FeatureCategoryId char(1) = NULL
 
@@ -512,14 +537,16 @@ Begin
     ,dbo.FeatureCategory.FeatureCategoryName
 	,dbo.FeatureCategory.RowId
 	From dbo.FeatureCategory
-	Where dbo.FeatureCategory.FeatureCategoryId = Coalesce(@FeatureCategoryId,dbo.FeatureCategory.FeatureCategoryId);
+	Where 
+	dbo.FeatureCategory.FeatureCategoryId = Coalesce(@FeatureCategoryId,dbo.FeatureCategory.FeatureCategoryId)
+	and dbo.FeatureCategory.IsActive = 1;
 
 End
 Go
 
--- Exec dbo.GetFeatureCodeInfo  @FeatureCodeId = NULL,@PageNumber = 2,@PageSize = 20
+-- Exec dbo.FeatureCode_GetFeatureCodeInfo  @FeatureCodeId = NULL,@PageNumber = 2,@PageSize = 20
 
-Create Procedure dbo.GetFeatureCodeInfo  
+Create Procedure dbo.FeatureCode_GetFeatureCodeInfo  
 
  @FeatureCodeId		nvarchar(16)	= NULL
 ,@PageNumber		int				= NULL
@@ -539,6 +566,7 @@ Begin
 		,dbo.FeatureCode.RowId
 		From dbo.FeatureCode
 		Where dbo.FeatureCode.FeatureCodeId = Coalesce(@FeatureCodeId,dbo.FeatureCode.FeatureCodeId)
+		and dbo.FeatureCode.IsActive = 1
 		Order By dbo.FeatureCode.FeatureCodeId
 		Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 	End
@@ -552,12 +580,13 @@ Begin
 		,dbo.FeatureCode.RowId
 		From dbo.FeatureCode
 		Where dbo.FeatureCode.FeatureCodeId = Coalesce(@FeatureCodeId,dbo.FeatureCode.FeatureCodeId)
+		and dbo.FeatureCode.IsActive = 1
 		Order By dbo.FeatureCode.FeatureCodeId
 	End
 End
 Go
 
-Create Procedure dbo.GetCountriesInAContinent
+Create Procedure dbo.Country_GetCountriesInAContinent
 
  @ContinentName		nvarchar(100)	= NULL
 ,@ContinentCodeId	nvarchar(100)	= NULL
@@ -599,6 +628,8 @@ Begin
 		dbo.Continent.Continent = Coalesce(@ContinentName,dbo.Continent.Continent)
 		and dbo.Continent.ContinentCodeId = Coalesce(@ContinentCodeId,dbo.Continent.ContinentCodeId)
 		and dbo.Continent.GeonameId = Coalesce(@GeonameId,dbo.Continent.GeonameId)
+		and dbo.Continent.IsActive = 1
+		and dbo.Continent.IsActive = 1
 		Order by dbo.Country.CountryName
 		Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 	End
@@ -632,12 +663,14 @@ Begin
 		dbo.Continent.Continent = Coalesce(@ContinentName,dbo.Continent.Continent)
 		and dbo.Continent.ContinentCodeId = Coalesce(@ContinentCodeId,dbo.Continent.ContinentCodeId)
 		and dbo.Continent.GeonameId = Coalesce(@GeonameId,dbo.Continent.GeonameId)
+		and dbo.Continent.IsActive = 1
+		and dbo.Continent.IsActive = 1
 		Order by dbo.Country.CountryName
 	End
 End
 Go
 
-Create Procedure dbo.GetCountryFeatureCategoryFeatureCode
+Create Procedure dbo.RawData_GetCountryFeatureCategoryFeatureCode
 @ISOCountryCode			char(2)			= NULL
 ,@CountryName			nvarchar(200)	= NULL
 ,@FeatureCategoryId		char(1)			= NULL
@@ -685,6 +718,8 @@ BEGIN
 			dbo.RawData.FeatureCategoryId = Coalesce(@FeatureCategoryId,dbo.RawData.FeatureCategoryId)
 			and 
 			dbo.RawData.FeatureCodeId = Coalesce(@FeatureCodeId,dbo.RawData.FeatureCodeId)
+			and dbo.RawData.IsActive = 1
+			and dbo.Country.IsActive = 1
 			Order by dbo.RawData.ASCIIName
 			Offset (@PageNumber-1)*@PageSize Rows Fetch Next @PageSize Rows Only;
 
@@ -720,12 +755,14 @@ BEGIN
 			dbo.RawData.FeatureCategoryId = Coalesce(@FeatureCategoryId,dbo.RawData.FeatureCategoryId)
 			and 
 			dbo.RawData.FeatureCodeId = Coalesce(@FeatureCodeId,dbo.RawData.FeatureCodeId)
+			and dbo.RawData.IsActive = 1
+			and dbo.Country.IsActive = 1
 			Order by dbo.RawData.ASCIIName;
 		End
 END
 Go
 
-Create Procedure dbo.GetPostalCodeInfo
+Create Procedure dbo.RawPostal_GetPostalCodeInfo
 
 	@ISOCountryCode		char(2)			= NULL
 	,@CountryName		nvarchar(100)	= NULL
@@ -734,8 +771,7 @@ Create Procedure dbo.GetPostalCodeInfo
 	,@PageNumber		int				= NULL
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
 
     IF @PageSize is not NULL and @PageNumber is not NULL
@@ -757,7 +793,9 @@ BEGIN
 		  Inner Join dbo.Country on dbo.Country.ISOCountryCode = dbo.RawPostal.ISOCountryCode
 		  Where dbo.RawPostal.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.RawPostal.ISOCountryCode)
 		  and dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
-		  and dbo.RawPostal.PostalCode = Coalesce(@PostalCode,dbo.RawPostal.PostalCode)
+		  and dbo.RawPostal.PostalCode = Coalesce(@PostalCode,dbo.RawPostal.PostalCode)		  
+		  and dbo.RawPostal.IsActive = 1
+		  and dbo.Country.IsActive = 1
 		  Order by dbo.RawPostal.PostalCode
 		  Offset @PageSize*(@PageNumber-1) Rows Fetch Next @PageSize Rows Only;
 		End
@@ -781,6 +819,8 @@ BEGIN
 			  Where dbo.RawPostal.ISOCountryCode = Coalesce(@ISOCountryCode,dbo.RawPostal.ISOCountryCode)
 			  and dbo.Country.CountryName = Coalesce(@CountryName,dbo.Country.CountryName)
 			  and dbo.RawPostal.PostalCode = Coalesce(@PostalCode,dbo.RawPostal.PostalCode)
+			  and dbo.RawPostal.IsActive = 1
+			  and dbo.Country.IsActive = 1
 			  Order by dbo.RawPostal.PostalCode;
 		End
 END
@@ -2482,91 +2522,6 @@ BEGIN
 END
 GO
 
-/*
-=============================================
-Author:	Parakh Singhal
-Create date: September 19, 2015
-Description: This stored procedure updates data in the dbo.TimeZone table
--- =============================================
-*/
-CREATE PROCEDURE dbo.TimeZone_Update
-	
-	@Input dbo.TimeZone_TVP READONLY
-
-AS
-BEGIN
-
-	SET NOCOUNT ON;
-
-	BEGIN TRY
-
-	DECLARE @RowCount_SentData		int		= NULL,
-			@RowCount_UpdatableData int		= NULL;
-
-		
-		WITH CTE_TEMP AS
-		(
-			SELECT			    
-				Input.RowId
-			FROM 
-			@Input as Input
-			INTERSECT
-			SELECT 
-				dbo.TimeZone.RowId 
-			FROM 
-			dbo.TimeZone
-			INNER JOIN @Input as Input			
-			ON dbo.TimeZone.TimeZoneId = Input.TimeZoneId
-			WHERE
-			Input.RowId = dbo.TimeZone.RowId
-		)
-
-		SELECT @RowCount_UpdatableData = Count(1) FROM CTE_TEMP;
-		SELECT @RowCount_SentData = Count(1) FROM @Input;
-
-		IF @RowCount_SentData = @RowCount_UpdatableData
-		BEGIN
-			BEGIN TRANSACTION
-			
-					UPDATE dbo.TimeZone
-					SET
-					   ISOCountryCode	=	Input.ISOCountryCode
-					  ,GMT				=	Input.GMT
-					  ,DST				=	Input.DST
-					  ,RawOffset		=	Input.RawOffset
-					OUTPUT INSERTED.*
-					FROM dbo.TimeZone
-					INNER JOIN @Input AS Input
-					ON dbo.TimeZone.TimeZoneId = Input.TimeZoneId
-					WHERE
-					dbo.TimeZone.RowId	=	Input.RowId
-			
-			COMMIT TRANSACTION;
-		END
-
-		ELSE
-		BEGIN
-			SELECT 
-				   ISOCountryCode
-				  ,TimeZoneId
-				  ,GMT
-				  ,DST
-				  ,RawOffset
-				  ,RowId
-			FROM @Input;
-		END
-
-	END TRY
-
-	BEGIN CATCH
-
-		ROLLBACK TRANSACTION;
-		THROW;
-
-	END CATCH
-END
-GO
-
 /* 
 =============================================
 Author:	Parakh Singhal
@@ -2590,7 +2545,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.Admin1Code
+					UPDATE dbo.Admin1Code
+					SET IsActive = 0
 					WHERE Admin1CodeId = @Input
 						
 				COMMIT TRANSACTION;
@@ -2629,7 +2585,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.Admin2Code
+					UPDATE dbo.Admin2Code
+					SET IsActive = 0
 					WHERE Admin2CodeId = @Input
 						
 				COMMIT TRANSACTION;
@@ -2668,7 +2625,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.AlternateName
+					UPDATE dbo.AlternateName
+					SET IsActive = 0
 					WHERE AlternateNameId = @Input
 						
 				COMMIT TRANSACTION;
@@ -2707,7 +2665,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.Continent
+					UPDATE dbo.Continent
+					SET IsActive = 0
 					WHERE ContinentCodeId = @Input
 						
 				COMMIT TRANSACTION;
@@ -2746,7 +2705,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.Country
+					UPDATE dbo.Country
+					SET IsActive = 0
 					WHERE ISOCountryCode = @Input
 						
 				COMMIT TRANSACTION;
@@ -2785,7 +2745,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.FeatureCategory
+					UPDATE dbo.FeatureCategory
+					SET IsActive = 0
 					WHERE FeatureCategoryId = @Input
 						
 				COMMIT TRANSACTION;
@@ -2824,7 +2785,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.FeatureCode
+					UPDATE dbo.FeatureCode
+					SET IsActive = 0
 					WHERE FeatureCodeId = @Input
 						
 				COMMIT TRANSACTION;
@@ -2866,7 +2828,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.Hierarchy
+					UPDATE dbo.Hierarchy
+					SET IsActive = 0
 					WHERE 
 					ParentId = @Input_ParentId AND
 					ChildId = @Input_ChildId
@@ -2908,7 +2871,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.LanguageCode
+					UPDATE dbo.LanguageCode
+					SET IsActive = 0
 					WHERE 
 					ISO6393 = @Input;
 						
@@ -2949,7 +2913,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.RawData
+					UPDATE dbo.RawData
+					SET IsActive = 0
 					WHERE 
 					GeonameId = @Input;
 						
@@ -2990,7 +2955,8 @@ BEGIN
 			BEGIN
 				BEGIN TRANSACTION	
 
-					DELETE FROM dbo.TimeZone
+					UPDATE dbo.TimeZone
+					SET IsActive = 0
 					WHERE 
 					TimeZoneId = @Input;
 						
