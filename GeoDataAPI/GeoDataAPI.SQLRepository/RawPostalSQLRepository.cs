@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 
 namespace GeoDataAPI.SQLRepository
 {
@@ -60,6 +62,23 @@ namespace GeoDataAPI.SQLRepository
             }
 
             return result;
+        }
+
+
+        public IEnumerable<RawPostal> UpdatePostalInfo(IEnumerable<Upd_VM.RawPostal> postalInfo)
+        {
+            string sql = 
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<RawPostal> InsertPostalInfo(IEnumerable<Domain.ViewModels.Insert.RawPostal> postalInfo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeletePostalInfo(RawPostal postalInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

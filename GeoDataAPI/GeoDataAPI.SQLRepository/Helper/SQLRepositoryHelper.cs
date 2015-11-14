@@ -14,6 +14,7 @@ namespace GeoDataAPI.SQLRepository.Helper
         public static readonly string GetCountriesInAContinent = ConfigurationManager.AppSettings["GetCountriesInAContinent"];
         public static readonly string UpdateContinents = ConfigurationManager.AppSettings["UpdateContinents"];
         public static readonly string InsertContinents = ConfigurationManager.AppSettings["InsertContinents"];
+        public static readonly string DeleteContinent = ConfigurationManager.AppSettings["DeleteContinent"];
 
         #endregion
 
@@ -75,6 +76,9 @@ namespace GeoDataAPI.SQLRepository.Helper
         #region RawPostalRepository
 
         public static readonly string GetPostalCodeInfo = ConfigurationManager.AppSettings["GetPostalCodeInfo"];
+        public static readonly string UpdatePostalInfo = ConfigurationManager.AppSettings["UpdatePostalInfo"];
+        public static readonly string InsertPstalInfo = ConfigurationManager.AppSettings["InsertPostalInfo"];
+        public static readonly string DeletePostalInfo = ConfigurationManager.AppSettings["DeletePostalInfo"];
 
         #endregion
     }

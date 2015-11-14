@@ -121,5 +121,9 @@ int? pageNumber = null, int? pageSize = null)
             throw new NotImplementedException();
         }
 
+        public int DeleteContinent(string continentCodeId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
