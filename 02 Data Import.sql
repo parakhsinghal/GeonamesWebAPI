@@ -65,7 +65,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'Africa'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'Africa'
 GO
 
@@ -74,7 +74,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'Antarctica'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'Antarctica'
 GO
 
@@ -83,7 +83,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'Asia'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'Asia'
 GO
 
@@ -92,7 +92,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'Europe'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'Europe'
 GO
 
@@ -101,7 +101,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'North America'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'North America'
 GO
 
@@ -110,7 +110,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'Oceania'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'Oceania'
 GO
 
@@ -119,7 +119,7 @@ Set dbo.Continent.GeonameId =
 (SELECT dbo.RawData.GeonameId
 FROM dbo.RawData
 WHERE dbo.RawData.ASCIIName = 'South America'
-AND dbo.RawData.FeatureCode = 'CONT')
+AND dbo.RawData.FeatureCodeId = 'CONT')
 WHERE dbo.Continent.Continent = 'South America'
 GO
 

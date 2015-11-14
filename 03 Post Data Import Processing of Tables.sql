@@ -14,6 +14,14 @@ With DuplicateData_Hierarchy_CTE As
 Delete from DuplicateData_Hierarchy_CTE where RowNumber > 1;
 Go
 
+Delete from Hierarchy
+Where ParentId not in (Select GeonameId from RawData)
+Go
+
+Delete from Hierarchy
+Where ChildId not in (Select GeonameId from RawData)
+Go
+
 -- Remove data from AlternateName that is not available in Rawdata table
 Delete from dbo.AlternateName where dbo.AlternateName.GeonameId not in 
 (Select GeonameId from dbo.RawData);
@@ -30,13 +38,3 @@ where dbo.RawData.ISOCountryCode not in (Select ISOCountryCode from Country)
 -- Creating RowVersion Columns in all the tables and 
 -- populating it with data
 -- Note that creation of column is a fully logged operations
-
-
--- Update GeonameIds in dbo.Country table
--- to bring them at par with as they exists in 
--- dbo.RawData table
-UPDATE dbo.Country
-set dbo.Country.GeonameId = dbo.RawData.GeonameId
-from dbo.Country
-inner join dbo.RawData on dbo.Country.ISOCountryCode = dbo.RawData.ISOCountryCode
-where dbo.RawData.FeatureCategoryId = 'A' and dbo.RawData.FeatureCode = 'PCLI'
