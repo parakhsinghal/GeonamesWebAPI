@@ -13,5 +13,7 @@ namespace GeoDataAPI.Domain.Interfaces
         IEnumerable<FeatureCategory> UpdateFeatureCategories(IEnumerable<Upd_VM.FeatureCategory> featureCategories);
 
         IEnumerable<FeatureCategory> InsertFeatureCategories(IEnumerable<Ins_VM.FeatureCategory> featureCategories);
+
+        int DeleteFeatureCategory(string featureCategoryId);
     }
 }

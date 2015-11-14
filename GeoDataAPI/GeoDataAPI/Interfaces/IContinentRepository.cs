@@ -15,5 +15,7 @@ namespace GeoDataAPI.Domain.Interfaces
         IEnumerable<Continent> UpdateContinents(IEnumerable<Upd_VM.Continent> continents);
 
         IEnumerable<Continent> InsertContinents(IEnumerable<Ins_VM.Continent> continents);
+
+        int DeleteContinent(string continentCodeId);
     }
 }

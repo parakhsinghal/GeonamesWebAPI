@@ -28,5 +28,7 @@ namespace GeoDataAPI.Domain.Interfaces
         IEnumerable<Country> UpdateCountries(IEnumerable<Upd_VM.Country> countries);
 
         IEnumerable<Country> InsertCountries(IEnumerable<Ins_VM.Country> countries);
+
+        int DeleteCountry(string isoCountryCode);
     }
 }
