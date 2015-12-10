@@ -2,12 +2,13 @@
 using GeoDataAPI.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
-using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
+using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
+using Upd_VM = GeoDataAPI.Domain.ViewModels.Update;
 
 namespace GeoDataAPI.Service.Controllers
 {
@@ -51,9 +52,9 @@ namespace GeoDataAPI.Service.Controllers
                             return NotFound();
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        return InternalServerError();
+                        Debug.WriteLine(ex.Message);
                         throw;
                     }
                 }
@@ -64,7 +65,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -122,7 +123,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -132,7 +133,6 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(FeatureCategory))]
         public IHttpActionResult UpdateSingleFeatureCategory(Upd_VM.FeatureCategory featureCategory)
         {
-
             try
             {
                 if (ModelState.IsValid)
@@ -180,7 +180,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
 
