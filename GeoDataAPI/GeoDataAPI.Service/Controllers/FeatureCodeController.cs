@@ -5,6 +5,7 @@ using Ins_VM = GeoDataAPI.Domain.ViewModels.Insert;
 using Err_Msgs = GeoDataAPI.Service.ErrorMessagaes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -43,9 +44,9 @@ namespace GeoDataAPI.Service.Controllers
                         }
 
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        return InternalServerError();
+                        Debug.WriteLine(ex);
                         throw;
                     }
                 }
@@ -56,7 +57,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
 
@@ -115,7 +116,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -172,7 +173,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -180,7 +181,7 @@ namespace GeoDataAPI.Service.Controllers
         [HttpPost]
         [Route("")]
         [ResponseType(typeof(List<FeatureCode>))]
-        public IHttpActionResult InsertFeatureCodes(List<Ins_VM.FeatureCode >featureCodes)
+        public IHttpActionResult InsertFeatureCodes(List<Ins_VM.FeatureCode> featureCodes)
         {
             // refer to http://www.restapitutorial.com/lessons/httpmethods.html
             // for http status codes that need to be used.

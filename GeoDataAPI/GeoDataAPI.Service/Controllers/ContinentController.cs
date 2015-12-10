@@ -2,6 +2,7 @@
 using GeoDataAPI.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -28,7 +29,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
 
@@ -47,7 +48,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
 
@@ -77,9 +78,9 @@ namespace GeoDataAPI.Service.Controllers
                             return NotFound();
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        return InternalServerError();
+                        Debug.WriteLine(ex);
                         throw;
                     }
                 }
@@ -90,7 +91,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -121,9 +122,9 @@ int? pageNumber = null, int? pageSize = null)
                             }
 
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            return InternalServerError();
+                            Debug.WriteLine(ex);
                             throw;
                         }
                     }
@@ -139,7 +140,7 @@ int? pageNumber = null, int? pageSize = null)
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -167,9 +168,9 @@ int? pageNumber = null, int? pageSize = null)
                             return NotFound();
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        return InternalServerError();
+                        Debug.WriteLine(ex);
                         throw;
                     }
                 }
@@ -180,7 +181,7 @@ int? pageNumber = null, int? pageSize = null)
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }

@@ -2,6 +2,7 @@
 using GeoDataAPI.Domain;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -27,16 +28,25 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(List<string>))]
         public IHttpActionResult GetDistinctTimeZones()
         {
-            IEnumerable<string> result = repository.GetDistinctTimeZones();
+            try
+            {
+                IEnumerable<string> result = repository.GetDistinctTimeZones();
 
-            if (result != null && result.Count() > 0)
-            {
-                return Ok(result);
+                if (result != null && result.Count() > 0)
+                {
+                    return Ok(result);
+                }
+                else
+                {
+                    return InternalServerError();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return InternalServerError();
+                Debug.WriteLine(ex);
+                throw;
             }
+
         }
 
         [HttpGet]
@@ -49,42 +59,51 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
         public IHttpActionResult GetTimeZoneDetails(string continent = null, string country = null, string state = null, string isoCountryCode = null, string iso3Code = null, int? isoNumeric = null, string countryName = null, double? latitude = null, double? longitude = null, int? pageNumber = null, int? pageSize = null)
         {
-            if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
+            try
             {
-                try
+                if (((pageNumber != null && pageSize != null) && (pageNumber > 0 && pageSize > 0)) || (pageSize == null && pageNumber == null))
                 {
-                    string timeZoneId = null;
-
-                    if ((!string.IsNullOrEmpty(continent) && !string.IsNullOrWhiteSpace(continent)) &&
-                        (!string.IsNullOrEmpty(country) && !string.IsNullOrWhiteSpace(country)))
+                    try
                     {
-                        timeZoneId = continent + "/" + country;
-                        if (!string.IsNullOrEmpty(state) && !string.IsNullOrWhiteSpace(state))
+                        string timeZoneId = null;
+
+                        if ((!string.IsNullOrEmpty(continent) && !string.IsNullOrWhiteSpace(continent)) &&
+                            (!string.IsNullOrEmpty(country) && !string.IsNullOrWhiteSpace(country)))
                         {
-                            timeZoneId += "/" + state;
+                            timeZoneId = continent + "/" + country;
+                            if (!string.IsNullOrEmpty(state) && !string.IsNullOrWhiteSpace(state))
+                            {
+                                timeZoneId += "/" + state;
+                            }
+                        }
+                        IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.GetTimeZoneDetails(timeZoneId, isoCountryCode, iso3Code, isoNumeric, countryName, latitude, longitude, pageNumber, pageSize);
+                        if (result != null && result.Count() > 0)
+                        {
+                            return Ok(result);
+                        }
+                        else
+                        {
+                            return NotFound();
                         }
                     }
-                    IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.GetTimeZoneDetails(timeZoneId, isoCountryCode, iso3Code, isoNumeric, countryName, latitude, longitude, pageNumber, pageSize);
-                    if (result != null && result.Count() > 0)
+                    catch (Exception ex)
                     {
-                        return Ok(result);
+                        Debug.WriteLine(ex);
+                        throw;
                     }
-                    else
-                    {
-                        return NotFound();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return InternalServerError(ex);
-                    throw;
-                }
 
+                }
+                else
+                {
+                    return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Both pageSize and pageNumber properties need to have valid values.");
+                Debug.WriteLine(ex);
+                throw;
             }
+
         }
 
 
@@ -128,29 +147,37 @@ namespace GeoDataAPI.Service.Controllers
         [ResponseType(typeof(List<GeoDataAPI.Domain.TimeZone>))]
         public IHttpActionResult GetTimeZoneDetailsByPlaceName(string placeName)
         {
-            if (!string.IsNullOrWhiteSpace(placeName) && !string.IsNullOrEmpty(placeName))
+            try
             {
-                try
+                if (!string.IsNullOrWhiteSpace(placeName) && !string.IsNullOrEmpty(placeName))
                 {
-                    IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.GetTimeZoneDetailsByPlaceName(placeName);
-                    if (result != null || result.Count() > 0)
+                    try
                     {
-                        return Ok(result);
+                        IEnumerable<GeoDataAPI.Domain.TimeZone> result = repository.GetTimeZoneDetailsByPlaceName(placeName);
+                        if (result != null || result.Count() > 0)
+                        {
+                            return Ok(result);
+                        }
+                        else
+                        {
+                            return NotFound();
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        return NotFound();
+                        Debug.WriteLine(ex);
+                        throw;
                     }
                 }
-                catch (Exception)
+                else
                 {
-                    return InternalServerError();
-                    throw;
+                    return BadRequest("Please provide a valid value for name of the place of which the time zone is required.");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest("Please provide a valid value for name of the place of which the time zone is required.");
+                Debug.WriteLine(ex);
+                throw;
             }
         }
 
@@ -207,7 +234,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
@@ -264,7 +291,7 @@ namespace GeoDataAPI.Service.Controllers
             }
             catch (Exception ex)
             {
-                return InternalServerError(ex);
+                Debug.WriteLine(ex);
                 throw;
             }
         }
