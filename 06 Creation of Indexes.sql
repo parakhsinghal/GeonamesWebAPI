@@ -24,7 +24,7 @@ Go
 Create NonClustered Index NCI_LanguageCode_CoveringIndex on LanguageCode(ISO6392, ISO6391, Language, IsActive);
 Go
 
-Create NonClustered index NCI_RawData_Name_ASCIIName on RawData (Name, ASCIIName, IsActive)
+Create NonClustered index NCI_RawData_ASCIIName_Name on RawData (ASCIIName, Name, IsActive)
 Go 
 
 Create NonClustered Index NCI_RawData_Latitude_Longitude on RawData (Latitude, Longitude, IsActive)
