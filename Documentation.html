@@ -1,0 +1,71 @@
+<div class="wikidoc">
+<p>Geonames Web API project uses data provided by Geonames.org. The following steps will help you get the project up and running:<br>
+<br>
+1. Download the following files from http://download.geonamed.org/export/dump<br>
+&nbsp;&nbsp; a. admin1CodesASCII.txt<br>
+&nbsp;&nbsp; b. admin2Codes.txt<br>
+&nbsp;&nbsp; c. allCountries.zip<br>
+&nbsp;&nbsp; d. alternateNames.txt<br>
+&nbsp;&nbsp; e. countryInfo.txt<br>
+&nbsp;&nbsp; f. featureCodes_en.txt<br>
+&nbsp;&nbsp; g. hierarchy.zip<br>
+&nbsp;&nbsp; h. iso-languagecodes.txt<br>
+&nbsp;&nbsp;&nbsp; i. timeZones.txt<br>
+<br>
+2. Download the postal information file from http://download.geonames.org/export/zip<br>
+&nbsp;&nbsp; a. allCountries.zip and rename the content file to rawPostal.txt to have a meaningful name.<br>
+<br>
+3. Make sure all the files are unzipped and collected in a single folder. Name the folder UTF-8. The data available at geonames website bears UTF-8 encoding. It needs to be encoded to UTF-16 before we are able to push it in a SQL Server database.<br>
+<br>
+4. Go to http://characterencodingconverter.codeplex.com and download the executable file. Character Encoding Conerter is a free tool made as a companion tool to support Geonames Web API project and can be used to convert from one character encoding to another.
+ Since it does not rely on in-memory conversion, it is capable of handling multi-gigabyte files.<br>
+<br>
+5. Create another folder and name it UTF-16 and use the character encoding converter to convert the encoding of the data downloaded from geonames website to &ldquo;Unicode&rdquo; encoding. This is UTF-16 encoding and is known as Unicode in .NET framework. You
+ need to do that for every file downloaded from geonames website.<br>
+<br>
+6. Once encoding is complete, it is time to create database, database objects and push data into the database. Download the release, and you will find two sql scripts in a folder named &ldquo;Solution Items&rdquo;.
+<br>
+<br>
+7. The script named &ldquo;DB Creation and Data Import.sql&rdquo;. This script is responsible for creation of database, tables, pushing data into the tables and indexes on tables. Run one statement at a time in this script, as if there is any error, it will
+ allow you to take corrective action. The script uses bulk insert facility to push data into the created tables. Make sure that you have provided path to the UTF-16 folder on your computer, which contains encoded data.<br>
+<br>
+8. Once all the data has been pushed, run the other script to create stored procedures. Again create one stored procedure at a time.<br>
+<br>
+9. Once you have data and stored procedures in the database, try to run a few stored procedures, just as a dry check.<br>
+<br>
+10. Now we are ready to use this database as a foundation for our Web API project. Before we do anything, change the connection string in the GeoDataAPI.Service project&rsquo;s web.config file and GeoDataAPI.Service.Integrated.Tests project&rsquo;s app.config.<br>
+<br>
+11. Once you have changed the connection strings in the configuration files, run the integration tests to test if everything is working correctly. Integration tests use server URL which in development environment as setup in solution bears port number 56364.
+ If you change this port number in your setup, then you need to change this in the test setup as well.
+<br>
+NOTE: Integration tests are very helpful in testing the integrity od code and data as you move both from one environment to another. All you have to do is change the database connection string and server URL in web.config (GeoDataAPI.Service) and app.config
+ (GeoDataAPI.Service.Integrated.Tests) files.<br>
+<br>
+12. The tests use specific values from the data, and if you have downloaded data specific to a certain country from the dump, then tests WILL fail. You need to change all the specific values in the app.config of the GeoDataAPI.Service.Integrated.Tests project.<br>
+<br>
+13. If all the tests succeed, then you are in business. <br>
+<br>
+14. For doing some additional testing, you can also use &ldquo;Fiddler Links.txt&rdquo; file available in the &ldquo;Solution Files&rdquo; folder.
+<br>
+<br>
+<strong>What the project offers at this time:</strong><br>
+1. Serves GET type requests for getting information about countries, states, cities, feature categories, feature codes, postal codes.<br>
+2. Paginated response over collection with flexibility to set your arbitrary page size. In future, links will be added to response headers, signifying total number of results and links to next and previous pages.<br>
+3. Performant code that enables you to query on over 9 million entries in split seconds on laptop grade hardware.<br>
+<br>
+<strong>Future road-map:</strong><br>
+1. Enable client and server side caching<br>
+2. Enable optimistic concurrency based on ETags. The database is already optimized with the inclusion of RowVersion data-type that will tie into the ETag functionality.<br>
+3. Support for POST, PUT and DELETE Http requests.<br>
+<br>
+There are some functionalities that have been deliberately not added into the future road-map, as they depend upon the culture of an organization and skill-set available. These include, but not limited to:<br>
+1. Exception logging<br>
+2. Application performance logging<br>
+3. Authentication and authorization<br>
+4. Throttling and capping of number of requests<br>
+5. Implementation of HATEOAS paradigm<br>
+<br>
+So far, I do not have any plans to implement any of the aforementioned functionality, simply because I do not know in what capacity will this project be used by various patrons and there is no single way to do it in a way that satisfies majority of the users.
+ So plan for now is to leave it out.<br>
+I sincerely hope that this project helped you in achieving your goals. Please consider donating your time and labor to grow this project. Do share your feedback and suggestions.</p>
+</div><div class="ClearBoth"></div>

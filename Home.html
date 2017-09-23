@@ -1,0 +1,31 @@
+<div class="wikidoc">
+<p><strong>Project Description</strong><br>
+Inclusion of geo-data has become one of the prime requirements in majority of the applications, irrespective of their domain &ndash; mobile or enterprise class applications. Creating an API that can satisfy even minimum requirements like querying of continents,
+ countries, states in a country etc. can be an arduous task and finding the right set of data that gives you just the right resolution can be even harder.</p>
+<p>Thankfully, the good folks at Geonames.org understand this and give away the geo-spatial data which should prove sufficient for majority of general purpose needs. They also their data in the form of free to consume API, which understandably comes capped
+ in terms of number of calls that can be made.</p>
+<p>This project uses the data dump made available (Can be downloaded from <a title="Geonames.org" href="http://www.geonames.org/" target="_blank">
+Geonames.org</a>) from a SQL Server database and gives you a RESTful API surface that you can consume in any application, built using any technology, so long it can consume REST services. So you get the independence of tailoring the solution to your needs,
+ hosting it in your environment and controlling it the way you want. The existing programming in this project gives you a good jump-start.</p>
+<p>Geonames Web API is a RESTful API built using Web API v2. The project at the moment consists of the services that can be used to query information about the following:</p>
+<ol>
+<li>Continents </li><li>Countries </li><li>States </li><li>Cities </li><li>Timezones </li><li>Languages </li><li>Postal codes </li></ol>
+<p>The services offered in the project are all, at the moment HttpGet type.</p>
+<p><strong>NOTE:</strong> The project uses the data as provided by <a title="Geonames.org" href="http://geonames.org" target="_blank">
+Geonames.org</a>, The data as given by Geonames comes encoded in UTF-8 encoding and needs conversion into UTF-16 encoding, compatible with SQL Server. For converting character encoding you can use
+<a title="Character Encoding Converter" href="http://characterencodingconverter.codeplex.com/" target="_blank">
+characterencodingconverter.codeplex.com</a>, a free character encoding converter that can handle multi-gigabyte files and all the encodings as supported by the .NET framework.</p>
+<p>The project download consists of the following:</p>
+<ol>
+<li>SQL scripts to help you create the database, tables, stored procedures and bulk insert data from the files with UTF-16 character encoding to the tables.
+</li><li>Solution consisting of projects that make up the domain, repository, data access layer and Web API itself.
+</li></ol>
+<p><strong>Future Road-map</strong></p>
+<ol>
+<li>Include more action methods that help query different data like capitals of state, postal codes etc.
+</li><li>Make action methods for creating, updating and deleting data from database. </li><li>Make a new repository to support MongoDB with all the functionality supported verbatim.
+</li></ol>
+<p>For detailed information on making the project work, refer to the <a title="Geonames API Documentation" href="https://geonamesapi.codeplex.com/documentation">
+documentation</a>.</p>
+<p>Please consider donating your time and labor to further enhance and extend the project.</p>
+</div><div class="ClearBoth"></div>
